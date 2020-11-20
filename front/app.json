@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "pages/homepage/homepage",
+    "pages/login/login",
+    "pages/register/register",
+    "pages/activity-list/activity-list",
+    "pages/follower-list/follower-list",
+    "pages/new-activity/new-activity",
+    "pages/info/info"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarTextStyle": "black"
+  },
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
+}

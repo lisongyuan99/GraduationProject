@@ -1,0 +1,10 @@
+/* pages/info/info.wxss */
+.my-value-class {
+  text-align: left !important;
+}
+
+.button-panel {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+}

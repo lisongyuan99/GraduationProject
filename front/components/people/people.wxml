@@ -1,0 +1,17 @@
+<!--components/people/people.wxml-->
+<view class="people">
+  <view class="avatar">
+    <van-image
+        src="{{myContent.src}}"
+        width="{{picHeightPx}}"
+        height="{{picHeightPx}}"
+        fit="cover"
+        round
+    ></van-image>
+  </view>
+
+  <view class="info">
+    <text class="username">{{myContent.username}}</text>
+    <text class="motto">{{myContent.motto}}</text>
+  </view>
+</view>

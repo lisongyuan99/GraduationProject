@@ -1,0 +1,38 @@
+/* components/activity/activity.wxss */
+
+.activity {
+  display: flex;
+  margin:30rpx;
+}
+
+.poster {
+  margin-right: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rest {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.titles {
+  display: flex;
+  flex-direction: column;
+}
+
+.infos {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: large;
+}
+
+.subtitle {
+  font-size: small;
+  color: #777;
+}

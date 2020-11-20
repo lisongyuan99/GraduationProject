@@ -1,0 +1,32 @@
+<!-- pages/auth/register.wxml -->
+<view class="register">
+  <view class="register-panel">
+    <text class="title">注册</text>
+    <van-field
+      placeholder="请输入用户名"
+      title-width="3em"
+      model:value="{{ username }}"
+    ></van-field>
+    <van-field
+      placeholder="请输入密码"
+      title-width="3em"
+      model:value="{{ password }}"
+      password="{{isPassword}}"
+      right-icon="{{icon}}"
+      bind:click-icon="passwordIconClick"
+    ></van-field>
+    <van-field
+      placeholder="确认密码"
+      title-width="3em"
+      model:value="{{ passwordRepeat }}"
+      password="{{isPasswordRepeat}}"
+      right-icon="{{iconRepeat}}"
+      bind:click-icon="passwordIconClickRepeat"
+    ></van-field>
+
+    <van-button class="register-button" round type="primary" block>注册</van-button>
+    <!-- <text>{{username}}</text>
+    <text>{{password}}</text>-->
+  
+  </view>
+</view>

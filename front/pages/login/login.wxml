@@ -1,0 +1,38 @@
+<!-- pages/auth/login.wxml -->
+<view class="login">
+  <view class="login-panel">
+    <text class="title">登录</text>
+    <van-field
+      placeholder="请输入用户名"
+      model:value="{{ username }}"
+    ></van-field>
+    <van-field
+      placeholder="请输入密码"
+      model:value="{{ password }}"
+      password="{{isPassword}}"
+      right-icon="{{icon}}"
+      error-message="{{errorMessage}}"
+      bind:click-icon="passwordIconClick"
+    ></van-field>
+    <van-button
+      class="login-button"
+      round
+      type="primary"
+      block
+      bindtap="login"
+    >登录</van-button>
+    <view class="register-text">
+    
+        <text>没有账号？</text>
+      <navigator
+        url="/pages/register/register"
+        open-type="navigate"
+        hover-class="navigator-hover"
+      >
+        <text class="register-button">注册一个！</text>
+      </navigator>
+    </view>
+    <!-- <text>{{username}}</text>
+    <text>{{password}}</text>-->
+  </view>
+</view>

@@ -1,0 +1,26 @@
+/* components/people/people.wxss */
+.people {
+  display: flex;
+  flex-direction: row;
+  margin: 30rpx;
+}
+
+.avatar {
+  margin-right: 30rpx;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.username {
+  font-size: larger;
+  margin-bottom: 15rpx;
+}
+
+.motto {
+  font-size: small;
+  color: #777
+}

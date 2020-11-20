@@ -1,0 +1,32 @@
+/* pages/auth/register.wxss */
+
+.register {
+  min-height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.register-panel {
+  height: 100%;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+}
+
+van-field {
+  margin: 10rpx;
+}
+
+.title {
+  margin: 50rpx;
+  font-size: 50rpx;
+}
+
+.register-button {
+  margin-top: 50rpx;
+  margin-left: 50rpx;
+  margin-right: 50rpx;
+}

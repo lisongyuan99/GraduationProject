@@ -1,0 +1,17 @@
+{
+  "usingComponents": {
+    "van-cell": "/vant/weapp/cell/index",
+    "van-cell-group": "/vant/weapp/cell-group/index",
+    "van-button": "/vant/weapp/button/index",
+    "van-field": "/vant/weapp/field/index",
+    "van-icon": "/vant/weapp/icon/index",
+    "van-calendar": "/vant/weapp/calendar/index",
+    "van-toast": "/vant/weapp/toast/index",
+    "van-picker": "/vant/weapp/picker/index",
+    "van-popup": "/vant/weapp/popup/index",
+    "van-area": "/vant/weapp/area/index",
+    "van-uploader": "/vant/weapp/uploader/index",
+    "van-image": "/vant/weapp/image/index"
+  },
+  "navigationBarTitleText": "用户信息"
+}
