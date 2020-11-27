@@ -10,8 +10,7 @@ Page({
       fieldTitleWidth: "5em",
       cellTitleWidth: "6em"
     },
-    username:"用户id",
-    name:"昵称",
+    name:"商家名称",
     info:"简介",
     email:"123567@qq.com",
     phone:"15555555555",

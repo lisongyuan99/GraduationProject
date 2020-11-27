@@ -13,5 +13,5 @@
     "van-uploader": "/vant/weapp/uploader/index",
     "van-image": "/vant/weapp/image/index"
   },
-  "navigationBarTitleText": "用户信息"
+  "navigationBarTitleText": "商家信息"
 }

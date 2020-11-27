@@ -1,13 +1,9 @@
 <!--components/people/people.wxml-->
 <view class="people">
   <view class="avatar">
-    <van-image
-        src="{{myContent.src}}"
-        width="{{picHeightPx}}"
-        height="{{picHeightPx}}"
-        fit="cover"
-        round
-    ></van-image>
+    <van-image src="{{myContent.src}}" width="{{picHeightPx}}"
+               height="{{picHeightPx}}" fit="cover" round>
+    </van-image>
   </view>
 
   <view class="info">

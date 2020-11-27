@@ -1,79 +1,40 @@
 <!--pages/new-activity/new-activity.wxml-->
 <view class="new-activity">
   <van-cell-group>
-    <van-field
-        title-width="{{style.fieldTitleWidth}}"
-        label="活动标题"
-        model:value="{{ title }}"
-    ></van-field>
+    <van-field title-width="{{style.fieldTitleWidth}}" label="活动标题"
+               model:value="{{ title }}"></van-field>
 
-    <van-field
-        title-width="{{style.fieldTitleWidth}}"
-        label="补充说明"
-        model:value="{{ subtitle }}"
-    ></van-field>
+    <van-field title-width="{{style.fieldTitleWidth}}" label="补充说明"
+               model:value="{{ subtitle }}"></van-field>
 
-    <van-cell
-        title-width="{{style.cellTitleWidth}}"
-        value-class="my-value-class"
-        title="活动分类"
-        value="{{ categoryText }}"
-        bind:click="onCategoryShow"
-        is-link
-    ></van-cell>
-
-    <van-popup
-        show="{{ categoryShow }}"
-        bind:close="onCategoryClose"
-        position="bottom"
-        round
-    >
-      <van-picker
-          show-toolbar
-          columns="{{ categoryTexts }}"
-          title="选取类别"
-          bind:confirm="onCategoryConfirm"
-          bind:cancel="onCategoryClose"
-      />
-    </van-popup>
-
-    <van-cell
-        title-width="{{style.cellTitleWidth}}"
-        value-class="my-value-class"
-        title="时间"
-        value="{{ dateText }}"
-        bind:click="onDateShow"
-        is-link
-    ></van-cell>
-    <van-calendar
-        show="{{ dateShow }}"
-        bind:close="onDateClose"
-        bind:confirm="onDateConfirm"
-    ></van-calendar>
-
-    <van-cell
-        title-width="{{style.cellTitleWidth}}"
-        value-class="my-value-class"
-        title="地点"
-        value="{{areaText}}"
-        bind:click="onAreaShow"
-        is-link
-    />
-    <van-popup
-        show="{{ areaShow }}"
-        bind:close="onAreaClose"
-        position="bottom"
-        round
-    >
-      <van-area
-          area-list="{{ areaList }}"
-          bind:confirm="onAreaConfirm"
-          bind:cancel="onAreaClose"
-      />
-    </van-popup>
     <van-cell title-width="{{style.cellTitleWidth}}"
-              value-class="my-value-class"
-              title="图片">
+              value-class="my-value-class" title="活动分类"
+              value="{{ categoryText }}" bind:click="onCategoryShow"
+              is-link></van-cell>
+    <van-popup show="{{ categoryShow }}" bind:close="onCategoryClose"
+               position="bottom" round>
+      <van-picker show-toolbar columns="{{ categoryTexts }}" title="选取类别"
+                  bind:confirm="onCategoryConfirm"
+                  bind:cancel="onCategoryClose"/>
+    </van-popup>
+
+    <van-cell title-width="{{style.cellTitleWidth}}"
+              value-class="my-value-class" title="时间" value="{{ dateText }}"
+              bind:click="onDateShow" is-link></van-cell>
+    <van-calendar show="{{ dateShow }}" bind:close="onDateClose"
+                  bind:confirm="onDateConfirm"></van-calendar>
+
+    <van-cell title-width="{{style.cellTitleWidth}}"
+              value-class="my-value-class" title="地点" value="{{areaText}}"
+              bind:click="onAreaShow" is-link/>
+    <van-popup show="{{ areaShow }}" bind:close="onAreaClose" position="bottom"
+               round>
+      <van-area area-list="{{ areaList }}" bind:confirm="onAreaConfirm"
+                bind:cancel="onAreaClose"/>
+    </van-popup>
+
+    <van-cell title-width="{{style.cellTitleWidth}}"
+              value-class="my-value-class" title="图片">
       <view>
         <van-uploader file-list="{{ fileList }}" bind:after-read="afterRead"/>
       </view>

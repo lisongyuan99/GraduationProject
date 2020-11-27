@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class LoginOutput {
-    private String token;
+public class LoginResult {
     private Organizer organizer;
+    private String token;
 }

@@ -1,13 +1,9 @@
 <!--components/activity/activity.wxml-->
 <view class="activity">
   <view class="poster">
-    <van-image
-      src="{{myContent.src}}"
-      width="{{picWidthPx}}"
-      height="{{picHeightPx}}"
-      fit="cover"
-      radius="10"
-    ></van-image>
+    <van-image src="{{myContent.src}}" width="{{picWidthPx}}"
+               height="{{picHeightPx}}" fit="cover" radius="10">
+    </van-image>
   </view>
 
   <view class="rest">

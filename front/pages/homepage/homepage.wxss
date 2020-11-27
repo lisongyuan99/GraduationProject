@@ -20,3 +20,12 @@
   margin-right: 50rpx;
   margin-left: 50rpx;
 }
+
+.btn::after {
+  border: none;
+}
+
+.btn {
+  background-color: transparent;
+  margin-left: 0rpx;
+}

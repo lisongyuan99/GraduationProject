@@ -1,12 +1,11 @@
 {
   "pages": [
     "pages/homepage/homepage",
-    "pages/login/login",
-    "pages/register/register",
     "pages/activity-list/activity-list",
     "pages/follower-list/follower-list",
     "pages/new-activity/new-activity",
-    "pages/info/info"
+    "pages/info/info",
+    "pages/phone-number/phone-number"
   ],
   "window": {
     "backgroundTextStyle": "light",
