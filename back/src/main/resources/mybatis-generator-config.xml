@@ -26,8 +26,9 @@
         <javaClientGenerator targetPackage="cn.lsy99.api.activity.organizer.mapper" targetProject="src/main/java">
         </javaClientGenerator>
 
-        <table tableName="%">
-            <generatedKey column="id" sqlStatement="MySQL" identity="true"/>
-        </table>
+        <table tableName="activity"/>
+        <table tableName="category"/>
+        <table tableName="organizer"/>
+        <table tableName="user"/>
     </context>
 </generatorConfiguration>

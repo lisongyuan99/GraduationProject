@@ -22,13 +22,12 @@ public class JWTTest {
     @Test
 
     public void test1() {
-        String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJvcmciLCJpZCI6NSwiZXhwIjoxNjA1NjI1Mzg0LCJpYXQiOjE2MDU1Mzg5ODR9.rgGzwlwoUhgvwYel1vI4PPtezNP1oO9tt2_AOnZqVwK7qoZ5Wa-tlrwwHEiQYbJQ40P4JO8OMyLavrqncpVfTw";
+        String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJvTmZEdDRpaUxzdVQxam1EZXhfLUFKaFQtR2FJIiwicm9sZSI6W10sImlkIjoib05mRHQ0aWlMc3VUMWptRGV4Xy1BSmhULUdhSSIsImV4cCI6MTYwNjU2OTczNCwiaWF0IjoxNjA2NDgzMzM0fQ.bY2tVy3j1bJXi7pz6rhm8yGfSmU2l8sa-7rd0ESHT4vmBxjpfEp72npN5dalwlQ_vP-XEKtyaE7dxRQL9VqeLw";
         Claims result = jwtUtil.getAllClaimsFromToken(token);
         log.info(result.toString());
         log.info(result.get("role").toString());
         log.info(jwtUtil.getAuthoritiesFromToken(token).toString());
-        log.info(jwtUtil.getUsernameFromToken(token));
-        log.info(String.valueOf(jwtUtil.getUserIdFromToken(token)));
+        log.info(jwtUtil.getIdFromToken(token));
     }
 
     @Test

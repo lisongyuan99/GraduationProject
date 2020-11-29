@@ -2,6 +2,7 @@ package cn.lsy99.api.activity.organizer.config.security;
 
 import cn.lsy99.api.activity.organizer.auth.JWTAuthenticationTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -23,6 +25,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // Spring会自动寻找同样类型的具体类注入，这里就是JwtUserDetailsServiceImpl了
+    @Qualifier("findUser")
     @Autowired
     private UserDetailsService userDetailsService;
     @Autowired
@@ -54,6 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 需要角色权限
                 .antMatchers("/test/admin").hasRole("ADMIN")
                 .antMatchers("/test/org").hasRole("ORG")
+                .antMatchers("/test/cert").hasRole("ORG_CERT")
                 .antMatchers("/test/user").hasRole("USER")
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().permitAll()
@@ -70,7 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // 装载BCrypt密码编码器
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return NoOpPasswordEncoder.getInstance();
     }
 
     @Override

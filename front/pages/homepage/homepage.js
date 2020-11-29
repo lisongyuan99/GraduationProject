@@ -28,7 +28,8 @@ Page({
         })
         .then(res => {
           loginCode = res.code
-          console.log(userInfo)
+          // console.log(userInfo)
+          console.log(loginCode)
           return my.request2({
             url: "/auth/login",
             method: "POST",

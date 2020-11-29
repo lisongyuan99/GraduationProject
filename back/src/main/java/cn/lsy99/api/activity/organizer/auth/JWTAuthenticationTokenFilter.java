@@ -33,19 +33,19 @@ public class JWTAuthenticationTokenFilter extends OncePerRequestFilter {
         // 从http头部读取jwt
         String token = httpServletRequest.getHeader(tokenHeader);
         log.info(token == null ? "no token" : token);
-        String username = null;
+        String id = null;
         Collection<? extends GrantedAuthority> role = null;
 
         // 从jwt中解出账号与角色信息
         // TODO 判断token是否过期
         if (token != null) {
             try {
-                username = jwtUtil.getUsernameFromToken(token);
+                id = jwtUtil.getIdFromToken(token);
                 role = jwtUtil.getAuthoritiesFromToken(token);
                 // 如果jwt正确解出账号信息，说明是合法用户，设置认证信息，认证通过
-                if (username != null && role != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                if (id != null && role != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                     UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
-                            username, null, role);
+                            id, null, role);
                     // 把请求的信息设置到UsernamePasswordAuthenticationToken details对象里面，包括发请求的ip等
                     auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
                     // 设置认证信息

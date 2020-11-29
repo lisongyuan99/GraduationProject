@@ -27,6 +27,10 @@ public class TestController {
     public String org() {
         return"hello org";
     }
+    @GetMapping("/cert")
+    public String cert() {
+        return"hello cert";
+    }
     @GetMapping("/admin")
     public String admin() {
         return"hello admin";
@@ -35,6 +39,8 @@ public class TestController {
     @PostMapping("test")
     @InputCheck
     public String aopTest (String username, String password) {
+        log.info(username);
+        log.info(password);
         return "123";
     }
 }

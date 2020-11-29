@@ -3,6 +3,9 @@ package cn.lsy99.api.activity.organizer.auth;
 import cn.lsy99.api.activity.organizer.table.Organizer;
 import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,40 +17,31 @@ import java.util.*;
 public class UserForAuth implements UserDetails {
     private Organizer organizer;
 
-//    public static Collection<? extends GrantedAuthority> getAuthoritiesByRole(String role) {
-//        Set<GrantedAuthority> authorities = new HashSet<>();
-//        List<String> roles = Arrays.asList(role.split(","));
-//        if (roles.contains("user")) {
-//            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-//        }
-//        if (roles.contains("admin")) {
-//            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-//        }
-//        return authorities;
-//    }
+    @Autowired
+    private JWTUtil jwtUtil;
+
+    @Value("${organizer.type.org}")
+    private int TYPE_ORG;
+
+    @Value("${organizer.type.cert}")
+    private int TYPE_CERT;
+
+    @Value("${orgainzer.password}")
+    private String password;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> authorities = new HashSet<>();
-        String[] roles = organizer.getRole().split(",");
-        for (String role : roles) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()));
-        }
-        return authorities;
+        return jwtUtil.getAuthoritiesFromType(organizer.getType());
     }
 
     @Override
     public String getPassword() {
-        return organizer.getPassword();
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return organizer.getUsername();
-    }
-
-    public int getUserId() {
-        return this.organizer.getId();
+        return String.valueOf(organizer.getId());
     }
 
     // 账号是否过期
