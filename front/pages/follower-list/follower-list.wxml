@@ -1,16 +1,5 @@
 <!--pages/follower-list/follower-list.wxml-->
-<people></people>
-<people></people>
 
-<people></people>
-
-<people></people>
-
-<people></people>
-
-<people></people>
-
-<people></people>
-<people></people>
-<people></people>
-<people></people>
+<view wx:for="{{followerList}}">
+  <people nickname="{{item.nickname}}"></people>
+</view>

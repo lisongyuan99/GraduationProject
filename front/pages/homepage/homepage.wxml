@@ -1,25 +1,24 @@
 <!--pages/homepage/homepage.wxml-->
 <view class="homepage">
   <view class="info-view">
-    <van-image class="avator" src="https://img.yzcdn.cn/vant/cat.jpeg" round
-               width="100" height="100" fit="cover"></van-image>
-    <button wx:if="{{canIUse}}" open-type="getUserInfo"
-            bindgetuserinfo="bindGetUserInfo" class="btn">
-      点击登录
-    </button>
-    <view wx:else>请升级微信版本</view>
+    <van-image class="avator" src="{{avatarUrl}}" round width="100" height="100" fit="cover"></van-image>
+    <view wx:if="{{!canIUse}}">请升级微信版本</view>
+    <view wx:else>
+      <button wx:if="{{!isLogin}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" class="btn">
+        点击登录
+      </button>
+      <span wx:else>{{nickname}}，您好</span>
+    </view>
+
+
   </view>
   <view class="func-view">
     <van-grid direction="horizontal" column-num="2" gutter="{{ 10 }}">
-      <van-grid-item icon="add-o" text="发布活动" link-type="navigateTo"
-                     url="/pages/new-activity/new-activity"/>
-      <van-grid-item icon="orders-o" text="活动一览" link-type="navigateTo"
-                     url="/pages/activity-list/activity-list"/>
-      <van-grid-item icon="friends-o" text="我的粉丝" link-type="navigateTo"
-                     url="/pages/follower-list/follower-list"/>
-      <van-grid-item icon="edit" text="编辑资料" link-type="navigateTo"
-                     url="/pages/info/info"/>
-      <van-grid-item icon="service-o" text="联系我们" bind:tap="tap"/>
+      <van-grid-item icon="add-o" text="发布活动" link-type="navigateTo" url="/pages/new-activity/new-activity" />
+      <van-grid-item icon="orders-o" text="活动一览" link-type="navigateTo" url="/pages/activity-list/activity-list" />
+      <van-grid-item icon="friends-o" text="我的粉丝" link-type="navigateTo" url="/pages/follower-list/follower-list" />
+      <van-grid-item icon="edit" text="编辑资料" link-type="navigateTo" url="/pages/info/info" />
+      <van-grid-item icon="service-o" text="联系我们" bind:tap="tap" />
     </van-grid>
   </view>
 </view>

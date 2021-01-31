@@ -15,8 +15,7 @@ public class AuthController {
 
     @PostMapping("login")
     public LoginResult login(@RequestBody LoginInput loginInput) {
-        log.info(loginInput.getCode());
-        return authService.login(loginInput.getCode());
+        return authService.login(loginInput);
     }
 
 }

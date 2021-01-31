@@ -1,3 +1,10 @@
+const {
+  default: my
+} = require("../../utils/my")
+import {
+  wxp
+} from '../../utils/wxp'
+
 // pages/follower-list/follower-list.js
 Page({
 
@@ -5,7 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    followerList: []
   },
 
   /**
@@ -19,7 +26,24 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    wxp.getStorage({
+      key: 'token'
+    }).then(res => {
+      console.log(res.data)
+      return my.req({
+        url: "/follower/all",
+        method: "POST",
+        header: {
+          'token': res.data
+        },
+        data: {}
+      })
+    }).then(res => {
+      console.log(res)
+      this.setData({
+        followerList: res.data
+      })
+    })
   },
 
   /**

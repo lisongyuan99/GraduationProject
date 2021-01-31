@@ -8,21 +8,26 @@ Component({
       type: Number,
       value: 150
     },
-    "content": {
-      type: Object,
-      value: {
-        src: "https://img.yzcdn.cn/vant/cat.jpeg",
-        username: "用户名",
-        motto: "一句话简介一句话简介一句话简介"
-      }
-    }
+    nickname: {
+      type: String,
+      value: "无名氏"
+    },
+    avatar: {
+      type: String,
+      value: "/public/nopic.svg"
+    },
+    motto: {
+      type: String,
+      value: ""
+    },
   },
   lifetimes: {
     ready: function () {
+      console.log(this.data)
       var heightPx = this.data["item-height"] * wx.getSystemInfoSync().windowWidth / 750
       this.setData({
-        myContent: this.data.content,
-        picHeightPx: heightPx
+        picHeightPx: heightPx,
+        nickname: this.data.nickname
       })
     },
   },
@@ -30,7 +35,9 @@ Component({
    * 组件的初始数据
    */
   data: {
-    myContent: null,
+    nickname: "无名氏",
+    avatar: "/public/nopic.svg",
+    motto: "这个人很懒，什么都没留下",
     picHeightPx: 120,
     picWidthPx: 80
   },

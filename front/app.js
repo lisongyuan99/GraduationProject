@@ -34,8 +34,8 @@ App({
     })
   },
   globalData: {
-    userInfo: null,
-    user:null,
-    token: null
+    tokenHeader:'Authorize',
+    token: null,
+    userId:null
   }
 })

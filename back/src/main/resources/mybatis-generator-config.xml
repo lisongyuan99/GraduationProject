@@ -20,15 +20,31 @@
             <property name="nullCatalogMeansCurrent" value="true"/>
         </jdbcConnection>
 
-        <javaModelGenerator targetPackage="cn.lsy99.api.activity.organizer.table" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="cn.lsy99.api.activity.organizer.generator.table"
+                            targetProject="src/main/java">
         </javaModelGenerator>
 
-        <javaClientGenerator targetPackage="cn.lsy99.api.activity.organizer.mapper" targetProject="src/main/java">
+        <javaClientGenerator targetPackage="cn.lsy99.api.activity.organizer.generator.mapper"
+                             targetProject="src/main/java">
         </javaClientGenerator>
 
-        <table tableName="activity"/>
-        <table tableName="category"/>
-        <table tableName="organizer"/>
-        <table tableName="user"/>
+        <table tableName="activity">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="customer">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="organizer">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="category">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="activity_customer">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="organizer_customer">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
     </context>
 </generatorConfiguration>

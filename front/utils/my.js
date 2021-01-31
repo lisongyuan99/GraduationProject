@@ -22,7 +22,7 @@ export default {
       })
     })
   },
-  request2: function (options) {
+  req: function (options) {
     var baseUrl = "http://localhost:8080"
     options.url = baseUrl+options.url
     return wxp.request(options)

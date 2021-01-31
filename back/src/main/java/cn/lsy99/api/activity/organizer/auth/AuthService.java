@@ -1,33 +1,29 @@
 package cn.lsy99.api.activity.organizer.auth;
 
 import cn.lsy99.api.activity.organizer.auth.dto.JsCode2SessionResponse;
+import cn.lsy99.api.activity.organizer.auth.dto.LoginInput;
 import cn.lsy99.api.activity.organizer.auth.dto.LoginResult;
-import cn.lsy99.api.activity.organizer.table.Organizer;
+import cn.lsy99.api.activity.organizer.auth.dto.UserInfo;
+import cn.lsy99.api.activity.organizer.generator.table.Organizer;
+import cn.lsy99.api.activity.organizer.util.JwtUtil;
+import cn.lsy99.api.activity.organizer.util.WechatUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Arrays;
 
 @Service
 @Slf4j
 public class AuthService {
     @Autowired
     private AuthRepository authRepository;
-
-    @Qualifier("findUser")
-    @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
-    private JWTUtil jwtUtil;
 
     @Value("${wx.appid}")
     private String appid;
@@ -36,7 +32,8 @@ public class AuthService {
     private String secret;
 
 
-    public LoginResult login(String code) {
+    public LoginResult login(LoginInput input) {
+        String code = input.getCode();
         // 请求得到 openid 和 session key
         RestTemplate restTemplate = new RestTemplate();
         // 要拼url 用map是在body里面的
@@ -55,8 +52,6 @@ public class AuthService {
         JsCode2SessionResponse jsCode2SessionResponse;
         try {
             jsCode2SessionResponse = objectMapper.readValue(response, JsCode2SessionResponse.class);
-//            log.info(jsCode2SessionResponse.getOpenid());
-//            log.info(jsCode2SessionResponse.getSession_key());
         } catch (Exception e) {
             log.info("error");
             return null;
@@ -67,30 +62,49 @@ public class AuthService {
         // 找数据库里的id，找不到添加
         Organizer searchResult = authRepository.selectOrganizerByOpenId(openid);
         if (searchResult == null) {
-            searchResult = authRepository.insertOrganizerByOpenId(openid);
+            authRepository.insertOrganizerByOpenId(openid);
         }
-        // log.info(searchResult.toString());
 
-        UserForAuth userDetails = (UserForAuth) userDetailsService.loadUserByUsername(openid);
-        final String token = jwtUtil.generateToken(userDetails);
-        return LoginResult.builder().token(token).organizer(searchResult).build();
+        // 从数据库里重新选出来
+        Organizer organizer = authRepository.selectOrganizerByOpenId(openid);
+        String nickname = organizer.getNickname();
+        String avatarUrl = organizer.getAvatar();
+        String motto = organizer.getMotto();
+        // 如果没有头像和昵称，解密微信的信息，并获取
+        if (nickname == null || avatarUrl == null) {
+            try {
+                String decryptedData = WechatUtil.decrypt(input.getEncryptedData(),
+                        jsCode2SessionResponse.getSession_key(), input.getIv());
+                UserInfo userInfo = objectMapper.readValue(decryptedData, UserInfo.class);
+                if (nickname == null) {
+                    nickname = userInfo.getNickName();
+                    organizer.setNickname(nickname);
+                }
+                if (avatarUrl == null) {
+                    avatarUrl = userInfo.getAvatarUrl();
+                    organizer.setAvatar(avatarUrl);
+                }
+                //相关信息添加到数据库
+                authRepository.updateOrganzier(organizer);
+            } catch (Exception e) {
+                log.info("error");
+            }
+        }
 
 
-//        String result = JWTUtil.decrypt(encryptedData, jsCode2SessionResponse.getSession_key(), iv, "UTF-8");
-//        log.info(result);
-
-//        // 认证用户，认证失败抛出异常，由JwtAuthError的commence类返回401
-//        UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(username, password);
-//        final Authentication authentication = authenticationManager.authenticate(upToken);
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//
-//        // 如果认证通过，返回jwt
-//        final UserForAuth userDetails = (UserForAuth) userDetailsService.loadUserByUsername(username);
-//        final String token = jwtUtil.generateToken(userDetails);
-//        // log.info(token);
-//
-//        Organizer organizer = authRepository.getOrganizerWithUsername(username).get(0);
-//        organizer.setPassword(null);
-//        return LoginOutput.builder().token(token).organizer(organizer).build();
+        final String token = JwtUtil.generateToken(organizer.getId(), organizer.getType());
+        int id = organizer.getId();
+//        log.info("open id");
+//        log.info(jsCode2SessionResponse.getOpenid());
+//        log.info("session key");
+//        log.info(jsCode2SessionResponse.getSession_key());
+//        log.info("iv");
+//        log.info(input.getIv());
+//        log.info("data");
+//        log.info(input.getEncryptedData());
+//        log.info("sig");
+//        log.info(input.getSignature());
+        //return LoginResult.builder().token(token).organizer(searchResult).build();
+        return LoginResult.builder().id(id).token(token).nickname(nickname).avatarUrl(avatarUrl).motto(motto).build();
     }
 }

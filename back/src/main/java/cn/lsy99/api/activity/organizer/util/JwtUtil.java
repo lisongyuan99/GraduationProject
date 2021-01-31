@@ -21,18 +21,22 @@ public class JwtUtil implements Serializable {
 
 //    static final String CLAIM_KEY_USERNAME = "sub";
 //    static final String CLAIM_KEY_CREATED = "iat";
-    private final io.jsonwebtoken.Clock clock = DefaultClock.INSTANCE;
+    private static final io.jsonwebtoken.Clock clock = DefaultClock.INSTANCE;
+    private static String SECRET;
+    private static Long EXPIRATION;
 
     @Value("${jwt.secret}")
-    private String secret;
-
-    @Value("${jwt.expiration}")
-    private Long expiration;
-
-    public JwtUtil() {
+    public void setSECRET(String secret) {
+        SECRET = secret;
     }
 
-    public String generateToken(int id, int role) {
+    @Value("${jwt.expiration}")
+    public void setEXPIRATION(Long expiration) {
+        EXPIRATION = expiration;
+    }
+
+
+    public static String generateToken(int id, int role) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role", String.valueOf(role));
 
@@ -44,13 +48,13 @@ public class JwtUtil implements Serializable {
                 .setSubject(String.valueOf(id))
                 .setIssuedAt(createdDate)
                 .setExpiration(expirationDate)
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();
     }
 
-    public JwtInfo getInfoFromToken(String token) {
+    public static JwtInfo getInfoFromToken(String token) {
         Claims claims = Jwts.parser()
-                .setSigningKey(secret)
+                .setSigningKey(SECRET)
                 .parseClaimsJws(token)
                 .getBody();
         int id = Integer.parseInt(claims.get("sub").toString());
@@ -58,8 +62,8 @@ public class JwtUtil implements Serializable {
         return JwtInfo.builder().id(id).role(role).build();
     }
 
-    public Date calculateExpirationDate(Date createdDate) {
-        return new Date(createdDate.getTime() + expiration * 1000);
+    public static Date calculateExpirationDate(Date createdDate) {
+        return new Date(createdDate.getTime() + EXPIRATION * 1000);
     }
 
 
