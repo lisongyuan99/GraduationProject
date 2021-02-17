@@ -1,0 +1,82 @@
+<navbar parameter="{{parameter}}"></navbar>
+<view class="user">
+
+  <view class="header bg-color acea-row row-between-wrapper">
+    <view class="picTxt acea-row row-between-wrapper">
+      <view class="pictrue">
+        <image src="{{avatarUrl}}"></image>
+      </view>
+      <view class="text">
+        <!-- <view class="name line1"> {{userInfo.uid ? userInfo.nickname : "请点击授权"}}</view> -->
+        <view class="name line1" wx:if="{{isLogin}}">{{nickname}}</view>
+        <button class="name line1 btn" wx:else open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">
+          点击登录
+        </button>
+        <view class="id" wx:if="{{phone && isLogin}}">已认证手机<text class="iconfont icon-bianji1"></text></view>
+        <view wx:if="{{!phone && isLogin}}" data-url="/pages/user_phone/user_phone" bindtap="goPages"><text class="binding">绑定手机号</text></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="wrapper">
+    <view class="nav acea-row row-middle">
+      <view class="item" data-url="/pages/activity_list/activity_list" bindtap="goPages">
+        <view>我的活动</view>
+        <view class="num">{{activityCount || 0}}</view>
+      </view>
+      <view class="item" data-url="/pages/fan_list/fan_list" bindtap="goPages">
+        <view>我的粉丝</view>
+        <view class="num">{{followerCount || 0}}</view>
+      </view>
+      <view class="item" data-url="/pages/order_list/order_list" bindtap="goPages">
+        <view>我的订单</view>
+        <view class="num">{{orderCount || 0}}</view>
+      </view>
+    </view>
+
+    <view class="myService">
+      <view class="title acea-row row-middle">我的服务</view>
+      <view class="serviceList acea-row row-middle">
+        <button class="item" data-url="/pages/activity_new/activity_new" bindtap="goPages">
+          <view class="pictrue">
+            <image src="/images/noPic.svg"></image>
+          </view>
+          <view>发布活动</view>
+        </button>
+        <button class="item" data-url="/pages/feedback_list/feedback_list" bindtap="goPages">
+          <view class="pictrue">
+            <image src="/images/noPic.svg"></image>
+          </view>
+          <view>评价管理</view>
+        </button>
+        <button class="item" data-url="/pages/user_info/user_info" bindtap="goPages">
+          <view class="pictrue">
+            <image src="/images/noPic.svg"></image>
+          </view>
+          <view>修改资料</view>
+        </button>
+        <button class="item" data-url="/pages/contact_us/contact_us" bindtap="goPages">
+          <view class="pictrue">
+            <image src="/images/noPic.svg"></image>
+          </view>
+          <view>联系我们</view>
+        </button>
+      </view>
+    </view>
+
+    <view class="myOrder">
+      <view class="title acea-row row-between-wrapper">
+        <view>活动趋势</view>
+        <view class="allOrder" data-url="/pages/order_list/index" bindtap="goPages">全部订单<text
+            class="iconfont icon-jiantou"></text></view>
+      </view>
+      <view class="orderState acea-row row-middle">
+        图片
+      </view>
+    </view>
+
+  </view>
+</view>
+<!-- <view>
+<button bindtap="click">click</button>
+</view> -->

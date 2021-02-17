@@ -11,4 +11,5 @@ public class LoginResult {
     private String nickname;
     private String motto;
     private String avatarUrl;
+    private String phone;
 }

@@ -1,0 +1,3 @@
+<!--pages/activity_new/activity_new.wxml-->
+<navbar parameter='{{parameter}}'></navbar>
+<text>pages/activity_new/activity_new.wxml</text>

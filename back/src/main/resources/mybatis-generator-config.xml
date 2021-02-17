@@ -20,11 +20,11 @@
             <property name="nullCatalogMeansCurrent" value="true"/>
         </jdbcConnection>
 
-        <javaModelGenerator targetPackage="cn.lsy99.api.activity.organizer.generator.table"
+        <javaModelGenerator targetPackage="cn.lsy99.api.activity.generator.table"
                             targetProject="src/main/java">
         </javaModelGenerator>
 
-        <javaClientGenerator targetPackage="cn.lsy99.api.activity.organizer.generator.mapper"
+        <javaClientGenerator targetPackage="cn.lsy99.api.activity.generator.mapper"
                              targetProject="src/main/java">
         </javaClientGenerator>
 
@@ -44,6 +44,9 @@
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
         <table tableName="organizer_customer">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="activity_visits">
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
     </context>

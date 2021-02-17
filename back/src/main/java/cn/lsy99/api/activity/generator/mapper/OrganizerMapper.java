@@ -1,5 +1,6 @@
 package cn.lsy99.api.activity.generator.mapper;
 
+import static cn.lsy99.api.activity.generator.mapper.OrganizerDynamicSqlSupport.*;
 import static org.mybatis.dynamic.sql.SqlBuilder.*;
 
 import cn.lsy99.api.activity.generator.table.Organizer;
@@ -36,40 +37,40 @@ import org.mybatis.dynamic.sql.util.mybatis3.MyBatis3Utils;
 
 @Mapper
 public interface OrganizerMapper {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4087427+08:00", comments="Source Table: organizer")
-    BasicColumn[] selectList = BasicColumn.columnList(OrganizerDynamicSqlSupport.id, OrganizerDynamicSqlSupport.nickname, OrganizerDynamicSqlSupport.avatar, OrganizerDynamicSqlSupport.motto, OrganizerDynamicSqlSupport.email, OrganizerDynamicSqlSupport.phoneNum, OrganizerDynamicSqlSupport.wxOpenId, OrganizerDynamicSqlSupport.type, OrganizerDynamicSqlSupport.createTime, OrganizerDynamicSqlSupport.updateTime, OrganizerDynamicSqlSupport.positionCode);
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
+    BasicColumn[] selectList = BasicColumn.columnList(id, nickname, avatar, motto, email, phoneNum, wxOpenId, type, createTime, updateTime, positionCode);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4077454+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     long count(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4077454+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     @DeleteProvider(type=SqlProviderAdapter.class, method="delete")
     int delete(DeleteStatementProvider deleteStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4077454+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     @InsertProvider(type=SqlProviderAdapter.class, method="insert")
     @Options(useGeneratedKeys=true,keyProperty="record.id")
     int insert(InsertStatementProvider<Organizer> insertStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4077454+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     @Insert({
         "${insertStatement}"
     })
     @Options(useGeneratedKeys=true,keyProperty="records.id")
     int insertMultiple(@Param("insertStatement") String insertStatement, @Param("records") List<Organizer> records);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4077454+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     default int insertMultiple(MultiRowInsertStatementProvider<Organizer> multipleInsertStatement) {
         return insertMultiple(multipleInsertStatement.getInsertStatement(), multipleInsertStatement.getRecords());
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4077454+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @ResultMap("OrganizerResult")
     Optional<Organizer> selectOne(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4077454+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @Results(id="OrganizerResult", value = {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
@@ -86,161 +87,161 @@ public interface OrganizerMapper {
     })
     List<Organizer> selectMany(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4087427+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     @UpdateProvider(type=SqlProviderAdapter.class, method="update")
     int update(UpdateStatementProvider updateStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4087427+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     default long count(CountDSLCompleter completer) {
-        return MyBatis3Utils.countFrom(this::count, OrganizerDynamicSqlSupport.organizer, completer);
+        return MyBatis3Utils.countFrom(this::count, organizer, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4087427+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     default int delete(DeleteDSLCompleter completer) {
-        return MyBatis3Utils.deleteFrom(this::delete, OrganizerDynamicSqlSupport.organizer, completer);
+        return MyBatis3Utils.deleteFrom(this::delete, organizer, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4087427+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     default int deleteByPrimaryKey(Integer id_) {
         return delete(c -> 
-            c.where(OrganizerDynamicSqlSupport.id, isEqualTo(id_))
+            c.where(id, isEqualTo(id_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4087427+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     default int insert(Organizer record) {
-        return MyBatis3Utils.insert(this::insert, record, OrganizerDynamicSqlSupport.organizer, c ->
-            c.map(OrganizerDynamicSqlSupport.nickname).toProperty("nickname")
-            .map(OrganizerDynamicSqlSupport.avatar).toProperty("avatar")
-            .map(OrganizerDynamicSqlSupport.motto).toProperty("motto")
-            .map(OrganizerDynamicSqlSupport.email).toProperty("email")
-            .map(OrganizerDynamicSqlSupport.phoneNum).toProperty("phoneNum")
-            .map(OrganizerDynamicSqlSupport.wxOpenId).toProperty("wxOpenId")
-            .map(OrganizerDynamicSqlSupport.type).toProperty("type")
-            .map(OrganizerDynamicSqlSupport.createTime).toProperty("createTime")
-            .map(OrganizerDynamicSqlSupport.updateTime).toProperty("updateTime")
-            .map(OrganizerDynamicSqlSupport.positionCode).toProperty("positionCode")
+        return MyBatis3Utils.insert(this::insert, record, organizer, c ->
+            c.map(nickname).toProperty("nickname")
+            .map(avatar).toProperty("avatar")
+            .map(motto).toProperty("motto")
+            .map(email).toProperty("email")
+            .map(phoneNum).toProperty("phoneNum")
+            .map(wxOpenId).toProperty("wxOpenId")
+            .map(type).toProperty("type")
+            .map(createTime).toProperty("createTime")
+            .map(updateTime).toProperty("updateTime")
+            .map(positionCode).toProperty("positionCode")
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4087427+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     default int insertMultiple(Collection<Organizer> records) {
-        return MyBatis3Utils.insertMultiple(this::insertMultiple, records, OrganizerDynamicSqlSupport.organizer, c ->
-            c.map(OrganizerDynamicSqlSupport.nickname).toProperty("nickname")
-            .map(OrganizerDynamicSqlSupport.avatar).toProperty("avatar")
-            .map(OrganizerDynamicSqlSupport.motto).toProperty("motto")
-            .map(OrganizerDynamicSqlSupport.email).toProperty("email")
-            .map(OrganizerDynamicSqlSupport.phoneNum).toProperty("phoneNum")
-            .map(OrganizerDynamicSqlSupport.wxOpenId).toProperty("wxOpenId")
-            .map(OrganizerDynamicSqlSupport.type).toProperty("type")
-            .map(OrganizerDynamicSqlSupport.createTime).toProperty("createTime")
-            .map(OrganizerDynamicSqlSupport.updateTime).toProperty("updateTime")
-            .map(OrganizerDynamicSqlSupport.positionCode).toProperty("positionCode")
+        return MyBatis3Utils.insertMultiple(this::insertMultiple, records, organizer, c ->
+            c.map(nickname).toProperty("nickname")
+            .map(avatar).toProperty("avatar")
+            .map(motto).toProperty("motto")
+            .map(email).toProperty("email")
+            .map(phoneNum).toProperty("phoneNum")
+            .map(wxOpenId).toProperty("wxOpenId")
+            .map(type).toProperty("type")
+            .map(createTime).toProperty("createTime")
+            .map(updateTime).toProperty("updateTime")
+            .map(positionCode).toProperty("positionCode")
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4087427+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     default int insertSelective(Organizer record) {
-        return MyBatis3Utils.insert(this::insert, record, OrganizerDynamicSqlSupport.organizer, c ->
-            c.map(OrganizerDynamicSqlSupport.nickname).toPropertyWhenPresent("nickname", record::getNickname)
-            .map(OrganizerDynamicSqlSupport.avatar).toPropertyWhenPresent("avatar", record::getAvatar)
-            .map(OrganizerDynamicSqlSupport.motto).toPropertyWhenPresent("motto", record::getMotto)
-            .map(OrganizerDynamicSqlSupport.email).toPropertyWhenPresent("email", record::getEmail)
-            .map(OrganizerDynamicSqlSupport.phoneNum).toPropertyWhenPresent("phoneNum", record::getPhoneNum)
-            .map(OrganizerDynamicSqlSupport.wxOpenId).toPropertyWhenPresent("wxOpenId", record::getWxOpenId)
-            .map(OrganizerDynamicSqlSupport.type).toPropertyWhenPresent("type", record::getType)
-            .map(OrganizerDynamicSqlSupport.createTime).toPropertyWhenPresent("createTime", record::getCreateTime)
-            .map(OrganizerDynamicSqlSupport.updateTime).toPropertyWhenPresent("updateTime", record::getUpdateTime)
-            .map(OrganizerDynamicSqlSupport.positionCode).toPropertyWhenPresent("positionCode", record::getPositionCode)
+        return MyBatis3Utils.insert(this::insert, record, organizer, c ->
+            c.map(nickname).toPropertyWhenPresent("nickname", record::getNickname)
+            .map(avatar).toPropertyWhenPresent("avatar", record::getAvatar)
+            .map(motto).toPropertyWhenPresent("motto", record::getMotto)
+            .map(email).toPropertyWhenPresent("email", record::getEmail)
+            .map(phoneNum).toPropertyWhenPresent("phoneNum", record::getPhoneNum)
+            .map(wxOpenId).toPropertyWhenPresent("wxOpenId", record::getWxOpenId)
+            .map(type).toPropertyWhenPresent("type", record::getType)
+            .map(createTime).toPropertyWhenPresent("createTime", record::getCreateTime)
+            .map(updateTime).toPropertyWhenPresent("updateTime", record::getUpdateTime)
+            .map(positionCode).toPropertyWhenPresent("positionCode", record::getPositionCode)
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4087427+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     default Optional<Organizer> selectOne(SelectDSLCompleter completer) {
-        return MyBatis3Utils.selectOne(this::selectOne, selectList, OrganizerDynamicSqlSupport.organizer, completer);
+        return MyBatis3Utils.selectOne(this::selectOne, selectList, organizer, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4097462+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     default List<Organizer> select(SelectDSLCompleter completer) {
-        return MyBatis3Utils.selectList(this::selectMany, selectList, OrganizerDynamicSqlSupport.organizer, completer);
+        return MyBatis3Utils.selectList(this::selectMany, selectList, organizer, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4097462+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     default List<Organizer> selectDistinct(SelectDSLCompleter completer) {
-        return MyBatis3Utils.selectDistinct(this::selectMany, selectList, OrganizerDynamicSqlSupport.organizer, completer);
+        return MyBatis3Utils.selectDistinct(this::selectMany, selectList, organizer, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4097462+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     default Optional<Organizer> selectByPrimaryKey(Integer id_) {
         return selectOne(c ->
-            c.where(OrganizerDynamicSqlSupport.id, isEqualTo(id_))
+            c.where(id, isEqualTo(id_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4097462+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     default int update(UpdateDSLCompleter completer) {
-        return MyBatis3Utils.update(this::update, OrganizerDynamicSqlSupport.organizer, completer);
+        return MyBatis3Utils.update(this::update, organizer, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4097462+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     static UpdateDSL<UpdateModel> updateAllColumns(Organizer record, UpdateDSL<UpdateModel> dsl) {
-        return dsl.set(OrganizerDynamicSqlSupport.nickname).equalTo(record::getNickname)
-                .set(OrganizerDynamicSqlSupport.avatar).equalTo(record::getAvatar)
-                .set(OrganizerDynamicSqlSupport.motto).equalTo(record::getMotto)
-                .set(OrganizerDynamicSqlSupport.email).equalTo(record::getEmail)
-                .set(OrganizerDynamicSqlSupport.phoneNum).equalTo(record::getPhoneNum)
-                .set(OrganizerDynamicSqlSupport.wxOpenId).equalTo(record::getWxOpenId)
-                .set(OrganizerDynamicSqlSupport.type).equalTo(record::getType)
-                .set(OrganizerDynamicSqlSupport.createTime).equalTo(record::getCreateTime)
-                .set(OrganizerDynamicSqlSupport.updateTime).equalTo(record::getUpdateTime)
-                .set(OrganizerDynamicSqlSupport.positionCode).equalTo(record::getPositionCode);
+        return dsl.set(nickname).equalTo(record::getNickname)
+                .set(avatar).equalTo(record::getAvatar)
+                .set(motto).equalTo(record::getMotto)
+                .set(email).equalTo(record::getEmail)
+                .set(phoneNum).equalTo(record::getPhoneNum)
+                .set(wxOpenId).equalTo(record::getWxOpenId)
+                .set(type).equalTo(record::getType)
+                .set(createTime).equalTo(record::getCreateTime)
+                .set(updateTime).equalTo(record::getUpdateTime)
+                .set(positionCode).equalTo(record::getPositionCode);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4097462+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     static UpdateDSL<UpdateModel> updateSelectiveColumns(Organizer record, UpdateDSL<UpdateModel> dsl) {
-        return dsl.set(OrganizerDynamicSqlSupport.nickname).equalToWhenPresent(record::getNickname)
-                .set(OrganizerDynamicSqlSupport.avatar).equalToWhenPresent(record::getAvatar)
-                .set(OrganizerDynamicSqlSupport.motto).equalToWhenPresent(record::getMotto)
-                .set(OrganizerDynamicSqlSupport.email).equalToWhenPresent(record::getEmail)
-                .set(OrganizerDynamicSqlSupport.phoneNum).equalToWhenPresent(record::getPhoneNum)
-                .set(OrganizerDynamicSqlSupport.wxOpenId).equalToWhenPresent(record::getWxOpenId)
-                .set(OrganizerDynamicSqlSupport.type).equalToWhenPresent(record::getType)
-                .set(OrganizerDynamicSqlSupport.createTime).equalToWhenPresent(record::getCreateTime)
-                .set(OrganizerDynamicSqlSupport.updateTime).equalToWhenPresent(record::getUpdateTime)
-                .set(OrganizerDynamicSqlSupport.positionCode).equalToWhenPresent(record::getPositionCode);
+        return dsl.set(nickname).equalToWhenPresent(record::getNickname)
+                .set(avatar).equalToWhenPresent(record::getAvatar)
+                .set(motto).equalToWhenPresent(record::getMotto)
+                .set(email).equalToWhenPresent(record::getEmail)
+                .set(phoneNum).equalToWhenPresent(record::getPhoneNum)
+                .set(wxOpenId).equalToWhenPresent(record::getWxOpenId)
+                .set(type).equalToWhenPresent(record::getType)
+                .set(createTime).equalToWhenPresent(record::getCreateTime)
+                .set(updateTime).equalToWhenPresent(record::getUpdateTime)
+                .set(positionCode).equalToWhenPresent(record::getPositionCode);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4097462+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     default int updateByPrimaryKey(Organizer record) {
         return update(c ->
-            c.set(OrganizerDynamicSqlSupport.nickname).equalTo(record::getNickname)
-            .set(OrganizerDynamicSqlSupport.avatar).equalTo(record::getAvatar)
-            .set(OrganizerDynamicSqlSupport.motto).equalTo(record::getMotto)
-            .set(OrganizerDynamicSqlSupport.email).equalTo(record::getEmail)
-            .set(OrganizerDynamicSqlSupport.phoneNum).equalTo(record::getPhoneNum)
-            .set(OrganizerDynamicSqlSupport.wxOpenId).equalTo(record::getWxOpenId)
-            .set(OrganizerDynamicSqlSupport.type).equalTo(record::getType)
-            .set(OrganizerDynamicSqlSupport.createTime).equalTo(record::getCreateTime)
-            .set(OrganizerDynamicSqlSupport.updateTime).equalTo(record::getUpdateTime)
-            .set(OrganizerDynamicSqlSupport.positionCode).equalTo(record::getPositionCode)
-            .where(OrganizerDynamicSqlSupport.id, isEqualTo(record::getId))
+            c.set(nickname).equalTo(record::getNickname)
+            .set(avatar).equalTo(record::getAvatar)
+            .set(motto).equalTo(record::getMotto)
+            .set(email).equalTo(record::getEmail)
+            .set(phoneNum).equalTo(record::getPhoneNum)
+            .set(wxOpenId).equalTo(record::getWxOpenId)
+            .set(type).equalTo(record::getType)
+            .set(createTime).equalTo(record::getCreateTime)
+            .set(updateTime).equalTo(record::getUpdateTime)
+            .set(positionCode).equalTo(record::getPositionCode)
+            .where(id, isEqualTo(record::getId))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4097462+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     default int updateByPrimaryKeySelective(Organizer record) {
         return update(c ->
-            c.set(OrganizerDynamicSqlSupport.nickname).equalToWhenPresent(record::getNickname)
-            .set(OrganizerDynamicSqlSupport.avatar).equalToWhenPresent(record::getAvatar)
-            .set(OrganizerDynamicSqlSupport.motto).equalToWhenPresent(record::getMotto)
-            .set(OrganizerDynamicSqlSupport.email).equalToWhenPresent(record::getEmail)
-            .set(OrganizerDynamicSqlSupport.phoneNum).equalToWhenPresent(record::getPhoneNum)
-            .set(OrganizerDynamicSqlSupport.wxOpenId).equalToWhenPresent(record::getWxOpenId)
-            .set(OrganizerDynamicSqlSupport.type).equalToWhenPresent(record::getType)
-            .set(OrganizerDynamicSqlSupport.createTime).equalToWhenPresent(record::getCreateTime)
-            .set(OrganizerDynamicSqlSupport.updateTime).equalToWhenPresent(record::getUpdateTime)
-            .set(OrganizerDynamicSqlSupport.positionCode).equalToWhenPresent(record::getPositionCode)
-            .where(OrganizerDynamicSqlSupport.id, isEqualTo(record::getId))
+            c.set(nickname).equalToWhenPresent(record::getNickname)
+            .set(avatar).equalToWhenPresent(record::getAvatar)
+            .set(motto).equalToWhenPresent(record::getMotto)
+            .set(email).equalToWhenPresent(record::getEmail)
+            .set(phoneNum).equalToWhenPresent(record::getPhoneNum)
+            .set(wxOpenId).equalToWhenPresent(record::getWxOpenId)
+            .set(type).equalToWhenPresent(record::getType)
+            .set(createTime).equalToWhenPresent(record::getCreateTime)
+            .set(updateTime).equalToWhenPresent(record::getUpdateTime)
+            .set(positionCode).equalToWhenPresent(record::getPositionCode)
+            .where(id, isEqualTo(record::getId))
         );
     }
 }

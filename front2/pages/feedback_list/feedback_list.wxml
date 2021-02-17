@@ -1,0 +1,3 @@
+<!--pages/feedback_list/feedback_list.wxml-->
+<navbar parameter='{{parameter}}'></navbar>
+<text>pages/feedback_list/feedback_list.wxml</text>

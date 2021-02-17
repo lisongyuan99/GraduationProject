@@ -1,0 +1,30 @@
+<!--pages/fan_list/fan_list.wxml-->
+<navbar parameter="{{parameter}}"></navbar>
+<view wx:if="{{fansList}}" class="user">
+  <view class="fan acea-row row-between-wrapper" wx:for="{{fansList}}" wx:key="index">
+    <view class="picTxt acea-row row-between-wrapper">
+      <view class="pictrue">
+        <image wx:if="{{item.avatar}}" src="{{item.avatar}}"></image>
+        <image wx:else src="/images/noAvatar.svg"></image>
+      </view>
+
+      <view class="text">
+        <view class="acea-row row-middle">
+          <view wx:if="{{item.name}}" class="name line1">{{item.name}}</view>
+          <view wx:else class="name line1">无名氏</view>
+        </view>
+        <view>
+          <text wx:if="{{item.motto}}">{{item.motto}}</text>
+          <text wx:else>这个人很懒，什么也没留下</text>
+        </view>
+      </view>
+
+      <view >
+        <button class="btn" size="mini" bindtap="deleteFan" data-fan-id="{{item.id}}">移除关注</button>
+      </view>
+    </view>
+  </view>
+</view>
+<view wx:else class="user">
+  没有粉丝
+</view>

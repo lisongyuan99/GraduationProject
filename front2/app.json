@@ -1,10 +1,14 @@
 {
   "pages": [
     "pages/user/user",
-    "pages/fans_list/fans_list",
-    "pages/goods_list/goods_list",
-    "pages/user_info/index",
-    "pages/user_phone/index"
+    "pages/fan_list/fan_list",
+    "pages/activity_list/activity_list",
+    "pages/activity_new/activity_new",
+    "pages/user_info/user_info",
+    "pages/user_phone/user_phone",
+    "pages/contact_us/contact_us",
+    "pages/feedback_list/feedback_list",
+    "pages/order_list/order_list"
   ],
   "window": {
     "backgroundTextStyle": "dark",

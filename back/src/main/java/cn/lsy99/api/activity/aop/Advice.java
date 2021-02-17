@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -35,14 +36,18 @@ public class Advice {
         }
     }
 
+    @Value("${http.token.header}")
+    private String tokenHeader;
+
     //  判断token是否正确以及角色是否是ORG
     @Before("@annotation(cn.lsy99.api.activity.aop.annotation.OrgTokenCheck)")
     public void orgTokenCheck(JoinPoint point) {
+        System.out.println("check");
         RequestAttributes ra = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes sra = (ServletRequestAttributes) ra;
         if (sra != null) {
             HttpServletRequest request = sra.getRequest();
-            String token = request.getHeader("token");
+            String token = request.getHeader(tokenHeader);
             if (token == null) {
                 throw new NoTokenException();
             }

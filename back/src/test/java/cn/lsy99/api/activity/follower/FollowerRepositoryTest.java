@@ -13,4 +13,6 @@ class FollowerRepositoryTest {
     public void test() {
         System.out.println(followerRepository.removeFollower(1, 2));
     }
+
+
 }

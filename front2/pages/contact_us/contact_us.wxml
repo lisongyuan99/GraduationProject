@@ -1,0 +1,3 @@
+<!--pages/contact_us.wxml-->
+<navbar parameter='{{parameter}}'></navbar>
+<text>联系我们</text>

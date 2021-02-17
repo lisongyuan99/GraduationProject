@@ -7,64 +7,64 @@ import org.mybatis.dynamic.sql.SqlColumn;
 import org.mybatis.dynamic.sql.SqlTable;
 
 public final class ActivityDynamicSqlSupport {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.3818155+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.479252+08:00", comments="Source Table: activity")
     public static final Activity activity = new Activity();
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.3828127+08:00", comments="Source field: activity.id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.479252+08:00", comments="Source field: activity.id")
     public static final SqlColumn<Integer> id = activity.id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.3828127+08:00", comments="Source field: activity.title")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.479252+08:00", comments="Source field: activity.title")
     public static final SqlColumn<String> title = activity.title;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.3828127+08:00", comments="Source field: activity.detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.479252+08:00", comments="Source field: activity.detail")
     public static final SqlColumn<String> detail = activity.detail;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.3828127+08:00", comments="Source field: activity.subtitle")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.479252+08:00", comments="Source field: activity.subtitle")
     public static final SqlColumn<String> subtitle = activity.subtitle;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.3828127+08:00", comments="Source field: activity.begin_time")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.479252+08:00", comments="Source field: activity.begin_time")
     public static final SqlColumn<Date> beginTime = activity.beginTime;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.3828127+08:00", comments="Source field: activity.end_time")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.479252+08:00", comments="Source field: activity.end_time")
     public static final SqlColumn<Date> endTime = activity.endTime;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.3828127+08:00", comments="Source field: activity.time_type")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.479252+08:00", comments="Source field: activity.time_type")
     public static final SqlColumn<Integer> timeType = activity.timeType;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.3828127+08:00", comments="Source field: activity.big_pic")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.479252+08:00", comments="Source field: activity.big_pic")
     public static final SqlColumn<String> bigPic = activity.bigPic;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.3828127+08:00", comments="Source field: activity.small_pic")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.479252+08:00", comments="Source field: activity.small_pic")
     public static final SqlColumn<String> smallPic = activity.smallPic;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.3838185+08:00", comments="Source field: activity.organizer_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.479252+08:00", comments="Source field: activity.organizer_id")
     public static final SqlColumn<Integer> organizerId = activity.organizerId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.3838185+08:00", comments="Source field: activity.category")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.479252+08:00", comments="Source field: activity.category")
     public static final SqlColumn<Integer> category = activity.category;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.3838185+08:00", comments="Source field: activity.pos_lat")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.479252+08:00", comments="Source field: activity.pos_lat")
     public static final SqlColumn<Double> posLat = activity.posLat;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.3838185+08:00", comments="Source field: activity.pos_lng")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.479252+08:00", comments="Source field: activity.pos_lng")
     public static final SqlColumn<Double> posLng = activity.posLng;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.3838185+08:00", comments="Source field: activity.pos_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.479252+08:00", comments="Source field: activity.pos_detail")
     public static final SqlColumn<String> posDetail = activity.posDetail;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.3838185+08:00", comments="Source field: activity.create_time")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.479252+08:00", comments="Source field: activity.create_time")
     public static final SqlColumn<Date> createTime = activity.createTime;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.3838185+08:00", comments="Source field: activity.update_time")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.479252+08:00", comments="Source field: activity.update_time")
     public static final SqlColumn<Date> updateTime = activity.updateTime;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.3838185+08:00", comments="Source field: activity.position_code")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.479252+08:00", comments="Source field: activity.position_code")
     public static final SqlColumn<Integer> positionCode = activity.positionCode;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.3838185+08:00", comments="Source field: activity.position_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.479252+08:00", comments="Source field: activity.position_detail")
     public static final SqlColumn<String> positionDetail = activity.positionDetail;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.3828127+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.479252+08:00", comments="Source Table: activity")
     public static final class Activity extends SqlTable {
         public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 

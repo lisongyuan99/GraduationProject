@@ -1,9 +1,6 @@
 package cn.lsy99.api.activity.auth;
 
-import cn.lsy99.api.activity.auth.dto.JsCode2SessionResponse;
-import cn.lsy99.api.activity.auth.dto.LoginInput;
-import cn.lsy99.api.activity.auth.dto.LoginResult;
-import cn.lsy99.api.activity.auth.dto.UserInfo;
+import cn.lsy99.api.activity.auth.dto.*;
 import cn.lsy99.api.activity.generator.table.Organizer;
 import cn.lsy99.api.activity.util.JwtUtil;
 import cn.lsy99.api.activity.util.WechatUtil;
@@ -12,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -29,7 +27,7 @@ public class AuthService {
     @Value("${wx.secret}")
     private String secret;
 
-
+    @Transactional
     public LoginResult login(LoginInput input) {
         String code = input.getCode();
         // 请求得到 openid 和 session key
@@ -68,6 +66,7 @@ public class AuthService {
         String nickname = organizer.getNickname();
         String avatarUrl = organizer.getAvatar();
         String motto = organizer.getMotto();
+        String phone = organizer.getPhoneNum();
         // 如果没有头像和昵称，解密微信的信息，并获取
         if (nickname == null || avatarUrl == null) {
             try {
@@ -89,20 +88,19 @@ public class AuthService {
             }
         }
 
-
         final String token = JwtUtil.generateToken(organizer.getId(), organizer.getType());
         int id = organizer.getId();
-//        log.info("open id");
-//        log.info(jsCode2SessionResponse.getOpenid());
-//        log.info("session key");
-//        log.info(jsCode2SessionResponse.getSession_key());
-//        log.info("iv");
-//        log.info(input.getIv());
-//        log.info("data");
-//        log.info(input.getEncryptedData());
-//        log.info("sig");
-//        log.info(input.getSignature());
-        //return LoginResult.builder().token(token).organizer(searchResult).build();
-        return LoginResult.builder().id(id).token(token).nickname(nickname).avatarUrl(avatarUrl).motto(motto).build();
+        return LoginResult.builder()
+                .id(id).token(token).nickname(nickname).avatarUrl(avatarUrl).motto(motto).phone(phone)
+                .build();
+    }
+
+    public CountsOnMainPage getCounts(int organizerId){
+        long activityCount = authRepository.getActivityCount(organizerId);
+        long followerCount = authRepository.getFollowerCount(organizerId);
+        long orderCount = 0;
+        return CountsOnMainPage.builder()
+                .activityCount(activityCount).followerCount(followerCount).orderCount(orderCount)
+                .build();
     }
 }

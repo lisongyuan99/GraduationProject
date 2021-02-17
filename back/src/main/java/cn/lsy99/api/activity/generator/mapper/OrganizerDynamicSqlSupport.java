@@ -7,43 +7,43 @@ import org.mybatis.dynamic.sql.SqlColumn;
 import org.mybatis.dynamic.sql.SqlTable;
 
 public final class OrganizerDynamicSqlSupport {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4067479+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     public static final Organizer organizer = new Organizer();
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4077454+08:00", comments="Source field: organizer.id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source field: organizer.id")
     public static final SqlColumn<Integer> id = organizer.id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4077454+08:00", comments="Source field: organizer.nickname")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source field: organizer.nickname")
     public static final SqlColumn<String> nickname = organizer.nickname;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4077454+08:00", comments="Source field: organizer.avatar")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source field: organizer.avatar")
     public static final SqlColumn<String> avatar = organizer.avatar;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4077454+08:00", comments="Source field: organizer.motto")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source field: organizer.motto")
     public static final SqlColumn<String> motto = organizer.motto;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4077454+08:00", comments="Source field: organizer.email")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source field: organizer.email")
     public static final SqlColumn<String> email = organizer.email;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4077454+08:00", comments="Source field: organizer.phone_num")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source field: organizer.phone_num")
     public static final SqlColumn<String> phoneNum = organizer.phoneNum;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4077454+08:00", comments="Source field: organizer.wx_open_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source field: organizer.wx_open_id")
     public static final SqlColumn<String> wxOpenId = organizer.wxOpenId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4077454+08:00", comments="Source field: organizer.type")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source field: organizer.type")
     public static final SqlColumn<Integer> type = organizer.type;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4077454+08:00", comments="Source field: organizer.create_time")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source field: organizer.create_time")
     public static final SqlColumn<Date> createTime = organizer.createTime;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4077454+08:00", comments="Source field: organizer.update_time")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source field: organizer.update_time")
     public static final SqlColumn<Date> updateTime = organizer.updateTime;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4077454+08:00", comments="Source field: organizer.position_code")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source field: organizer.position_code")
     public static final SqlColumn<Integer> positionCode = organizer.positionCode;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-01T11:04:41.4067479+08:00", comments="Source Table: organizer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source Table: organizer")
     public static final class Organizer extends SqlTable {
         public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
