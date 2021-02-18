@@ -8,7 +8,8 @@
     "pages/user_phone/user_phone",
     "pages/contact_us/contact_us",
     "pages/feedback_list/feedback_list",
-    "pages/order_list/order_list"
+    "pages/order_list/order_list",
+    "pages/editor/editor"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -16,6 +17,9 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black",
     "navigationStyle": "custom"
+  },
+  "useExtendedLib": {
+    "weui": true
   },
   "permission": {
     "scope.userLocation": {

@@ -1,9 +1,3 @@
-import {
-  getProductslist,
-  getProductHot
-} from '../../api/store.js';
-
-
 const app = getApp();
 Page({
 
@@ -80,14 +74,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // this.setData({ 
-    //   ['where.sid']: options.sid || 0, 
-    //   title: options.title || '', 
-    //   ['where.keyword']: options.searchValue || '', 
-    //   navH: app.globalData.navHeight
-    // });
-    // this.get_product_list();
-    // this.get_host_product();
+
   },
   /**
    * 商品详情跳转

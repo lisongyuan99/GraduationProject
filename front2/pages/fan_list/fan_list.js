@@ -1,8 +1,7 @@
-import my from '../../utils/my';
 import {
   wxp
 } from '../../utils/wxp';
-// pages/fan_list/fan_list.js
+import req from '../../utils/req'
 Page({
 
   /**
@@ -16,11 +15,7 @@ Page({
       'color': true,
       'class': '0'
     },
-    fansList: [{
-      id: 1
-    }, {
-      id: 2
-    }]
+    fansList: []
   },
 
   /**
@@ -80,9 +75,8 @@ Page({
   },
 
   getAllFans() {
-    my.request({
-      url: '/follower/all',
-      method: 'GET',
+    req.get({
+      url: '/follower/all'
     }).then(res => {
       var list = res.data
       this.setData({
@@ -101,9 +95,8 @@ Page({
     }).then(res=>{
       if(res.confirm){
         console.log('确认')
-        return my.request({
+        return req.post({
           url:'/follower/remove',
-          method:'POST',
           data:fanId
         })
       } else if(res.cancel){

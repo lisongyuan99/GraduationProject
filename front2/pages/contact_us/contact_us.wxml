@@ -1,3 +1,20 @@
 <!--pages/contact_us.wxml-->
 <navbar parameter='{{parameter}}'></navbar>
-<text>联系我们</text>
+<form bindsubmit="formSubmit" >
+  <view class='personal-data'>
+    <view class='list'>
+      <view class='item acea-row row-between-wrapper'>
+        <view>电话</view>
+        <view class="input">
+          <view class='input'>13512345678</view>
+        </view>
+      </view>
+      <view class='item acea-row row-between-wrapper'>
+        <view>邮箱</view>
+        <view class="input">
+          <view class='input'>lsy114514@hotmail.com</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</form>

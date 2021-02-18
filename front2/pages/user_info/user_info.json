@@ -1,7 +1,7 @@
 {
   "usingComponents": {
     "navbar": "/components/navbar/index",
-    "authorize": "/components/authorize/authorize"
+    "mp-uploader": "weui-miniprogram/uploader/uploader"
   },
   "navigationBarTextStyle": "white"
 }

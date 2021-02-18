@@ -1,7 +1,7 @@
 import {
   wxp
 } from '../../utils/wxp'
-import my from '../../utils/my';
+import req from '../../utils/req'
 const app = getApp();
 
 Page({
@@ -92,9 +92,8 @@ Page({
       .then(res => {
         userInfo = res;
         // console.log(userInfo);
-        return my.request({
+        return req.post({
           url: '/auth/login',
-          method: 'POST',
           data: {
             code: loginCode,
             signature: userInfo.signature,
@@ -113,9 +112,8 @@ Page({
           phone: res.data.phone
         })
         getApp().globalData.token = res.data.token
-        return my.request({
-          url: '/auth/getHomepageCounts',
-          method: 'GET'
+        return req.get({
+          url: '/auth/getHomepageCounts'
         })
       })
       .then(res => {
