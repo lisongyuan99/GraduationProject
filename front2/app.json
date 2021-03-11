@@ -1,15 +1,18 @@
 {
   "pages": [
+    "pages/activity_new/activity_new",
     "pages/user/user",
+    "pages/comment_list/comment_list",
     "pages/fan_list/fan_list",
     "pages/activity_list/activity_list",
-    "pages/activity_new/activity_new",
+    
     "pages/user_info/user_info",
     "pages/user_phone/user_phone",
     "pages/contact_us/contact_us",
     "pages/feedback_list/feedback_list",
-    "pages/order_list/order_list",
-    "pages/editor/editor"
+    "pages/editor/editor",
+    "pages/activity_preview/activity_preview",
+    "pages/balance/balance"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -23,7 +26,7 @@
   },
   "permission": {
     "scope.userLocation": {
-      "desc": "你的位置信息将用于获取附近门店"
+      "desc": "你的位置信息将用于设置活动地址"
     }
   },
   "requiredBackgroundModes": [

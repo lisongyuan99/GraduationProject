@@ -8,8 +8,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 class TestControllerTest {
     @Autowired

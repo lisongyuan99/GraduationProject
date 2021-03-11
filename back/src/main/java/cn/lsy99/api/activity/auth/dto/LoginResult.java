@@ -8,7 +8,7 @@ import lombok.Data;
 public class LoginResult {
     private int id;
     private String token;
-    private String nickname;
+    private String nickName;
     private String motto;
     private String avatarUrl;
     private String phone;

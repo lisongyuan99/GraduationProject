@@ -4,16 +4,16 @@
   <view class="header bg-color acea-row row-between-wrapper">
     <view class="picTxt acea-row row-between-wrapper">
       <view class="pictrue">
-        <image src="{{avatarUrl}}"></image>
+        <image src="{{avatarUrl?avatarUrl:'/images/noAvatar.svg'}}"></image>
       </view>
       <view class="text">
         <!-- <view class="name line1"> {{userInfo.uid ? userInfo.nickname : "请点击授权"}}</view> -->
-        <view class="name line1" wx:if="{{isLogin}}">{{nickname}}</view>
-        <button class="name line1 btn" wx:else open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">
-          点击登录
-        </button>
+        <view class="name line1" wx:if="{{isLogin && nickName}}">{{nickName}}</view>
+        <button class="name line1 btn" wx:elif="{{isLogin && (!nickName || !avatarUrl)}}" bindtap="getUserProfile">点击获取用户信息</button>
+        <button class="name line1 btn" wx:else bindtap="login"> 点击登录 </button>
         <view class="id" wx:if="{{phone && isLogin}}">已认证手机<text class="iconfont icon-bianji1"></text></view>
-        <view wx:if="{{!phone && isLogin}}" data-url="/pages/user_phone/user_phone" bindtap="goPages"><text class="binding">绑定手机号</text></view>
+        <view wx:if="{{!phone && isLogin}}" data-url="/pages/user_phone/user_phone" bindtap="goPages"><text
+            class="binding">绑定手机号</text></view>
       </view>
     </view>
   </view>
@@ -28,9 +28,9 @@
         <view>我的粉丝</view>
         <view class="num">{{followerCount || 0}}</view>
       </view>
-      <view class="item" data-url="/pages/order_list/order_list" bindtap="goPages">
-        <view>我的订单</view>
-        <view class="num">{{orderCount || 0}}</view>
+      <view class="item" data-url="/pages/balance/balance" bindtap="goPages">
+        <view>账户余额</view>
+        <view class="num">{{orderCount.toFixed(2) || '0.00'}}</view>
       </view>
     </view>
 
@@ -43,7 +43,7 @@
           </view>
           <view>发布活动</view>
         </button>
-        <button class="item" data-url="/pages/feedback_list/feedback_list" bindtap="goPages">
+        <button class="item" data-url="/pages/comment_list/comment_list" bindtap="goPages">
           <view class="pictrue">
             <image src="/images/noPic.svg"></image>
           </view>
@@ -64,19 +64,23 @@
       </view>
     </view>
 
-    <view class="myOrder">
+    <view class="data-chart">
       <view class="title acea-row row-between-wrapper">
         <view>活动趋势</view>
-        <view class="allOrder" data-url="/pages/order_list/index" bindtap="goPages">全部订单<text
-            class="iconfont icon-jiantou"></text></view>
+        <!-- <view class="detail" data-url="/pages/order_list/index" bindtap="goPages">
+          详情<text class="iconfont icon-jiantou"></text>
+        </view> -->
       </view>
-      <view class="orderState acea-row row-middle">
-        图片
+      <view class="data-chart-container  acea-row row-middle">
+        <view class="container" >
+          <ec-canvas id="my-chart" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+        </view>
       </view>
     </view>
 
   </view>
 </view>
-<!-- <view>
+<view>
 <button bindtap="click">click</button>
-</view> -->
+<!-- <button bindtap="click2">click</button> -->
+</view>

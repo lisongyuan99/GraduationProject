@@ -1,5 +1,6 @@
 package cn.lsy99.api.activity.auth;
 
+import cn.lsy99.api.activity.auth.dto.WechatUserInfo;
 import cn.lsy99.api.activity.generator.UserRole;
 import cn.lsy99.api.activity.generator.mapper.*;
 import cn.lsy99.api.activity.generator.table.Organizer;
@@ -57,7 +58,12 @@ public class AuthRepository {
      */
     public Organizer insertOrganizerByOpenId(String openId) {
         Date now = new Date();
-        Organizer organizer = Organizer.builder().wxOpenId(openId).type(newRole).createTime(now).updateTime(now).build();
+        Organizer organizer = Organizer.builder()
+                .wxOpenId(openId)
+                .type(newRole)
+                .createTime(now)
+                .updateTime(now)
+                .build();
         int insertResult = organizerMapper.insertSelective(organizer);
         log.info(String.valueOf(insertResult));
         return organizer;
@@ -90,6 +96,14 @@ public class AuthRepository {
         return activityMapper.count(selectStatementProvider);
     }
 
+    public boolean setWechatUserInfo(int organizerId, WechatUserInfo wechatUserInfo){
+        Organizer organizer = Organizer.builder()
+                .id(organizerId)
+                .avatar(wechatUserInfo.getAvatarUrl())
+                .nickname(wechatUserInfo.getNickName())
+                .build();
+        return organizerMapper.updateByPrimaryKeySelective(organizer) == 1;
+    }
     /**
      * 获取粉丝个数
      *

@@ -1,0 +1,3 @@
+<!--pages/balance/balance.wxml-->
+<navbar parameter="{{parameter}}"></navbar>
+<text>pages/balance/balance.wxml</text>

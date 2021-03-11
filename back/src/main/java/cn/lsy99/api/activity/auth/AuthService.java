@@ -28,79 +28,63 @@ public class AuthService {
     private String secret;
 
     @Transactional
-    public LoginResult login(LoginInput input) {
-        String code = input.getCode();
+    public LoginResult login(String loginCode) {
         // 请求得到 openid 和 session key
         RestTemplate restTemplate = new RestTemplate();
         // 要拼url 用map是在body里面的
         URI targetUrl = UriComponentsBuilder.fromUriString("https://api.weixin.qq.com/sns/jscode2session")
                 .queryParam("appid", appid)
                 .queryParam("secret", secret)
-                .queryParam("js_code", code)
+                .queryParam("js_code", loginCode)
                 .queryParam("grant_type", "authorization_code")
                 .build()
                 .encode()
                 .toUri();
         String response = restTemplate.getForObject(targetUrl, String.class);
-
+        log.info(response);
         // 解析返回值
         ObjectMapper objectMapper = new ObjectMapper();
         JsCode2SessionResponse jsCode2SessionResponse;
         try {
             jsCode2SessionResponse = objectMapper.readValue(response, JsCode2SessionResponse.class);
         } catch (Exception e) {
-            log.info("error");
+            log.info("WechatLoginError");
+            log.info(response);
             return null;
         }
         String openid = jsCode2SessionResponse.getOpenid();
         // String sessionKey = jsCode2SessionResponse.getSession_key(); // 加redis?
 
         // 找数据库里的id，找不到添加
-        Organizer searchResult = authRepository.selectOrganizerByOpenId(openid);
-        if (searchResult == null) {
-            authRepository.insertOrganizerByOpenId(openid);
-        }
-
-        // 从数据库里重新选出来
         Organizer organizer = authRepository.selectOrganizerByOpenId(openid);
-        String nickname = organizer.getNickname();
-        String avatarUrl = organizer.getAvatar();
-        String motto = organizer.getMotto();
-        String phone = organizer.getPhoneNum();
-        // 如果没有头像和昵称，解密微信的信息，并获取
-        if (nickname == null || avatarUrl == null) {
-            try {
-                String decryptedData = WechatUtil.decrypt(input.getEncryptedData(),
-                        jsCode2SessionResponse.getSession_key(), input.getIv());
-                UserInfo userInfo = objectMapper.readValue(decryptedData, UserInfo.class);
-                if (nickname == null) {
-                    nickname = userInfo.getNickName();
-                    organizer.setNickname(nickname);
-                }
-                if (avatarUrl == null) {
-                    avatarUrl = userInfo.getAvatarUrl();
-                    organizer.setAvatar(avatarUrl);
-                }
-                //相关信息添加到数据库
-                authRepository.updateOrganzier(organizer);
-            } catch (Exception e) {
-                log.info("error");
-            }
+        if (organizer == null) {
+            organizer = authRepository.insertOrganizerByOpenId(openid);
         }
 
+        // 生成Token 返回基本信息
         final String token = JwtUtil.generateToken(organizer.getId(), organizer.getType());
         int id = organizer.getId();
         return LoginResult.builder()
-                .id(id).token(token).nickname(nickname).avatarUrl(avatarUrl).motto(motto).phone(phone)
+                .id(id)
+                .token(token)
+                .nickName(organizer.getNickname())
+                .avatarUrl(organizer.getAvatar())
+                .motto(organizer.getMotto())
+                .phone(organizer.getPhoneNum())
                 .build();
     }
 
+    public boolean setWechatUserInfo(int id, WechatUserInfo wechatUserInfo){
+        return authRepository.setWechatUserInfo(id, wechatUserInfo);
+    }
     public CountsOnMainPage getCounts(int organizerId){
         long activityCount = authRepository.getActivityCount(organizerId);
         long followerCount = authRepository.getFollowerCount(organizerId);
-        long orderCount = 0;
+        double balance = 0;
         return CountsOnMainPage.builder()
-                .activityCount(activityCount).followerCount(followerCount).orderCount(orderCount)
+                .activityCount(activityCount)
+                .followerCount(followerCount)
+                .balance(balance)
                 .build();
     }
 }

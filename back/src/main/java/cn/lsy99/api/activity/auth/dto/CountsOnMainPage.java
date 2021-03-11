@@ -8,5 +8,5 @@ import lombok.Data;
 public class CountsOnMainPage {
     private long activityCount;
     private long followerCount;
-    private long orderCount;
+    private double balance;
 }

@@ -1,3 +1,0 @@
-<!--pages/order_list/order/list.wxml-->
-<navbar parameter='{{parameter}}'></navbar>
-<text>订单</text>
