@@ -1,3 +1,12 @@
+import req from '../../utils/req'
+import util from '../../utils/util'
+import { wxp } from '../../utils/wxp'
+let dayjs = require('dayjs')
+var utc = require('dayjs/plugin/utc') // dependent on utc plugin
+var timezone = require('dayjs/plugin/timezone')
+dayjs.extend(utc)
+dayjs.extend(timezone)
+
 const app = getApp();
 Page({
 
@@ -5,39 +14,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    productList: [{
-        'image': '/images/noPic.svg',
-        'store_name': '活动1',
-        'time': '2022年2月22日',
-        'position': '黑龙江省 哈尔滨市 南岗区'
-      }, {
-        'image': '/images/noPic.svg',
-        'store_name': '活动2',
-        'time': '2022年2月22日',
-        'position': '黑龙江省 哈尔滨市 南岗区'
-      }, {
-        'image': '/images/noPic.svg',
-        'store_name': '活动3',
-        'time': '2022年2月22日',
-        'position': '黑龙江省 哈尔滨市 南岗区'
-      }, {
-        'image': '/images/noPic.svg',
-        'store_name': '活动4',
-        'time': '2022年2月22日',
-        'position': '黑龙江省 哈尔滨市 南岗区'
-      }, {
-        'image': '/images/noPic.svg',
-        'store_name': '活动5',
-        'time': '2022年2月22日',
-        'position': '黑龙江省 哈尔滨市 南岗区'
-      },
-      {
-        'image': '/images/noPic.svg',
-        'store_name': '活动6',
-        'time': '2022年2月22日',
-        'position': '黑龙江省 哈尔滨市 南岗区'
-      }
-    ],
+    productList: [],
     parameter: {
       'navbar': '1',
       'return': '1',
@@ -65,24 +42,22 @@ Page({
     loadTitle: '加载更多',
     userInfo: {}
   },
-  onLoadFun: function (e) {
-    // this.setData({
-    //   userInfo: e.detail
-    // })
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getAllActivity()
+    console.log(dayjs.tz.guess())
   },
   /**
    * 商品详情跳转
    */
   goDetail: function (e) {
-      wx.navigateTo({
-        url: `/pages/activity_preview/activity_preview`
-      })
+    // console.log(e.currentTarget.dataset.id)
+    wx.navigateTo({
+      url:'/pages/activity_preview/activity_preview?id='+e.currentTarget.dataset.id
+    })
   },
   Changswitch: function () {
     var that = this;
@@ -99,107 +74,27 @@ Page({
     })
     this.get_product_list(true);
   },
-  /**
-   * 获取我的推荐
-   */
-  get_host_product: function () {
-    var that = this;
-    getProductHot().then(res => {
-      that.setData({
-        host_product: res.data
-      });
-    });
-  },
-  //点击事件处理
-  set_where: function (e) {
-    var dataset = e.target.dataset;
-    switch (dataset.type) {
-      case '1':
-        return wx.navigateBack({
-          delta: 1,
+  getAllActivity() {
+    req.get({
+      url: "/activity/my"
+    }).then(res => {
+      console.log(res)
+      let list = []
+      for (let item of res.data) {
+        list.push({
+          id: item.id,
+          name: item.name,
+          image: item.pic,
+          time: dayjs(item.date).tz(dayjs.tz.guess()).format('YYYY-MM-DD HH:mm'),
+          position: util.getRegion(item.regionCode) //item.regionCode
         })
-        break;
-      case '2':
-        if (this.data.price == 0)
-          this.data.price = 1;
-        else if (this.data.price == 1)
-          this.data.price = 2;
-        else if (this.data.price == 2)
-          this.data.price = 0;
-        this.setData({
-          price: this.data.price,
-          stock: 0
-        });
-        break;
-      case '3':
-        if (this.data.stock == 0)
-          this.data.stock = 1;
-        else if (this.data.stock == 1)
-          this.data.stock = 2;
-        else if (this.data.stock == 2)
-          this.data.stock = 0;
-        this.setData({
-          stock: this.data.stock,
-          price: 0
-        });
-        break;
-      case '4':
-        this.setData({
-          nows: !this.data.nows
-        });
-        break;
-    }
-    this.setData({
-      loadend: false,
-      ['where.page']: 1
-    });
-    this.get_product_list(true);
+      }
+      this.setData({
+        productList: list
+      })
+    })
   },
-  //设置where条件
-  setWhere: function () {
-    if (this.data.price == 0)
-      this.data.where.priceOrder = '';
-    else if (this.data.price == 1)
-      this.data.where.priceOrder = 'desc';
-    else if (this.data.price == 2)
-      this.data.where.priceOrder = 'asc';
-    if (this.data.stock == 0)
-      this.data.where.salesOrder = '';
-    else if (this.data.stock == 1)
-      this.data.where.salesOrder = 'desc';
-    else if (this.data.stock == 2)
-      this.data.where.salesOrder = 'asc';
-    this.data.where.news = this.data.nows ? 1 : 0;
-    this.setData({
-      where: this.data.where
-    });
-  },
-  //查找产品
-  get_product_list: function (isPage) {
-    // let that = this;
-    // this.setWhere();
-    // if (that.data.loadend) return;
-    // if (that.data.loading) return;
-    // if (isPage === true) that.setData({ productList: [] });
-    // that.setData({ loading: true, loadTitle: '' });
-    // getProductslist(that.data.where).then(res=>{
-    //   let list = res.data;
-    //   let productList = app.SplitArray(list, that.data.productList);
-    //   let loadend = list.length < that.data.where.limit;
-    //   that.setData({
-    //     loadend: loadend,
-    //     loading: false,
-    //     loadTitle: loadend ? '已全部加载' : '加载更多',
-    //     productList: productList,
-    //     ['where.page']: that.data.where.page + 1,
-    //   });
-    // }).catch(err=>{
-    //   that.setData({ loading: false, loadTitle: '加载更多' });
-    // });
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
+
   onReady: function () {
 
   },
@@ -228,20 +123,20 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-    this.setData({
-      ['where.page']: 1,
-      loadend: false,
-      productList: []
-    });
-    this.get_product_list();
-    wx.stopPullDownRefresh();
-  },
+  // onPullDownRefresh: function () {
+  //   this.setData({
+  //     ['where.page']: 1,
+  //     loadend: false,
+  //     productList: []
+  //   });
+  //   this.get_product_list();
+  //   wx.stopPullDownRefresh();
+  // },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-    this.get_product_list();
-  },
+  // onReachBottom: function () {
+  //   this.get_product_list();
+  // },
 })

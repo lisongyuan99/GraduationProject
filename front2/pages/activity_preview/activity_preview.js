@@ -1,3 +1,11 @@
+import req from '../../utils/req'
+import util from '../../utils/util'
+import { wxp } from '../../utils/wxp'
+let dayjs = require('dayjs')
+var utc = require('dayjs/plugin/utc') // dependent on utc plugin
+var timezone = require('dayjs/plugin/timezone')
+dayjs.extend(utc)
+dayjs.extend(timezone)
 const app = getApp();
 
 Page({
@@ -36,20 +44,25 @@ Page({
     replyCount: 0, //总评论数量
 
     activityInfo: {
-      'slider_image': [
+      images: [
         '/images/noPic.svg',
         '/images/noAddress.png',
       ],
+      title: '活动名称',
+      description: '描述',
+      time: '时间',
+      position: '省市区',
+      address: '地址',
+      detail: '详细'
       // 'video_link': 123,
-      'price': 123,
-      'vip_price': 123,
-      'activity_name': '活动名称',
-      'ot_price': 123,
-      'stock': 123,
-      'unit_name': 123,
-      'fsales': 123,
-      'unit_name': 123,
-      'give_integral': 13,
+      // 'price': 123,
+      // 'vip_price': 123,
+      // 'ot_price': 123,
+      // 'stock': 123,
+      // 'unit_name': 123,
+      // 'fsales': 123,
+      // 'unit_name': 123,
+      // 'give_integral': 13,
     }, //商品详情
     productAttr: [], //组件展示属性
     productValue: [], //系统属性
@@ -95,6 +108,62 @@ Page({
     heightArr: [],
     lock: false,
     scrollTop: 0
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    console.log(options)
+    this.getActivityInfo(options.id)
+    var that = this;
+    this.setData({
+      navH: app.globalData.navHeight
+    });
+    //设置商品列表高度
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          height: res.windowHeight
+          //res.windowHeight:获取整个窗口高度为px，*2为rpx；98为头部占据的高度；
+        })
+      },
+    });
+    //扫码携带参数处理
+    if (options.scene) {
+      var value = util.getUrlParams(decodeURIComponent(options.scene));
+      if (value.id) options.id = value.id;
+      //记录推广人uid
+      if (value.pid) app.globalData.spid = value.pid;
+    }
+    // if (!options.id) return app.Tips({ title: '缺少参数无法查看商品' }, { tab: 3, url: 1 });
+    this.setData({
+      id: options.id
+    });
+    //记录推广人uid
+    if (options.spid) app.globalData.spid = options.spid;
+    this.getGoodsDetails();
+    this.getList();
+  },
+  getActivityInfo(id) {
+    // console.log(id)
+    req.post({
+      url: '/activity/getById',
+      data: id
+    }).then(res => {
+      console.log(res)
+      let data = res.data
+      this.setData({
+        activityInfo: {
+          images: data.pics,
+          title: data.name,
+          description: data.description,
+          time: dayjs(data.time).tz(dayjs.tz.guess()).format('YYYY-MM-DD HH:mm'),
+          position: util.getRegion(data.regionCode),
+          address: data.address,
+          detail: data.detail
+        }
+      })
+    })
   },
   returns: function () {
     wx.navigateBack();
@@ -207,23 +276,23 @@ Page({
    * 获取门店列表数据
    */
   getList: function () {
-    let longitude = wx.getStorageSync(CACHE_LONGITUDE); //经度
-    let latitude = wx.getStorageSync(CACHE_LATITUDE); //纬度
+    // let longitude = wx.getStorageSync(CACHE_LONGITUDE); //经度
+    // let latitude = wx.getStorageSync(CACHE_LATITUDE); //纬度
     let data = {
-      latitude: latitude, //纬度
-      longitude: longitude, //经度
+      // latitude: latitude, //纬度
+      // longitude: longitude, //经度
       page: 1,
       limit: 10
     }
-    storeListApi(data).then(res => {
-      let list = res.data.list || [];
-      this.setData({
-        storeList: list,
-        storeItems: list[0]
-      });
-    }).catch(err => {
+    // storeListApi(data).then(res => {
+    //   let list = res.data.list || [];
+    //   this.setData({
+    //     storeList: list,
+    //     storeItems: list[0]
+    //   });
+    // }).catch(err => {
 
-    })
+    // })
   },
   /*
    * 获取用户信息
@@ -335,39 +404,7 @@ Page({
       couponList: couponList
     });
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    var that = this;
-    this.setData({
-      navH: app.globalData.navHeight
-    });
-    //设置商品列表高度
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          height: res.windowHeight
-          //res.windowHeight:获取整个窗口高度为px，*2为rpx；98为头部占据的高度；
-        })
-      },
-    });
-    //扫码携带参数处理
-    if (options.scene) {
-      var value = util.getUrlParams(decodeURIComponent(options.scene));
-      if (value.id) options.id = value.id;
-      //记录推广人uid
-      if (value.pid) app.globalData.spid = value.pid;
-    }
-    // if (!options.id) return app.Tips({ title: '缺少参数无法查看商品' }, { tab: 3, url: 1 });
-    this.setData({
-      id: options.id
-    });
-    //记录推广人uid
-    if (options.spid) app.globalData.spid = options.spid;
-    this.getGoodsDetails();
-    this.getList();
-  },
+
   setClientHeight: function () {
     if (!this.data.good_list.length) return;
     var query = wx.createSelectorQuery().in(this);
@@ -409,61 +446,61 @@ Page({
    */
   getGoodsDetails: function () {
     var that = this;
-    getProductDetail(that.data.id).then(res => {
-      var activityInfo = res.data.activityInfo;
-      var good_list = res.data.good_list || [];
-      var count = Math.ceil(good_list.length / 6);
-      var goodArray = new Array();
-      for (var i = 0; i < count; i++) {
-        var list = good_list.slice(i * 6, i * 6 + 6);
-        if (list.length) goodArray.push({
-          list: list
-        });
-      }
-      that.setData({
-        activityInfo: activityInfo,
-        reply: res.data.reply ? [res.data.reply] : [],
-        replyCount: res.data.replyCount,
-        description: activityInfo.description,
-        replyChance: res.data.replyChance,
-        productAttr: res.data.productAttr,
-        productValue: res.data.productValue,
-        ['sharePacket.priceName']: res.data.priceName,
-        // ['parameter.title']: activityInfo.store_name,
-        systemStore: res.data.system_store,
-        storeSelfMention: res.data.store_self_mention,
-        good_list: goodArray,
-        activity: res.data.activity ? res.data.activity : []
-      });
-      var navList = ['商品', '评价', '详情'];
-      if (goodArray.length) {
-        navList.splice(2, 0, '推荐')
-      }
-      that.setData({
-        navList: navList
-      });
-      if (app.globalData.isLog) {
-        that.getUserInfo();
-      }
-      that.downloadFilestoreImage();
-      that.DefaultSelect();
-      setTimeout(function () {
-        that.setClientHeight();
-      }, 500);
-      setTimeout(function () {
-        that.infoScroll();
-      }, 500);
-      //html转wxml
-      WxParse.wxParse('description', 'html', that.data.description, that, 0);
-    }).catch(err => {
-      //状态异常返回上级页面
-      return app.Tips({
-        title: err.toString()
-      }, {
-        tab: 3,
-        url: 1
-      });
-    })
+    // getProductDetail(that.data.id).then(res => {
+    //   var activityInfo = res.data.activityInfo;
+    //   var good_list = res.data.good_list || [];
+    //   var count = Math.ceil(good_list.length / 6);
+    //   var goodArray = new Array();
+    //   for (var i = 0; i < count; i++) {
+    //     var list = good_list.slice(i * 6, i * 6 + 6);
+    //     if (list.length) goodArray.push({
+    //       list: list
+    //     });
+    //   }
+    //   that.setData({
+    //     activityInfo: activityInfo,
+    //     reply: res.data.reply ? [res.data.reply] : [],
+    //     replyCount: res.data.replyCount,
+    //     description: activityInfo.description,
+    //     replyChance: res.data.replyChance,
+    //     productAttr: res.data.productAttr,
+    //     productValue: res.data.productValue,
+    //     ['sharePacket.priceName']: res.data.priceName,
+    //     // ['parameter.title']: activityInfo.store_name,
+    //     systemStore: res.data.system_store,
+    //     storeSelfMention: res.data.store_self_mention,
+    //     good_list: goodArray,
+    //     activity: res.data.activity ? res.data.activity : []
+    //   });
+    //   var navList = ['商品', '评价', '详情'];
+    //   if (goodArray.length) {
+    //     navList.splice(2, 0, '推荐')
+    //   }
+    //   that.setData({
+    //     navList: navList
+    //   });
+    //   if (app.globalData.isLog) {
+    //     that.getUserInfo();
+    //   }
+    //   that.downloadFilestoreImage();
+    //   that.DefaultSelect();
+    //   setTimeout(function () {
+    //     that.setClientHeight();
+    //   }, 500);
+    //   setTimeout(function () {
+    //     that.infoScroll();
+    //   }, 500);
+    //   //html转wxml
+    //   WxParse.wxParse('description', 'html', that.data.description, that, 0);
+    // }).catch(err => {
+    //   //状态异常返回上级页面
+    //   return app.Tips({
+    //     title: err.toString()
+    //   }, {
+    //     tab: 3,
+    //     url: 1
+    //   });
+    // })
   },
   goPages: function (e) {
     wx.navigateTo({
@@ -549,11 +586,11 @@ Page({
    */
   get_product_collect: function () {
     var that = this;
-    getProductDetail(that.data.id).then(res => {
-      that.setData({
-        'activityInfo.userCollect': res.data.activityInfo.userCollect
-      });
-    });
+    // getProductDetail(that.data.id).then(res => {
+    //   that.setData({
+    //     'activityInfo.userCollect': res.data.activityInfo.userCollect
+    //   });
+    // });
   },
   /**
    * 获取优惠券

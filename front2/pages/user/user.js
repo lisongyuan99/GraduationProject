@@ -28,6 +28,19 @@ Page({
     flag: true
   },
 
+  onShow() {
+    req.get({
+      url: '/auth/getHomepageCounts'
+    }).then(res => {
+      this.setData({
+        activityCount: res.data.activityCount,
+        followerCount: res.data.followerCount,
+        balance: res.data.balance,
+        showChart: true
+      })
+    })
+  },
+
   // 跳转
   goPages: function (e) {
     if (e.currentTarget.dataset.url != '/pages/contact_us/contact_us' && !this.data.isLogin) {
@@ -62,13 +75,13 @@ Page({
         this.setData({
           isLogin: true,
           avatarUrl: res.data.avatarUrl,
-          nickName: res.data.nickName
+          nickName: res.data.nickName,
+          phone: res.data.phone
         })
         getApp().globalData.token = res.data.token
         return req.get({
           url: '/auth/getHomepageCounts'
         })
-        
       }).then( res=>{
         this.setData({
           activityCount: res.data.activityCount,

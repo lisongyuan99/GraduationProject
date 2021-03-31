@@ -58,10 +58,18 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = TokenExpiredException.class)
-    public ResponseEntity<ErrorResponseBody> TokenExpiredExceptionExceptionHandler(Exception e) {
+    public ResponseEntity<ErrorResponseBody> TokenExpiredExceptionHandler(Exception e) {
         log.warn(e.toString());
         return resFactory.getResponse(HttpStatus.FORBIDDEN,
                 "TokenExpired",
                 "Token已过期");
+    }
+
+    @ExceptionHandler(value = InputFieldException.class)
+    public ResponseEntity<ErrorResponseBody> InputFieldExceptionHandler(Exception e) {
+        log.warn(e.toString());
+        return resFactory.getResponse(HttpStatus.FORBIDDEN,
+                "InputFieldWrong",
+                "输入字段错误");
     }
 }

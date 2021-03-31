@@ -9,12 +9,12 @@ import lombok.ToString;
 @Builder
 @ToString
 public class ActivityCustomer {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source field: activity_customer.id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-03-30T17:26:34.5998454+08:00", comments="Source field: activity_customer.id")
     private Integer id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source field: activity_customer.activity_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-03-30T17:26:34.5998454+08:00", comments="Source field: activity_customer.activity_id")
     private Integer activityId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-02-17T00:54:46.5105011+08:00", comments="Source field: activity_customer.customer_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-03-30T17:26:34.5998454+08:00", comments="Source field: activity_customer.customer_id")
     private Integer customerId;
 }

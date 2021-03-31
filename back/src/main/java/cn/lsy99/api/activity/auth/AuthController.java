@@ -23,7 +23,6 @@ public class AuthController {
     @Autowired
     AuthService authService;
 
-
     @PostMapping("login")
     public LoginResult login(@RequestBody String loginCode) {
         return authService.login(loginCode);

@@ -1,5 +1,0 @@
-/* pages/new-activity/new-activity.wxss */
-
-.my-value-class {
-  text-align: left !important;
-}

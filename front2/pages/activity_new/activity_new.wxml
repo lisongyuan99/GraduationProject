@@ -1,6 +1,6 @@
 <!--pages/activity_new/activity_new.wxml-->
 <navbar parameter="{{parameter}}"></navbar>
-<form bindsubmit="formSubmit" >
+<form bindsubmit="formSubmit">
   <view class="personal-data">
     <view class="list">
 
@@ -20,8 +20,8 @@
 
       <view class="item acea-row row-between-wrapper">
         <view class="uploader-view">
-          <mp-uploader class="my-uploader" max-count="5" title="展示图片"
-          files="{{images}}" bindselect="selectImage" binddelete="deleteImage" > 
+          <mp-uploader class="my-uploader" max-count="5" title="展示图片" files="{{images}}" bindselect="selectImage"
+            binddelete="deleteImage">
           </mp-uploader>
         </view>
       </view>
@@ -29,7 +29,8 @@
       <view class="item acea-row row-between-wrapper">
         <view>活动分类</view>
         <view class="input acea-row row-between-wrapper">
-          <picker name="category" range="{{allCategory}}" range-key="name" value="{{category}}" bindchange="onCategoryChange">
+          <picker name="category" range="{{allCategory}}" range-key="name" value="{{category}}"
+            bindchange="onCategoryChange">
             {{allCategory[category].name}}
             <text class="iconfont icon-xiangyou"></text>
           </picker>
@@ -57,10 +58,17 @@
       <view class="item acea-row row-between-wrapper">
         <view>地区</view>
         <view class="input acea-row row-between-wrapper">
-          <picker mode="region" name="region" value="{{region}}" custom-item="{{regionCustomItem}}" bindchange="onRegionChange">
+          <!-- <picker mode="region" name="region" value="{{region}}" custom-item="{{regionCustomItem}}" bindchange="onRegionChange">
+            {{region[0]}} {{region[1]}} {{region[2]}}
+            
+          </picker> -->
+          <view class="content" bindtap="openAreaPicker">
             {{region[0]}} {{region[1]}} {{region[2]}}
             <text class="iconfont icon-xiangyou"></text>
-          </picker>
+          </view>
+          <van-popup show="{{ showAreaPicker }}" bind:close="closeAreaPicker" position="bottom">
+            <van-area area-list="{{ areaList }}" bind:confirm="confirmArea" bind:cancel="closeAreaPicker" value="{{regionCode}}"></van-area>
+          </van-popup>
         </view>
       </view>
       <view class="item acea-row row-between-wrapper">
@@ -72,7 +80,7 @@
       <view class="item acea-row row-between-wrapper">
         <view>商品详情</view>
         <navigator url="/pages/editor/editor" hover-class="none" class="input">
-          编辑<text class="iconfont icon-xiangyou"></text>
+          {{detailText}}<text class="iconfont icon-xiangyou"></text>
         </navigator>
       </view>
     </view>

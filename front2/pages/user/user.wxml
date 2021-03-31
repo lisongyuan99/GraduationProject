@@ -11,7 +11,7 @@
         <view class="name line1" wx:if="{{isLogin && nickName}}">{{nickName}}</view>
         <button class="name line1 btn" wx:elif="{{isLogin && (!nickName || !avatarUrl)}}" bindtap="getUserProfile">点击获取用户信息</button>
         <button class="name line1 btn" wx:else bindtap="login"> 点击登录 </button>
-        <view class="id" wx:if="{{phone && isLogin}}">已认证手机<text class="iconfont icon-bianji1"></text></view>
+        <view class="id" wx:if="{{phone && isLogin}}"  data-url="/pages/user_phone/user_phone" bindtap="goPages" >已认证手机<text class="iconfont icon-bianji1"></text></view>
         <view wx:if="{{!phone && isLogin}}" data-url="/pages/user_phone/user_phone" bindtap="goPages"><text
             class="binding">绑定手机号</text></view>
       </view>
@@ -55,6 +55,12 @@
           </view>
           <view>修改资料</view>
         </button>
+        <!-- <button class="item" data-url="/pages/category_edit/category_deit" bindtap="goPages">
+          <view class="pictrue">
+            <image src="/images/noPic.svg"></image>
+          </view>
+          <view>修改分类</view>
+        </button> -->
         <button class="item" data-url="/pages/contact_us/contact_us" bindtap="goPages">
           <view class="pictrue">
             <image src="/images/noPic.svg"></image>

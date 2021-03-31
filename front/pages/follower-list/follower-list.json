@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "people":"/components/people/people"
-  },
-  "navigationBarTitleText": "粉丝管理"
-}

@@ -2,21 +2,24 @@
 <view class="ChangePassword">
   <view class="list">
     <view class="item">
-      <input type='number' placeholder='填写手机号码' bindinput='inputgetName' data-name='phone'
+      <input type='number' placeholder='填写手机号码' bindinput='phoneChange' data-name='phone'
         placeholder-class='placeholder'></input>
     </view>
     <view class="item acea-row row-between-wrapper">
-      <input type='number' placeholder='填写验证码' placeholder-class='placeholder' bindinput='inputgetName'
+      <input type='number' placeholder='填写验证码' placeholder-class='placeholder' bindinput='phoneCodeChange'
         data-name='captcha' class="codeIput"></input>
-      <button class="code font-color {{disabled === true ? 'on' : ''}}" disabled='{{disabled}}' bindtap="code">
-        {{ timetext }}
+      <button wx:if='{{second === 0}}' class="code  font-color" bindtap="code">
+        获取验证码
+      </button>
+      <button wx:else class="code font-color on" disabled='true' bindtap="code">
+        {{second}}秒后重新获取
       </button>
     </view>
-    <view class="item acea-row row-between-wrapper" wx:if="{{imagesCode}}">
+    <!-- <view class="item acea-row row-between-wrapper" wx:if="{{imagesCode}}">
       <input type='text' placeholder='填写图片验证码' placeholder-class='placeholder' class="codeIput" bindinput='inputgetName'
         data-name='captchaimg'></input>
       <image src="{{httpUrl}}" class="images" bindtap="imagesCodeTap"></image>
-    </view>
+    </view> -->
   </view>
-  <view class="confirmBnt bg-color" bindtap="editPwd">确认绑定</view>
+  <view class="confirmBnt bg-color" bindtap="submit">确认绑定</view>
 </view>

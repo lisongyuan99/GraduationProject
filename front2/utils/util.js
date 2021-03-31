@@ -1,19 +1,14 @@
-const formatTime = date => {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
-
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-}
-
-const formatNumber = n => {
-  n = n.toString()
-  return n[1] ? n : '0' + n
-}
-
-module.exports = {
-  formatTime: formatTime
+import area from 'area'
+export default {
+  getRegion(code) {
+    if (code % 10000 == 0) {
+      return area.province_list[code]
+    } else if (code % 100 == 0) {
+      return area.province_list[parseInt(code / 10000) * 10000] + ' ' + area.city_list[code]
+    } else {
+      return area.province_list[parseInt(code / 10000) * 10000] + ' ' +
+        area.city_list[parseInt(code / 100) * 100] + ' ' +
+        area.county_list[code]
+    }
+  }
 }

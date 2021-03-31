@@ -29,25 +29,29 @@
         </javaClientGenerator>
 
         <table tableName="activity">
-            <generatedKey column="id" sqlStatement="JDBC"/>
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
         <table tableName="customer">
-            <generatedKey column="id" sqlStatement="JDBC"/>
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
         <table tableName="organizer">
-            <generatedKey column="id" sqlStatement="JDBC"/>
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
         <table tableName="category">
-            <generatedKey column="id" sqlStatement="JDBC"/>
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
         <table tableName="activity_customer">
-            <generatedKey column="id" sqlStatement="JDBC"/>
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
         <table tableName="organizer_customer">
-            <generatedKey column="id" sqlStatement="JDBC"/>
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
         <table tableName="activity_visits">
-            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="test_table">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+            <columnOverride column="strings" javaType="java.lang.String[]"
+                            typeHandler="cn.lsy99.api.activity.generator.handler.ArrayTypeHandler"/>
         </table>
     </context>
 </generatorConfiguration>

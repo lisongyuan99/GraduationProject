@@ -1,9 +1,11 @@
 // pages/activity_new/activity_new.js
 let dayjs = require('dayjs')
+let customParseFormat = require('dayjs/plugin/customParseFormat')
 import req from '../../utils/req'
 import {
   wxp
 } from '../../utils/wxp'
+import area from '../../utils/area'
 Page({
 
   /**
@@ -26,9 +28,13 @@ Page({
     time: '',
     category: '0',
     region: ['不限', '不限', '不限'],
-    regionCode: '',
-    regionCustomItem: '不限',
-    images: []
+    regionCode: 0,
+    images: [],
+    updatedImages: [],
+    detail: '',
+    detailText: '',
+    areaList: {},
+    showAreaPicker: false
   },
 
   /**
@@ -38,49 +44,85 @@ Page({
     let now = dayjs()
     this.setData({
       date: now.format('YYYY-MM-DD'),
-      time: now.format('HH:mm')
+      time: now.format('HH:mm'),
+      areaList: area
     })
+    getApp().globalData.editorContent = null
+    this.getAllCategory()
     // this.setLocation()
     // this.getAllCategory()
   },
-
-  // 提交表单
-  async formSubmit(e) {
-    // console.log(e.detail.value)
-    // console.log(this.data.images)
-    let imageList = [] // fileList中的索引
-    let fileList = [] // 不重复的文件
-    // console.log(this.data.images)
-    for (let image of this.data.images) {
-      await wxp.getFileInfo({
-        filePath: image.url,
-      }).then(res => {
-        console.log(res)
-        let addToFileList = true
-        let addIndex = -1
-        for (let index = 0; index < fileList.length; index++) {
-          let file = fileList[index]
-          if (res.size === file.size && res.digest === file.digest) {
-            addToFileList = false
-            addIndex = index
-          }
-        }
-        if (addToFileList) {
-          fileList.push({
-            url: res.url,
-            size: res.size,
-            digest: res.digest
-          })
-          imageList.push(fileList.length - 1)
-        } else {
-          imageList.push(addIndex)
-        }
-        console.log(fileList)
-        console.log(imageList)
+  // 生命周期 显示时 获取editor中的文字
+  onShow() {
+    // console.log('show')
+    // console.log(!!getApp().globalData.editorContent)
+    let editorContent = getApp().globalData.editorContent
+    if (editorContent) {
+      console.log(editorContent)
+      // let temp = editorContent.text.replace(/\s+/, '')
+      this.setData({
+        detail: editorContent.html,
+        detailText: '点击编辑'
+      })
+    } else {
+      this.setData({
+        detailText: '尚未填写，点击编辑'
       })
     }
   },
+  // 提交表单
+  formSubmit(e) {
+    // console.log(this.data.images)
+    wxp.showToast({
+        title: '上传中',
+        icon: 'loading'
+      }).then(() => {
+        let fileList = []
+        for (let file of this.data.images) {
+          fileList.push(file.url)
+        }
+        return req.uploadFiles(fileList)
+      }).then((res) => {
+        console.log(res)
+        this.setData({
+          uploadFiles: res
+        })
+        console.log(this.data)
+        console.log(e)
+        let formData = e.detail.value
+        dayjs.extend(customParseFormat)
+        let date = dayjs(formData.date + ' ' + formData.time, 'YYYY-MM-DD hh:mm').format()
+        let uploadInfo = {
+          name: formData.name,
+          introduction: formData.introduction,
+          pictures: this.data.uploadFiles,
+          category: formData.category,
+          date: date,
+          regionCode: this.data.regionCode,
+          address: formData.address,
+          detail: this.data.detail
+        }
+        console.log(uploadInfo)
+        // wxp.hideToast()
+        return req.post({
+          url: '/activity/add',
+          data:uploadInfo
+        })
+      }).then(res=>{
+        console.log(res)
+        
+      })
+      .catch((res) => {
+        wxp.hideToast()
+        wxp.showToast({
+          title: res.message,
+          icon: 'error'
+        })
+      }).then(() => {
+        wxp.hideToast()
+      })
 
+  },
   // 获取当前位置信息
   setLocation() {
     wxp.getLocation().then(res => {
@@ -115,7 +157,6 @@ Page({
         console.log(res)
       })
   },
-
   // 获取所有活动分类
   getAllCategory() {
     req.get({
@@ -128,7 +169,6 @@ Page({
       console.log(res)
     })
   },
-
   // 选择图片
   selectImage(e) {
     // console.log('select')
@@ -171,58 +211,36 @@ Page({
   },
   // 地区改变
   onRegionChange(e) {
+    // console.log(e)
     this.setData({
       region: e.detail.value,
-      regionCode: e.detail.code ? e.detail.code[e.detail.code.length - 1] : '000000'
+      regionCode: e.detail.code.length != 0 ? e.detail.code[e.detail.code.length - 1] : '000000'
     })
     console.log(this.data)
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  //vant 选择地区
+  openAreaPicker() {
+    console.log('open')
+    this.setData({
+      showAreaPicker: true
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+  closeAreaPicker() {
+    this.setData({
+      showAreaPicker: false
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
+  confirmArea(e) {
+    console.log(e)
+    let temp = []
+    for (let value of e.detail.values) {
+      temp.push(value.name)
+    }
+    this.setData({
+      showAreaPicker: false,
+      regionCode: e.detail.values[e.detail.values.length - 1].code,
+      region: temp
+    })
+    console.log(this.data)
+  }
 })

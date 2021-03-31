@@ -1,5 +1,25 @@
 const app = getApp();
+import req from '../../utils/req'
+import {
+  wxp
+} from '../../utils/wxp'
 
+function countdown(that) {
+  var second = that.data.second
+  if (second == 0) {
+    // console.log("Time Out...");
+    //  that.setData({
+    //   second: "Time Out..."
+    //  });
+    return;
+  }
+  setTimeout(function () {
+    that.setData({
+      second: second - 1
+    });
+    countdown(that);
+  }, 1000)
+}
 Page({
 
   /**
@@ -15,19 +35,75 @@ Page({
     },
     disabled: false,
     active: false,
-    timetext: '获取验证码',
+    second: 0,
     userInfo: {},
     phone: '',
-    key: '',
+    phoneCode: '',
     imagesCode: false,
     httpUrl: '',
     captchaimg: ''
   },
+
+  // 发送验证码
+  code() {
+    if (this.data.phone.match(/^1[3-9]\d{9}$/)) {
+      req.post({
+        url: '/user/getPhoneCode',
+        data: this.data.phone
+      }).then(res => {
+        // 倒计时
+        this.setData({
+          second: 10
+        })
+        countdown(this)
+        wx.showToast({
+          title: '验证码已发送'
+        })
+      }).catch(res => {
+        wx.showToast({
+          title: '发送错误',
+          icon: 'error'
+        })
+      })
+    } else {
+      wx.showToast({
+        title: '手机号格式错误',
+        icon: 'error'
+      })
+    }
+  },
+
+  // 输入手机号改变
+  phoneChange(e) {
+    // console.log(e.detail.value)
+    this.setData({
+      phone: e.detail.value
+    })
+  },
+
+  phoneCodeChange(e) {
+    this.setData({
+      phoneCode: e.detail.value
+    })
+  },
+
+  // 提交
+  submit() {
+    req.post({
+      url:'/user/verifyPhoneCode',
+      data: {
+        phoneNum: this.data.phone,
+        code: this.data.phoneCode
+      }
+    }).then(res=>{
+      console.log(res)
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-  },
+  onLoad: function (options) {},
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -69,5 +145,10 @@ Page({
    */
   onReachBottom: function () {
 
+  },
+
+  inputGetName() {
+
   }
+
 })

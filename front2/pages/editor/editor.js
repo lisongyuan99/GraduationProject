@@ -1,3 +1,10 @@
+const {
+  default: req
+} = require("../../utils/req")
+const {
+  wxp
+} = require("../../utils/wxp")
+
 Page({
   data: {
     formats: {},
@@ -13,6 +20,8 @@ Page({
       'color': true,
       'class': '0'
     },
+    navH: '',
+    content: ''
   },
   readOnlyChange() {
     this.setData({
@@ -20,52 +29,36 @@ Page({
     })
   },
   onLoad() {
-    const platform = wx.getSystemInfoSync().platform
-    const isIOS = platform === 'ios'
-    this.setData({ isIOS})
-    const that = this
-    this.updatePosition(0)
-    let keyboardHeight = 0
-    wx.onKeyboardHeightChange(res => {
-      if (res.height === keyboardHeight) return
-      const duration = res.height > 0 ? res.duration * 1000 : 0
-      keyboardHeight = res.height
-      setTimeout(() => {
-        wx.pageScrollTo({
-          scrollTop: 0,
-          success() {
-            that.updatePosition(keyboardHeight)
-            that.editorCtx.scrollIntoView()
-          }
-        })
-      }, duration)
-
-    })
-  },
-  updatePosition(keyboardHeight) {
-    const toolbarHeight = 50
-    const { windowHeight, platform } = wx.getSystemInfoSync()
-    let editorHeight = keyboardHeight > 0 ? (windowHeight - keyboardHeight - toolbarHeight) : windowHeight
-    this.setData({ editorHeight, keyboardHeight })
-  },
-  calNavigationBarAndStatusBar() {
-    const systemInfo = wx.getSystemInfoSync()
-    const { statusBarHeight, platform } = systemInfo
-    const isIOS = platform === 'ios'
-    const navigationBarHeight = isIOS ? 44 : 48
-    return statusBarHeight + navigationBarHeight
+    this.setData({
+      navH: getApp().globalData.navHeight
+    });
   },
   onEditorReady() {
     const that = this
     wx.createSelectorQuery().select('#editor').context(function (res) {
       that.editorCtx = res.context
-    }).exec()
+    }).exec(res => {
+      let editorContent = getApp().globalData.editorContent
+      if (editorContent) {
+        this.editorCtx.setContents({
+          delta: editorContent.delta
+        })
+      }
+    })
+
   },
-  blur() {
-    this.editorCtx.blur()
+
+  undo() {
+    this.editorCtx.undo()
+  },
+  redo() {
+    this.editorCtx.redo()
   },
   format(e) {
-    let { name, value } = e.target.dataset
+    let {
+      name,
+      value
+    } = e.target.dataset
     if (!name) return
     // console.log('format', name, value)
     this.editorCtx.format(name, value)
@@ -73,7 +66,9 @@ Page({
   },
   onStatusChange(e) {
     const formats = e.detail
-    this.setData({ formats })
+    this.setData({
+      formats
+    })
   },
   insertDivider() {
     this.editorCtx.insertDivider({
@@ -100,6 +95,7 @@ Page({
     })
   },
   insertImage() {
+    // 宽度
     const that = this
     wx.chooseImage({
       count: 1,
@@ -117,5 +113,50 @@ Page({
         })
       }
     })
-  }
+  },
+  return() {
+    let indexList = [] // 有图片的delta数组下标 该数组的下标对应fileList下标
+    let delta
+    wxp.showToast({
+      title: '上传中',
+      icon: 'loading'
+    }).then(() => {
+      return this.editorCtx.getContents()
+    }).then(res => {
+      // console.log(res)
+      delta = res.delta
+      let ops = res.delta.ops
+      let fileList = []
+      // console.log(ops)
+      for (let index in ops) {
+        let tempUrl = ops[index].insert.image
+        if (tempUrl != undefined && tempUrl != null) {
+          // if (tempUrl.startsWith("http://tmp/")) {
+            indexList.push(index)
+            fileList.push(tempUrl)
+          // }
+        }
+      }
+      // console.log(indexList)
+      // console.log(fileList)
+      return req.uploadFiles(fileList)
+    }).then(res => {
+      for (let index in indexList) {
+        delta.ops[indexList[index]].insert.image = res[index]
+      }
+      return this.editorCtx.setContents({
+        delta: delta
+      })
+    }).then(() => {
+      return this.editorCtx.getContents()
+    }).then(res => {
+      getApp().globalData.editorContent = res
+      return wxp.hideToast()
+    }).then(() => {
+      wx.navigateBack()
+    }).catch(() => {
+      wx.navigateBack()
+    })
+  },
+
 })
