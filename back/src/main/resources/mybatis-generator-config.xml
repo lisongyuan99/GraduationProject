@@ -8,9 +8,11 @@
 
     <context id="myContext">
         <plugin type="com.softwareloop.mybatis.generator.plugins.LombokPlugin">
-            <property name="builder" value="true"/>
-            <property name="data" value="true"/>
-            <property name="toString" value="true"/>
+            <property name="Builder" value="true"/>
+            <property name="Data" value="true"/>
+            <property name="ToString" value="true"/>
+            <property name="AllArgsConstructor " value="true"/>
+            <property name="NoArgsConstructor " value="true"/>
         </plugin>
 
         <jdbcConnection driverClass="${spring.datasource.driverClassName}"
@@ -46,7 +48,7 @@
         <table tableName="organizer_customer">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table tableName="activity_visits">
+        <table tableName="activity_statistics">
         </table>
         <table tableName="test_table">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>

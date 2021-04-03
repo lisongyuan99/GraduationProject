@@ -1,7 +1,7 @@
 package cn.lsy99.api.activity.auth;
 
 import cn.lsy99.api.activity.aop.annotation.OrgTokenCheck;
-import cn.lsy99.api.activity.auth.dto.CountsOnMainPage;
+import cn.lsy99.api.activity.auth.dto.DataOnMainPage;
 import cn.lsy99.api.activity.auth.dto.LoginResult;
 import cn.lsy99.api.activity.auth.dto.WechatUserInfo;
 import cn.lsy99.api.activity.util.JwtInfo;
@@ -40,7 +40,7 @@ public class AuthController {
 
     @GetMapping("getHomepageCounts")
     @OrgTokenCheck
-    public CountsOnMainPage getCounts(@RequestHeader Map<String, String> headers) {
+    public DataOnMainPage getCounts(@RequestHeader Map<String, String> headers) {
         String token = headers.get(tokenHeader);
         JwtInfo jwtInfo = JwtUtil.getInfoFromToken(token);
         int organizerId = jwtInfo.getId();

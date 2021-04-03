@@ -6,28 +6,28 @@ import org.mybatis.dynamic.sql.SqlColumn;
 import org.mybatis.dynamic.sql.SqlTable;
 
 public final class TestTableDynamicSqlSupport {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-03-30T17:26:34.6118138+08:00", comments="Source Table: test_table")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-03T19:11:46.2255971+08:00", comments="Source Table: test_table")
     public static final TestTable testTable = new TestTable();
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-03-30T17:26:34.6118138+08:00", comments="Source field: test_table.id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-03T19:11:46.2255971+08:00", comments="Source field: test_table.id")
     public static final SqlColumn<Integer> id = testTable.id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-03-30T17:26:34.6118138+08:00", comments="Source field: test_table.lat")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-03T19:11:46.2255971+08:00", comments="Source field: test_table.lat")
     public static final SqlColumn<Double> lat = testTable.lat;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-03-30T17:26:34.6118138+08:00", comments="Source field: test_table.lng")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-03T19:11:46.2255971+08:00", comments="Source field: test_table.lng")
     public static final SqlColumn<Double> lng = testTable.lng;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-03-30T17:26:34.6118138+08:00", comments="Source field: test_table.position")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-03T19:11:46.2255971+08:00", comments="Source field: test_table.position")
     public static final SqlColumn<Object> position = testTable.position;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-03-30T17:26:34.6118138+08:00", comments="Source field: test_table.ids")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-03T19:11:46.2255971+08:00", comments="Source field: test_table.ids")
     public static final SqlColumn<Object> ids = testTable.ids;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-03-30T17:26:34.6118138+08:00", comments="Source field: test_table.strings")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-03T19:11:46.2255971+08:00", comments="Source field: test_table.strings")
     public static final SqlColumn<String[]> strings = testTable.strings;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-03-30T17:26:34.6118138+08:00", comments="Source Table: test_table")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-03T19:11:46.2255971+08:00", comments="Source Table: test_table")
     public static final class TestTable extends SqlTable {
         public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 

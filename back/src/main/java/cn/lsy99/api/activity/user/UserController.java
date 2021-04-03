@@ -69,6 +69,7 @@ public class UserController {
                 return false;
             } else if (value.equals(input.getCode())) {
                 // 绑定手机号
+                stringRedisTemplate.delete(key);
                 return userService.bindPhone(id, input.getPhoneNum());
             } else {
                 // 验证码不正确

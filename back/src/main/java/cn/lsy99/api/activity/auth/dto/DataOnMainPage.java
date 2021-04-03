@@ -5,8 +5,9 @@ import lombok.Data;
 
 @Data
 @Builder
-public class CountsOnMainPage {
+public class DataOnMainPage {
     private long activityCount;
     private long followerCount;
     private double balance;
+    private int[] data;
 }

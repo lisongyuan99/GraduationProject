@@ -3,6 +3,7 @@ package cn.lsy99.api.activity.auth;
 import cn.lsy99.api.activity.auth.dto.WechatUserInfo;
 import cn.lsy99.api.activity.generator.UserRole;
 import cn.lsy99.api.activity.generator.mapper.*;
+import cn.lsy99.api.activity.generator.table.ActivityStatistics;
 import cn.lsy99.api.activity.generator.table.Organizer;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.dynamic.sql.SqlBuilder;
@@ -10,6 +11,7 @@ import org.mybatis.dynamic.sql.render.RenderingStrategies;
 import org.mybatis.dynamic.sql.select.render.SelectStatementProvider;
 import org.springframework.stereotype.Repository;
 
+import static cn.lsy99.api.activity.generator.mapper.ActivityStatisticsDynamicSqlSupport.activityStatistics;
 import static cn.lsy99.api.activity.generator.mapper.OrganizerDynamicSqlSupport.organizer;
 import static cn.lsy99.api.activity.generator.mapper.ActivityDynamicSqlSupport.*;
 import static cn.lsy99.api.activity.generator.mapper.OrganizerCustomerDynamicSqlSupport.*;
@@ -29,6 +31,9 @@ public class AuthRepository {
     private ActivityMapper activityMapper;
     @Resource
     private OrganizerCustomerMapper organizerCustomerMapper;
+    @Resource
+    private ActivityStatisticsMapper activityStatisticsMapper;
+
 
     private final static int newRole = UserRole.ORG.ordinal();
 
@@ -96,7 +101,7 @@ public class AuthRepository {
         return activityMapper.count(selectStatementProvider);
     }
 
-    public boolean setWechatUserInfo(int organizerId, WechatUserInfo wechatUserInfo){
+    public boolean setWechatUserInfo(int organizerId, WechatUserInfo wechatUserInfo) {
         Organizer organizer = Organizer.builder()
                 .id(organizerId)
                 .avatar(wechatUserInfo.getAvatarUrl())
@@ -104,6 +109,7 @@ public class AuthRepository {
                 .build();
         return organizerMapper.updateByPrimaryKeySelective(organizer) == 1;
     }
+
     /**
      * 获取粉丝个数
      *
@@ -116,5 +122,9 @@ public class AuthRepository {
                 .where(organizerCustomer.organizerId, isEqualTo(organizerId))
                 .build().render(RenderingStrategies.MYBATIS3);
         return organizerCustomerMapper.count(selectStatementProvider);
+    }
+
+    public List<ActivityStatistics> getVisits(int id) {
+        return activityStatisticsMapper.select(c -> c.where(activityStatistics.organizerId, isEqualTo(id)));
     }
 }

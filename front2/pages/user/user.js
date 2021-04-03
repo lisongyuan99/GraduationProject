@@ -3,6 +3,7 @@ import {
 } from '../../utils/wxp'
 import req from '../../utils/req'
 import * as echarts from '../../ec-canvas/echarts';
+let dayjs = require('dayjs')
 
 Page({
 
@@ -23,7 +24,7 @@ Page({
     ec: {
       lazyLoad: true
     },
-    showChart: false,
+    // showChart: false,
     myChart: {},
     flag: true
   },
@@ -36,9 +37,17 @@ Page({
         activityCount: res.data.activityCount,
         followerCount: res.data.followerCount,
         balance: res.data.balance,
-        showChart: true
+        // showChart: true
       })
     })
+  },
+
+  onReady() {
+    this.ecComponent = this.selectComponent('#my-chart')
+    this.login()
+    if (!this.chart) {
+      this.init()
+    }
   },
 
   // 跳转
@@ -87,8 +96,10 @@ Page({
           activityCount: res.data.activityCount,
           followerCount: res.data.followerCount,
           balance: res.data.balance,
-          showChart: true
+          // showChart: true
         })
+        this.chart.clear()
+        this.chart.setOption(this.getOption(res.data.data))
         wx.hideLoading()
         wx.showToast({
           title: '登录成功',
@@ -135,6 +146,88 @@ Page({
         icon: 'error'
       })
     })
+  },
+
+
+  // 初始化图表
+  init(e) {
+    this.ecComponent.init((canvas, width, height, dpr) => {
+      // 获取组件的 canvas、width、height 后的回调函数
+      // 在这里初始化图表
+      const chart = echarts.init(canvas, null, {
+        width: width,
+        height: height,
+        devicePixelRatio: dpr // new
+      });
+      // 将图表实例绑定到 this 上，可以在其他成员函数（如 dispose）中访问
+      this.chart = chart;
+      // 注意这里一定要返回 chart 实例，否则会影响事件处理等
+      return chart;
+    });
+    console.log("init")
+  },
+
+  click(e) {
+    if (!this.chart) {
+      this.init()
+    } else {
+      this.chart.clear()
+      if (this.flag) {
+        this.chart.setOption(this.getOption1())
+      } else {
+        this.chart.setOption(this.getOption2())
+      }
+      this.flag = !this.flag
+    }
+  },
+
+  // click2(e) {
+  //   wxp.getUserProfile({
+  //     desc: "123"
+  //   }).then(res => {
+  //     console.log(res)
+  //   }).catch(res => {
+  //     console.log(res)
+  //   })
+  // },
+
+  getOption(dataList){
+    let today = dayjs()
+    let date = [];
+    for(let i = 0; i<7; i++){
+      date.push(today.subtract(7-i, 'day').format('M/D'))
+    }
+    let option = {
+      title: {
+        // text: '活动趋势'
+      },
+      tooltip: {},
+      legend: {
+        data: ['浏览数量']
+      },
+      xAxis: {
+        data: date
+      },
+      yAxis: [{
+        position: 'left',
+        type: 'value',
+        name: '浏览量',
+      } ],
+      series: [ {
+        name: '浏览量',
+        type: 'line',
+        // yAxisIndex: '0',
+        data: dataList,
+        itemStyle: {
+          normal: {
+            label: {
+              show: true, //开启显示
+            }
+          }
+        },
+      }]
+    }
+    return option
   },
 
   getOption1() {
@@ -264,52 +357,4 @@ Page({
     };
     return option
   },
-
-  // 测试
-  init(e) {
-    this.ecComponent.init((canvas, width, height, dpr) => {
-      // 获取组件的 canvas、width、height 后的回调函数
-      // 在这里初始化图表
-      const chart = echarts.init(canvas, null, {
-        width: width,
-        height: height,
-        devicePixelRatio: dpr // new
-      });
-      // 将图表实例绑定到 this 上，可以在其他成员函数（如 dispose）中访问
-      this.chart = chart;
-      // 注意这里一定要返回 chart 实例，否则会影响事件处理等
-      return chart;
-    });
-    console.log("init")
-  },
-
-  click(e) {
-    if (!this.chart) {
-      this.init()
-    } else {
-      this.chart.clear()
-      if (this.flag) {
-        this.chart.setOption(this.getOption1())
-      } else {
-        this.chart.setOption(this.getOption2())
-      }
-      this.flag = !this.flag
-    }
-  },
-
-  click2(e) {
-    wxp.getUserProfile({
-      desc: "123"
-    }).then(res => {
-      console.log(res)
-    }).catch(res => {
-      console.log(res)
-    })
-  },
-
-  onReady() {
-    this.ecComponent = this.selectComponent('#my-chart')
-    this.login()
-  },
-
 })

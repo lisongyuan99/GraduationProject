@@ -39,19 +39,19 @@
       <view class="serviceList acea-row row-middle">
         <button class="item" data-url="/pages/activity_new/activity_new" bindtap="goPages">
           <view class="pictrue">
-            <image src="/images/noPic.svg"></image>
+            <van-icon name="add-o" size="50rpx" color="#e93323"/>
           </view>
           <view>发布活动</view>
         </button>
         <button class="item" data-url="/pages/comment_list/comment_list" bindtap="goPages">
           <view class="pictrue">
-            <image src="/images/noPic.svg"></image>
+            <van-icon name="chat-o" size="50rpx" color="#e93323"/>
           </view>
           <view>评价管理</view>
         </button>
         <button class="item" data-url="/pages/user_info/user_info" bindtap="goPages">
           <view class="pictrue">
-            <image src="/images/noPic.svg"></image>
+            <van-icon name="setting-o" size="50rpx" color="#e93323"/>
           </view>
           <view>修改资料</view>
         </button>
@@ -63,7 +63,7 @@
         </button> -->
         <button class="item" data-url="/pages/contact_us/contact_us" bindtap="goPages">
           <view class="pictrue">
-            <image src="/images/noPic.svg"></image>
+            <van-icon name="service-o" size="50rpx" color="#e93323"/>
           </view>
           <view>联系我们</view>
         </button>
@@ -87,6 +87,6 @@
   </view>
 </view>
 <view>
-<button bindtap="click">click</button>
+<!-- <button bindtap="click">click</button> -->
 <!-- <button bindtap="click2">click</button> -->
 </view>

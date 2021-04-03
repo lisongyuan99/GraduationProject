@@ -6,19 +6,19 @@ import org.mybatis.dynamic.sql.SqlColumn;
 import org.mybatis.dynamic.sql.SqlTable;
 
 public final class ActivityCustomerDynamicSqlSupport {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-03-30T17:26:34.5998454+08:00", comments="Source Table: activity_customer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-03T19:11:46.2255971+08:00", comments="Source Table: activity_customer")
     public static final ActivityCustomer activityCustomer = new ActivityCustomer();
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-03-30T17:26:34.5998454+08:00", comments="Source field: activity_customer.id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-03T19:11:46.2255971+08:00", comments="Source field: activity_customer.id")
     public static final SqlColumn<Integer> id = activityCustomer.id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-03-30T17:26:34.6008432+08:00", comments="Source field: activity_customer.activity_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-03T19:11:46.2255971+08:00", comments="Source field: activity_customer.activity_id")
     public static final SqlColumn<Integer> activityId = activityCustomer.activityId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-03-30T17:26:34.6008432+08:00", comments="Source field: activity_customer.customer_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-03T19:11:46.2255971+08:00", comments="Source field: activity_customer.customer_id")
     public static final SqlColumn<Integer> customerId = activityCustomer.customerId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-03-30T17:26:34.5998454+08:00", comments="Source Table: activity_customer")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-03T19:11:46.2255971+08:00", comments="Source Table: activity_customer")
     public static final class ActivityCustomer extends SqlTable {
         public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 

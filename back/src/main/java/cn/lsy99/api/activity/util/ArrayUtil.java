@@ -21,4 +21,8 @@ public class ArrayUtil {
         }
         return result.toString();
     }
+
+    public static String getDivider(){
+        return DIVIDER;
+    }
 }

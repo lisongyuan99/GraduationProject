@@ -6,6 +6,7 @@ import cn.lsy99.api.activity.activity.dto.AddActivityEntity;
 import cn.lsy99.api.activity.aop.annotation.OrgTokenCheck;
 import cn.lsy99.api.activity.exception.exception.InputFieldException;
 import cn.lsy99.api.activity.generator.table.Activity;
+import cn.lsy99.api.activity.generator.table.ActivityStatistics;
 import cn.lsy99.api.activity.generator.table.Category;
 import cn.lsy99.api.activity.util.JwtInfo;
 import cn.lsy99.api.activity.util.JwtUtil;
@@ -26,6 +27,7 @@ public class ActivityController {
     private ActivityService activityService;
     @Value("${http.token.header}")
     private String tokenHeader;
+    private static final int LIMIT = 2;
 
     @OrgTokenCheck
     @PostMapping("add")
@@ -60,5 +62,15 @@ public class ActivityController {
     public ActivityInfo getById(@RequestBody int id){
         log.info(String.valueOf(id));
         return activityService.getById(id);
+    }
+
+    @GetMapping("statistic")
+    public void statistic(){
+        int result = activityService.statistic(LIMIT);
+        while (result != -1) {
+            result = activityService.statistic(result, LIMIT);
+            List<ActivityStatistics> temp = activityService.test();
+            log.info(temp.toString());
+        }
     }
 }
