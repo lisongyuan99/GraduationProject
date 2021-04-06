@@ -4,8 +4,13 @@
     "shareRedPackets": "/components/share-red-packets/index",
     "productConSwiper": "/components/productConSwiper/index",
     "userEvaluation": "/components/userEvaluation/index",
-    "product-window":"/components/product-window/index",
+    "product-window": "/components/product-window/index",
     "coupon-list-window": "/components/coupon-list-window/index",
-    "home": "/components/home/index"
+    "home": "/components/home/index",
+    "van-goods-action": "/components/vant/goods-action/index",
+    "van-goods-action-icon": "/components/vant/goods-action-icon/index",
+    "van-goods-action-button": "/components/vant/goods-action-button/index",
+    "van-button": "/components/vant/goods-action-button/index",
+    "van-icon" : "/components/vant/icon/index"
   }
 }

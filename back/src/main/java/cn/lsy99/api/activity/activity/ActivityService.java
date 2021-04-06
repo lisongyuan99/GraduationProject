@@ -2,50 +2,42 @@ package cn.lsy99.api.activity.activity;
 
 import cn.lsy99.api.activity.activity.dto.ActivityBriefInfo;
 import cn.lsy99.api.activity.activity.dto.ActivityInfo;
-import cn.lsy99.api.activity.activity.dto.AddActivityEntity;
+import cn.lsy99.api.activity.activity.dto.ActivityModifyEntity;
+import cn.lsy99.api.activity.activity.dto.CustomerInfo;
 import cn.lsy99.api.activity.generator.table.Activity;
-import cn.lsy99.api.activity.generator.table.ActivityStatistics;
 import cn.lsy99.api.activity.generator.table.Category;
+import cn.lsy99.api.activity.generator.table.Customer;
 import cn.lsy99.api.activity.util.ArrayUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class ActivityService {
     @Autowired
     private ActivityRepository activityRepository;
-
-    private static final String ACTIVITY_PREFIX = "visit.activity:";
-    private static final String USER_PREFIX = "visit.user:";
-
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
 
     public List<Category> getAllCategory() {
         return activityRepository.getAllCategory();
     }
 
-    public int addActivity(int id, AddActivityEntity addActivityEntity) {
-        String pics = ArrayUtil.StringArrayToString(addActivityEntity.getPictures());
+    public int addActivity(int id, ActivityModifyEntity activityModifyEntity) {
+        String pics = ArrayUtil.StringArrayToString(activityModifyEntity.getPictures());
         Activity activity = Activity.builder()
                 .organizerId(id)
-                .title(addActivityEntity.getName())
-                .subtitle(addActivityEntity.getIntroduction())
-                .detail(addActivityEntity.getDetail())
-                .beginTime(addActivityEntity.getDate())
-                .category(addActivityEntity.getCategory())
-                .positionCode(addActivityEntity.getRegionCode())
-                .positionDetail(addActivityEntity.getAddress())
+                .title(activityModifyEntity.getName())
+                .subtitle(activityModifyEntity.getIntroduction())
+                .detail(activityModifyEntity.getDetail())
+                .beginTime(activityModifyEntity.getDate())
+                .category(activityModifyEntity.getCategory())
+                .positionCode(activityModifyEntity.getRegionCode())
+                .positionDetail(activityModifyEntity.getAddress())
                 .pics(pics)
                 .build();
         return activityRepository.addActivity(activity);
@@ -74,6 +66,7 @@ public class ActivityService {
 
     public ActivityInfo getById(int id) {
         Optional<Activity> activityOptional = activityRepository.getById(id);
+        long user = activityRepository.getUserNum(id);
         if (activityOptional.isPresent()) {
             Activity activity = activityOptional.get();
             return ActivityInfo.builder()
@@ -85,6 +78,46 @@ public class ActivityService {
                     .regionCode(activity.getPositionCode())
                     .address(activity.getPositionDetail())
                     .detail(activity.getDetail())
+                    .user(user)
+                    .build();
+        } else {
+            // TODO 异常处理
+            return null;
+        }
+    }
+
+    public List<CustomerInfo> getUser(int id) {
+        List<Customer> users = activityRepository.getUser(id);
+        List<CustomerInfo> result = new ArrayList<>();
+        for (Customer user : users) {
+            result.add(CustomerInfo.builder()
+                    .id(user.getId())
+                    .avatar(user.getAvatar())
+                    .name(user.getNickname())
+                    .motto(user.getMotto())
+                    .build());
+        }
+        return result;
+    }
+
+    public int removeUser(int activityId, int userId){
+        return activityRepository.removeUser(activityId, userId);
+    }
+
+    public ActivityModifyEntity getByIdForEdit(int id) {
+        Optional<Activity> activityOptional = activityRepository.getById(id);
+        if (activityOptional.isPresent()) {
+            Activity activity = activityOptional.get();
+            return ActivityModifyEntity.builder()
+                    .activityId(activity.getId())
+                    .pictures(ArrayUtil.StringToStringArray(activity.getPics()))
+                    .name(activity.getTitle())
+                    .introduction(activity.getSubtitle())
+                    .date(activity.getBeginTime())
+                    .category(activity.getCategory())
+                    .regionCode(activity.getPositionCode())
+                    .address(activity.getPositionDetail())
+                    .detail(activity.getDetail())
                     .build();
         } else {
             // TODO 异常处理
@@ -93,44 +126,39 @@ public class ActivityService {
     }
 
     @Transactional
-    public int statistic(int limit) {
-        List<Activity> result = activityRepository.getActivitiesId(limit);
-        if (result.size() == 0) {
-            return -1;
-        } else {
-            for (Activity e : result) {
-                String countString = stringRedisTemplate.opsForValue().get(ACTIVITY_PREFIX + e.getId());
-                int count = 0;
-                if (countString != null) {
-                    count = Integer.parseInt(countString);
-                }
-                activityRepository.insertActivityCount(e.getId(), e.getOrganizerId(), count);
-                stringRedisTemplate.delete(ACTIVITY_PREFIX + e.getId());
+    public int editActivity(int orgId, ActivityModifyEntity activityModifyEntity) {
+        int activityId = activityModifyEntity.getActivityId();
+        log.info(activityModifyEntity.toString());
+        Optional<Activity> origin = activityRepository.getById(activityId);
+        if (origin.isPresent()) {
+            if (origin.get().getOrganizerId() == orgId) {
+                String pics = ArrayUtil.StringArrayToString(activityModifyEntity.getPictures());
+                return activityRepository.editActivity(Activity.builder()
+                        .id(activityId)
+                        .organizerId(orgId)
+                        .title(activityModifyEntity.getName())
+                        .subtitle(activityModifyEntity.getIntroduction())
+                        .detail(activityModifyEntity.getDetail())
+                        .beginTime(activityModifyEntity.getDate())
+                        .category(activityModifyEntity.getCategory())
+                        .positionCode(activityModifyEntity.getRegionCode())
+                        .positionDetail(activityModifyEntity.getAddress())
+                        .pics(pics)
+                        .build());
             }
-            return result.get(result.size()-1).getId();
         }
+        return -1;
     }
 
     @Transactional
-    public int statistic(int lastId, int limit) {
-        List<Activity> result = activityRepository.getActivitiesId(lastId, limit);
-        if (result.size() == 0) {
-            return -1;
-        } else {
-            for (Activity e : result) {
-                String countString = stringRedisTemplate.opsForValue().get(ACTIVITY_PREFIX + e.getId());
-                int count = 0;
-                if (countString != null) {
-                    count = Integer.parseInt(countString);
-                }
-                activityRepository.insertActivityCount(e.getId(), e.getOrganizerId(), count);
-                stringRedisTemplate.delete(ACTIVITY_PREFIX + e.getId());
+    public int deleteActivity(int orgId, int id) {
+        Optional<Activity> origin = activityRepository.getById(id);
+        if (origin.isPresent()) {
+            if (origin.get().getOrganizerId() == orgId) {
+                return activityRepository.deleteActivity(id);
             }
-            return result.get(result.size()-1).getId();
         }
-    }
-
-    public List<ActivityStatistics>  test(){
-        return activityRepository.test();
+        //TODO
+        return -1;
     }
 }

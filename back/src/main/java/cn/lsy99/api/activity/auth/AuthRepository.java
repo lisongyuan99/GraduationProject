@@ -97,6 +97,7 @@ public class AuthRepository {
         SelectStatementProvider selectStatementProvider = SqlBuilder.select(count(activity.allColumns()))
                 .from(activity)
                 .where(activity.organizerId, isEqualTo(organizerId))
+                .and(activity.status, isNotEqualTo(1))
                 .build().render(RenderingStrategies.MYBATIS3);
         return activityMapper.count(selectStatementProvider);
     }

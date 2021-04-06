@@ -53,7 +53,8 @@ Page({
       time: '时间',
       position: '省市区',
       address: '地址',
-      detail: '详细'
+      detail: '详细',
+      userNum: 0
       // 'video_link': 123,
       // 'price': 123,
       // 'vip_price': 123,
@@ -114,11 +115,12 @@ Page({
    */
   onLoad: function (options) {
     console.log(options)
+    this.setData({
+      navH: app.globalData.navHeight,
+      id: options.id
+    });
     this.getActivityInfo(options.id)
     var that = this;
-    this.setData({
-      navH: app.globalData.navHeight
-    });
     //设置商品列表高度
     wx.getSystemInfo({
       success: function (res) {
@@ -144,6 +146,7 @@ Page({
     this.getGoodsDetails();
     this.getList();
   },
+  // 获取商品信息
   getActivityInfo(id) {
     // console.log(id)
     req.post({
@@ -160,9 +163,40 @@ Page({
           time: dayjs(data.time).tz(dayjs.tz.guess()).format('YYYY-MM-DD HH:mm'),
           position: util.getRegion(data.regionCode),
           address: data.address,
-          detail: data.detail
+          detail: data.detail,
+          userNum: data.user
         }
       })
+    })
+  },
+  toUserPage(){
+    wx.navigateTo({
+      url:"/pages/activity_user/activity_user?id=" + this.data.id
+    })
+  },
+  editActivity(){
+    wx.navigateTo({
+      url: '/pages/activity_edit/activity_edit?id=' + this.data.id,
+    })
+  },
+  deleteActivity(){
+    wxp.showModal({
+      title:'确认删除吗'
+    }).then(res=>{
+      if(res.confirm){
+        // console.log('确认')
+        return req.post({
+          url:'/activity/delete',
+          data:this.data.id
+        })
+      } else if(res.cancel){
+        // console.log('取消')
+      }
+    }).then(res=>{
+      console.log(res)
+      if(res && res.statusCode == 200){
+
+      }
     })
   },
   returns: function () {

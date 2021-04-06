@@ -28,7 +28,7 @@ public class AuthController {
         return authService.login(loginCode);
     }
 
-    // TODO token check
+    @OrgTokenCheck
     @PostMapping("setWechatUserInfo")
     public boolean setUserinfo(@RequestHeader Map<String, String> headers, @RequestBody WechatUserInfo wechatUserInfo){
         log.info(wechatUserInfo.toString());

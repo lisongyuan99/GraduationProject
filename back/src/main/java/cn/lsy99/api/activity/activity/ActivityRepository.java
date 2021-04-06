@@ -1,11 +1,7 @@
 package cn.lsy99.api.activity.activity;
 
-import cn.lsy99.api.activity.generator.mapper.ActivityMapper;
-import cn.lsy99.api.activity.generator.mapper.ActivityStatisticsMapper;
-import cn.lsy99.api.activity.generator.mapper.CategoryMapper;
-import cn.lsy99.api.activity.generator.table.Activity;
-import cn.lsy99.api.activity.generator.table.ActivityStatistics;
-import cn.lsy99.api.activity.generator.table.Category;
+import cn.lsy99.api.activity.generator.mapper.*;
+import cn.lsy99.api.activity.generator.table.*;
 import cn.lsy99.api.activity.util.ArrayUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.dynamic.sql.SqlBuilder;
@@ -19,11 +15,13 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.Optional;
 
+import static cn.lsy99.api.activity.generator.mapper.ActivityCustomerDynamicSqlSupport.activityCustomer;
+import static cn.lsy99.api.activity.generator.mapper.ActivityCustomerDynamicSqlSupport.activityId;
 import static cn.lsy99.api.activity.generator.mapper.ActivityStatisticsDynamicSqlSupport.activityStatistics;
 import static cn.lsy99.api.activity.generator.mapper.CategoryDynamicSqlSupport.category;
 import static cn.lsy99.api.activity.generator.mapper.ActivityDynamicSqlSupport.activity;
-import static org.mybatis.dynamic.sql.SqlBuilder.isEqualTo;
-import static org.mybatis.dynamic.sql.SqlBuilder.isGreaterThan;
+import static cn.lsy99.api.activity.generator.mapper.CustomerDynamicSqlSupport.customer;
+import static org.mybatis.dynamic.sql.SqlBuilder.*;
 
 @Slf4j
 @Repository
@@ -34,6 +32,10 @@ public class ActivityRepository {
     private ActivityMapper activityMapper;
     @Resource
     private ActivityStatisticsMapper activityStatisticsMapper;
+    @Resource
+    private ActivityCustomerMapper activityCustomerMapper;
+    @Resource
+    CustomerMapper customerMapper;
 
     public List<Category> getAllCategory() {
         SelectStatementProvider selectStatementProvider = SqlBuilder
@@ -51,63 +53,51 @@ public class ActivityRepository {
     }
 
     public List<Activity> getMyActivity(int id) {
-        return activityMapper.select(c -> c.where(activity.organizerId, isEqualTo(id)));
+        // TODO 常量
+        return activityMapper.select(c ->
+                c.where(activity.organizerId, isEqualTo(id))
+                        .and(activity.status, isNotEqualTo(1))
+        );
     }
 
     public Optional<Activity> getById(int id) {
         return activityMapper.selectByPrimaryKey(id);
     }
 
-    public List<Activity> getActivitiesId(int limit) {
-        SelectStatementProvider selectStatementProvider = SqlBuilder
-                .select(activity.id, activity.organizerId)
-                .from(activity)
-                .orderBy(activity.id)
-                .limit(limit)
+    public long getUserNum(int id) {
+        SelectStatementProvider selectStatementProvider = SqlBuilder.select(count(activityCustomer.allColumns()))
+                .from(activityCustomer)
+                .where(activityCustomer.activityId, isEqualTo(id))
                 .build().render(RenderingStrategies.MYBATIS3);
-        return activityMapper.selectMany(selectStatementProvider);
+        return activityCustomerMapper.count(selectStatementProvider);
     }
 
-    public List<Activity> getActivitiesId(int lastId, int limit) {
+    public List<Customer> getUser(int id) {
         SelectStatementProvider selectStatementProvider = SqlBuilder
-                .select(activity.id, activity.organizerId)
-                .from(activity)
-                .where(activity.id, isGreaterThan(lastId))
-                .orderBy(activity.id)
-                .limit(limit)
+                .select(customer.allColumns())
+                .from(activityCustomer)
+                .join(customer, on(activityCustomer.customerId, equalTo(customer.id)))
+                .where(activityCustomer.activityId, isEqualTo(id))
                 .build().render(RenderingStrategies.MYBATIS3);
-        return activityMapper.selectMany(selectStatementProvider);
+        return customerMapper.selectMany(selectStatementProvider);
     }
 
-    public int insertActivityCount(int activityId, int organizerId, int count) {
-        Optional<ActivityStatistics> activityStatistics = activityStatisticsMapper.selectByPrimaryKey(activityId);
-        if (activityStatistics.isPresent()) {
-            String oldString = activityStatistics.get().getVisits();
-            String newString;
-            if (oldString.length() == 0) {
-                newString = String.valueOf(count);
-            } else {
-                newString = oldString + ArrayUtil.getDivider() + count;
-            }
-            return activityStatisticsMapper.updateByPrimaryKeySelective(ActivityStatistics.builder()
-                    .activityId(activityId)
-                    .visits(newString)
-                    .build());
-        } else {
-            return activityStatisticsMapper.insert(ActivityStatistics.builder()
-                    .activityId(activityId)
-                    .organizerId(organizerId)
-                    .visits(String.valueOf(count))
-                    .build());
-        }
+    public int removeUser(int activityId, int userId) {
+        return activityCustomerMapper.delete(c ->
+                c.where(activityCustomer.activityId, isEqualTo(activityId))
+                        .and(activityCustomer.customerId, isEqualTo(userId)));
     }
 
-    public List<ActivityStatistics> test(){
-        SelectStatementProvider selectStatementProvider = SqlBuilder
-                .select(activityStatistics.allColumns())
-                .from(activityStatistics)
-                .orderBy(activityStatistics.activityId)
-                .build().render(RenderingStrategies.MYBATIS3);
-        return activityStatisticsMapper.selectMany(selectStatementProvider);
+    public int editActivity(Activity activity) {
+        return activityMapper.updateByPrimaryKeySelective(activity);
+    }
+
+    public int deleteActivity(int id) {
+        // TODO 常量
+        Activity activity = Activity.builder()
+                .id(id)
+                .status(1)
+                .build();
+        return activityMapper.updateByPrimaryKeySelective(activity);
     }
 }

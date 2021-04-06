@@ -56,13 +56,15 @@
     </view>
     <view style='height:120rpx;'></view>
   </scroll-view>
-  <view class='footer acea-row row-between-wrapper'>
+  <!-- <view class='footer acea-row row-between-wrapper'>
     <button>编辑</button>
-  </view>
+    <button>删除</button>
+  </view> -->
+
   <shareRedPackets sharePacket="{{sharePacket}}" bind:listenerActionSheet="listenerActionSheet"></shareRedPackets>
 </view>
 <!-- 分享按钮 -->
-<action-sheet hidden="{{actionSheetHidden}}" bindchange="listenerActionSheet" class='pro-wrapper' hover-class='none'>
+<!-- <action-sheet hidden="{{actionSheetHidden}}" bindchange="listenerActionSheet" class='pro-wrapper' hover-class='none'>
   <action-sheet-item hover-class='none'>
     <button open-type="share" class='contact' hover-class='none'>
       <view class='iconn'></view>
@@ -73,12 +75,39 @@
       生成海报
     </button>
   </action-sheet-item>
-</action-sheet>
+</action-sheet> -->
 <!-- 海报展示 -->
-<view class='poster-pop' wx:if="{{posterImageStatus}}">
+<!-- <view class='poster-pop' wx:if="{{posterImageStatus}}">
   <image src='/images/poster-close.png' class='close' bindtap='posterImageClose'></image>
   <image src='{{posterImage}}'></image>
   <view class='save-poster' bindtap='savePosterPath'>保存到手机</view>
 </view>
 <view class='mask' wx:if="{{posterImageStatus}}"></view>
-<canvas class="canvas" canvas-id='myCanvas' wx:if="{{canvasStatus}}"></canvas>
+<canvas class="canvas" canvas-id='myCanvas' wx:if="{{canvasStatus}}"></canvas> -->
+<view class="buttom-paddle">
+  <view class="customer-panel" bindtap="toUserPage">
+    <van-icon name="friends-o" />
+    <view>参加人数:{{activityInfo.userNum}}</view>
+    <van-icon name="arrow" />
+  </view>
+  <!-- <view class="button-panel">
+    <button type="default" class="my-button button-left">
+      <van-icon name="service-o" size="50rpx" color="#e93323"/>
+      默认按钮
+    </button>
+    <button type="default" class="my-button button-right" type="warn">
+      <van-icon name="service-o" size="50rpx" color="#e93323"/>
+      默认按钮
+    </button>
+  </view> -->
+  <view class="button-panel">
+    <view class="icon-button" bindtap="editActivity">
+      <van-icon name="edit" size="50rpx" color="#e93323" />
+      <text>编辑</text>
+    </view>
+    <view class="icon-button" bindtap="deleteActivity">
+      <van-icon name="close" size="50rpx" color="#e93323" />
+      <text>删除</text>
+    </view>
+  </view>
+</view>

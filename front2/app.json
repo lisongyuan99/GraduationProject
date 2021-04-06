@@ -1,6 +1,5 @@
 {
   "pages": [
-    
     "pages/user/user",
     "pages/activity_new/activity_new",
     "pages/comment_list/comment_list",
@@ -12,9 +11,10 @@
     "pages/feedback_list/feedback_list",
     "pages/editor/editor",
     "pages/activity_preview/activity_preview",
-    "pages/category_edit/category_deit",
-    "pages/balance/balance"
-    
+    "pages/balance/balance",
+    "pages/activity_edit/activity_edit",
+    "pages/category_edit/category_edit",
+    "pages/activity_user/activity_user"
   ],
   "window": {
     "backgroundTextStyle": "dark",

@@ -40,9 +40,7 @@ Page({
     }).exec(res => {
       let editorContent = getApp().globalData.editorContent
       if (editorContent) {
-        this.editorCtx.setContents({
-          delta: editorContent.delta
-        })
+        this.editorCtx.setContents(editorContent)
       }
     })
 
@@ -114,7 +112,7 @@ Page({
       }
     })
   },
-  return() {
+  return () {
     let indexList = [] // 有图片的delta数组下标 该数组的下标对应fileList下标
     let delta
     wxp.showToast({
@@ -132,8 +130,8 @@ Page({
         let tempUrl = ops[index].insert.image
         if (tempUrl != undefined && tempUrl != null) {
           // if (tempUrl.startsWith("http://tmp/")) {
-            indexList.push(index)
-            fileList.push(tempUrl)
+          indexList.push(index)
+          fileList.push(tempUrl)
           // }
         }
       }

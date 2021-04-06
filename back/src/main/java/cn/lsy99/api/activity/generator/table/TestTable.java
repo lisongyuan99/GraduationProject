@@ -13,21 +13,21 @@ import lombok.ToString;
 @Builder
 @ToString
 public class TestTable {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-03T19:11:46.2255971+08:00", comments="Source field: test_table.id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.6206972+08:00", comments="Source field: test_table.id")
     private Integer id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-03T19:11:46.2255971+08:00", comments="Source field: test_table.lat")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.6216951+08:00", comments="Source field: test_table.lat")
     private Double lat;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-03T19:11:46.2255971+08:00", comments="Source field: test_table.lng")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.6216951+08:00", comments="Source field: test_table.lng")
     private Double lng;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-03T19:11:46.2255971+08:00", comments="Source field: test_table.position")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.6216951+08:00", comments="Source field: test_table.position")
     private Object position;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-03T19:11:46.2255971+08:00", comments="Source field: test_table.ids")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.6216951+08:00", comments="Source field: test_table.ids")
     private Object ids;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-03T19:11:46.2255971+08:00", comments="Source field: test_table.strings")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.6216951+08:00", comments="Source field: test_table.strings")
     private String[] strings;
 }

@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "navbar": "/components/navbar/index",
+    "mp-uploader": "weui-miniprogram/uploader/uploader",
+    "van-area": "/components/vant/area/index",
+    "van-popup" : "/components/vant/popup/index"
+  }
+}

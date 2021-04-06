@@ -1,12 +1,15 @@
 package cn.lsy99.api.activity.activity.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
-public class AddActivityEntity {
+@Builder
+public class ActivityModifyEntity {
+    private int activityId;
     private String name;
     private String introduction;
     private String[] pictures;

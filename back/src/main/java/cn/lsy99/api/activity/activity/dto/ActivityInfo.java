@@ -16,4 +16,5 @@ public class ActivityInfo {
     private String address;
     private String detail;
     private Date time;
+    private long user;
 }

@@ -19,11 +19,6 @@ class ActivityRepositoryTest {
     private AuthService authService;
 
     @Test
-    public void test(){
-        activityController.statistic();
-    }
-
-    @Test
     public void test2(){
         log.info(authService.getCounts(18).toString());
     }

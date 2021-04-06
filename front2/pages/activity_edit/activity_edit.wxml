@@ -1,0 +1,89 @@
+<!--pages/activity_new/activity_new.wxml-->
+<navbar parameter="{{parameter}}"></navbar>
+<form bindsubmit="formSubmit">
+  <view class="personal-data">
+    <view class="list">
+
+      <view class="item acea-row row-between-wrapper">
+        <view>活动名称</view>
+        <view class="input">
+          <input type="text" name="name" value="{{name}}" placeholder="{{placeholder}}"></input>
+        </view>
+      </view>
+
+      <view class="item acea-row row-between-wrapper">
+        <view>活动简介</view>
+        <view class="input">
+          <input type="text" name="introduction" value="{{introduction}}" placeholder="{{placeholder}}"></input>
+        </view>
+      </view>
+
+      <view class="item acea-row row-between-wrapper">
+        <view class="uploader-view">
+          <mp-uploader class="my-uploader" max-count="5" title="展示图片" files="{{images}}" bindselect="selectImage"
+            binddelete="deleteImage">
+          </mp-uploader>
+        </view>
+      </view>
+
+      <view class="item acea-row row-between-wrapper">
+        <view>活动分类</view>
+        <view class="input acea-row row-between-wrapper">
+          <picker name="category" range="{{allCategory}}" range-key="name" value="{{category}}"
+            bindchange="onCategoryChange">
+            {{allCategory[category].name}}
+            <text class="iconfont icon-xiangyou"></text>
+          </picker>
+        </view>
+      </view>
+
+      <view class="item acea-row row-between-wrapper">
+        <view>日期</view>
+        <view class="input acea-row row-between-wrapper">
+          <picker mode="date" name="date" value="{{date}}" start="{{date}}" bindchange="onDateChange">
+            {{date}}<text class="iconfont icon-xiangyou"></text>
+          </picker>
+        </view>
+      </view>
+
+      <view class="item acea-row row-between-wrapper">
+        <view>时间</view>
+        <view class="input acea-row row-between-wrapper">
+          <picker mode="time" name="time" value="{{time}}" bindchange="onTimeChange">
+            {{time}}<text class="iconfont icon-xiangyou"></text>
+          </picker>
+        </view>
+      </view>
+
+      <view class="item acea-row row-between-wrapper">
+        <view>地区</view>
+        <view class="input acea-row row-between-wrapper">
+          <!-- <picker mode="region" name="region" value="{{region}}" custom-item="{{regionCustomItem}}" bindchange="onRegionChange">
+            {{region[0]}} {{region[1]}} {{region[2]}}
+            
+          </picker> -->
+          <view class="content" bindtap="openAreaPicker">
+            {{region[0]}} {{region[1]}} {{region[2]}}
+            <text class="iconfont icon-xiangyou"></text>
+          </view>
+          <van-popup show="{{ showAreaPicker }}" bind:close="closeAreaPicker" position="bottom">
+            <van-area area-list="{{ areaList }}" bind:confirm="confirmArea" bind:cancel="closeAreaPicker" value="{{regionCode}}"></van-area>
+          </van-popup>
+        </view>
+      </view>
+      <view class="item acea-row row-between-wrapper">
+        <view>详细地址</view>
+        <view class="input">
+          <input type="text" name="address" value="{{address}}" placeholder="{{placeholder}}"></input>
+        </view>
+      </view>
+      <view class="item acea-row row-between-wrapper">
+        <view>商品详情</view>
+        <navigator url="/pages/editor/editor" hover-class="none" class="input">
+          {{detailText}}<text class="iconfont icon-xiangyou"></text>
+        </navigator>
+      </view>
+    </view>
+    <button class="modifyBnt bg-color" formType="submit">保存修改</button>
+  </view>
+</form>
