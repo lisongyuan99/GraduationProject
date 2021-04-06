@@ -1,11 +1,9 @@
 import req from '../../utils/req'
 import util from '../../utils/util'
-import { wxp } from '../../utils/wxp'
-let dayjs = require('dayjs')
-var utc = require('dayjs/plugin/utc') // dependent on utc plugin
-var timezone = require('dayjs/plugin/timezone')
-dayjs.extend(utc)
-dayjs.extend(timezone)
+import time from '../../utils/time'
+import {
+  wxp
+} from '../../utils/wxp'
 
 const app = getApp();
 Page({
@@ -15,6 +13,7 @@ Page({
    */
   data: {
     productList: [],
+    debug:'not loaded',
     parameter: {
       'navbar': '1',
       'return': '1',
@@ -48,7 +47,6 @@ Page({
    */
   onLoad: function (options) {
     this.getAllActivity()
-    console.log(dayjs.tz.guess())
   },
   /**
    * 商品详情跳转
@@ -56,7 +54,7 @@ Page({
   goDetail: function (e) {
     // console.log(e.currentTarget.dataset.id)
     wx.navigateTo({
-      url:'/pages/activity_preview/activity_preview?id='+e.currentTarget.dataset.id
+      url: '/pages/activity_preview/activity_preview?id=' + e.currentTarget.dataset.id
     })
   },
   Changswitch: function () {
@@ -75,8 +73,13 @@ Page({
     this.get_product_list(true);
   },
   getAllActivity() {
-    req.get({
-      url: "/activity/my"
+    wxp.showToast({
+      title: '加载中',
+      icon: 'loading'
+    }).then(() => {
+      return req.get({
+        url: "/activity/my"
+      })
     }).then(res => {
       console.log(res)
       let list = []
@@ -85,10 +88,11 @@ Page({
           id: item.id,
           name: item.name,
           image: item.pic,
-          time: dayjs(item.date).tz(dayjs.tz.guess()).format('YYYY-MM-DD HH:mm'),
+          time: time.dateToFullString(time.utcToDate(item.date)),
           position: util.getRegion(item.regionCode) //item.regionCode
         })
       }
+      
       this.setData({
         productList: list
       })

@@ -1,11 +1,11 @@
 // pages/activity_new/activity_new.js
-let dayjs = require('dayjs')
-let customParseFormat = require('dayjs/plugin/customParseFormat')
+
 import req from '../../utils/req'
 import {
   wxp
 } from '../../utils/wxp'
 import area from '../../utils/area'
+import time from '../../utils/time'
 Page({
 
   /**
@@ -41,10 +41,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let now = dayjs()
     this.setData({
-      date: now.format('YYYY-MM-DD'),
-      time: now.format('HH:mm'),
+      date: time.dateToDateString(new Date()),
+      time: time.dateToTimeString(new Date()),
       areaList: area
     })
     getApp().globalData.editorContent = null
@@ -74,53 +73,52 @@ Page({
   formSubmit(e) {
     // console.log(this.data.images)
     wxp.showToast({
-        title: '上传中',
-        icon: 'loading'
-      }).then(() => {
-        let fileList = []
-        for (let file of this.data.images) {
-          fileList.push(file.url)
-        }
-        return req.uploadFiles(fileList)
-      }).then((res) => {
-        console.log(res)
-        this.setData({
-          uploadFiles: res
-        })
-        console.log(this.data)
-        console.log(e)
-        let formData = e.detail.value
-        dayjs.extend(customParseFormat)
-        let date = dayjs(formData.date + ' ' + formData.time, 'YYYY-MM-DD hh:mm').format()
-        let uploadInfo = {
-          name: formData.name,
-          introduction: formData.introduction,
-          pictures: this.data.uploadFiles,
-          category: formData.category,
-          date: date,
-          regionCode: this.data.regionCode,
-          address: formData.address,
-          detail: this.data.detail
-        }
-        console.log(uploadInfo)
-        // wxp.hideToast()
-        return req.post({
-          url: '/activity/add',
-          data:uploadInfo
-        })
-      }).then(res=>{
-        console.log(res)
-        
+      title: '上传中',
+      icon: 'loading'
+    }).then(() => {
+      let fileList = []
+      for (let file of this.data.images) {
+        fileList.push(file.url)
+      }
+      console.log(fileList)
+      return req.uploadFiles(fileList)
+    }).then((res) => {
+      console.log(res)
+      this.setData({
+        uploadFiles: res
       })
-      .catch((res) => {
-        wxp.hideToast()
-        wxp.showToast({
-          title: res.message,
-          icon: 'error'
-        })
-      }).then(() => {
-        wxp.hideToast()
+      console.log(this.data)
+      console.log(e)
+      let formData = e.detail.value
+      // let date = dayjs(formData.date + ' ' + formData.time, 'YYYY-MM-DD hh:mm').format()
+      let date = date = time.StringToDate(formData.date, formData.time)
+      let uploadInfo = {
+        name: formData.name,
+        introduction: formData.introduction,
+        pictures: this.data.uploadFiles,
+        category: formData.category,
+        date: date,
+        regionCode: this.data.regionCode,
+        address: formData.address,
+        detail: this.data.detail
+      }
+      console.log(uploadInfo)
+      // wxp.hideToast()
+      return req.post({
+        url: '/activity/add',
+        data: uploadInfo
       })
+    }).then(res => {
+      console.log(res)
+      wxp.hideToast()
+    }).then(() => {
+      wx.navigateBack()
+    }).catch((res) => {
+      wxp.showToast({
+        title: res.message,
+        icon: 'error'
+      })
+    })
 
   },
   // 获取当前位置信息

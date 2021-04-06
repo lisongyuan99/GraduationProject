@@ -13,7 +13,6 @@
     "pages/activity_preview/activity_preview",
     "pages/balance/balance",
     "pages/activity_edit/activity_edit",
-    "pages/category_edit/category_edit",
     "pages/activity_user/activity_user"
   ],
   "window": {

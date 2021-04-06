@@ -27,7 +27,8 @@ export default {
     let indexList = [] // fileList中的索引
     let fileList = [] // 不重复的文件 地址是tmp中的
     for (let file of files) {
-      if (file.startsWith("http://tmp/")){
+      if (file.startsWith("http://tmp/")||file.startsWith("wxfile://")){
+        // wxfile://
         await wxp.getFileInfo({
           filePath: file,
         }).then(res => { 
@@ -60,7 +61,7 @@ export default {
         indexList.push(-1)
       }
     }
-    // console.log(indexList, fileList)
+    console.log(indexList, fileList)
     let uploadedFileList = [] // 不重复的文件 地址是上传后的地址
     // 上传文件
     for (let file of fileList) {
@@ -68,6 +69,7 @@ export default {
         filePath: file.url,
         name: "file"
       }).then(res => {
+        console.log(res)
         if (res.statusCode == 200) {
           uploadedFileList.push(res.data)
         } else {

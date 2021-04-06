@@ -4,7 +4,6 @@
   "description": "#### Description {**When you're done, you can delete the content in this README and update the file with details for others getting started with your repository**}",
   "main": "app.js",
   "dependencies": {
-    "dayjs": "^1.10.4",
     "miniprogram-api-promise": "^1.0.4"
   },
   "devDependencies": {},

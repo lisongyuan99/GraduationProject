@@ -1,11 +1,7 @@
 import req from '../../utils/req'
 import util from '../../utils/util'
 import { wxp } from '../../utils/wxp'
-let dayjs = require('dayjs')
-var utc = require('dayjs/plugin/utc') // dependent on utc plugin
-var timezone = require('dayjs/plugin/timezone')
-dayjs.extend(utc)
-dayjs.extend(timezone)
+import time from '../../utils/time'
 const app = getApp();
 
 Page({
@@ -160,7 +156,7 @@ Page({
           images: data.pics,
           title: data.name,
           description: data.description,
-          time: dayjs(data.time).tz(dayjs.tz.guess()).format('YYYY-MM-DD HH:mm'),
+          time: time.dateToFullString(time.utcToDate(data.time)),
           position: util.getRegion(data.regionCode),
           address: data.address,
           detail: data.detail,

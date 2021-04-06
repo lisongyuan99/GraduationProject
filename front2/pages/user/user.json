@@ -1,7 +1,6 @@
 {
   "usingComponents": {
     "navbar": "/components/navbar/index",
-    "generalWindow": "/components/general-window/index",
     "ec-canvas": "/ec-canvas/ec-canvas",
     "van-icon" : "/components/vant/icon/index"
   },

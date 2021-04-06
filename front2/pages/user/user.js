@@ -2,8 +2,8 @@ import {
   wxp
 } from '../../utils/wxp'
 import req from '../../utils/req'
-import * as echarts from '../../ec-canvas/echarts';
-let dayjs = require('dayjs')
+import * as echarts from '../../ec-canvas/echarts'
+import time from '../../utils/time'
 
 Page({
 
@@ -91,7 +91,7 @@ Page({
         return req.get({
           url: '/auth/getHomepageCounts'
         })
-      }).then( res=>{
+      }).then(res => {
         this.setData({
           activityCount: res.data.activityCount,
           followerCount: res.data.followerCount,
@@ -109,10 +109,17 @@ Page({
       .catch(res => {
         console.log(res)
         wx.hideLoading()
-        wx.showToast({
-          title: '登录失败',
-          icon: 'error'
-        })
+        if (this.data.isLogin) {
+          wx.showToast({
+            title: '登录成功',
+            icon: 'success'
+          })
+        } else {
+          wx.showToast({
+            title: '登录失败',
+            icon: 'error'
+          })
+        }
       })
   },
 
@@ -191,11 +198,11 @@ Page({
   //   })
   // },
 
-  getOption(dataList){
-    let today = dayjs()
+  getOption(dataList) {
+    let today = new Date()
     let date = [];
-    for(let i = 0; i<7; i++){
-      date.push(today.subtract(7-i, 'day').format('M/D'))
+    for (let i = 7; i > 0; i--) {
+      date.push(time.dateToBriefTimeString(time.subDay(today, i)))
     }
     let option = {
       title: {
@@ -212,8 +219,8 @@ Page({
         position: 'left',
         type: 'value',
         name: '浏览量',
-      } ],
-      series: [ {
+      }],
+      series: [{
         name: '浏览量',
         type: 'line',
         // yAxisIndex: '0',

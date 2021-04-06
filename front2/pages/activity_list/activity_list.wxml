@@ -59,3 +59,4 @@
    <view class='pictrue'><image src='/images/noShopper.png'></image></view>
    <!-- <recommend host_product="{{host_product}}"></recommend> -->
 </view>
+

@@ -1,12 +1,12 @@
 // pages/activity_new/activity_new.js
-let dayjs = require('dayjs')
-let customParseFormat = require('dayjs/plugin/customParseFormat')
+
 import req from '../../utils/req'
 import {
   wxp
 } from '../../utils/wxp'
 import area from '../../utils/area'
 import util from '../../utils/util'
+import time from '../../utils/time'
 Page({
 
   /**
@@ -66,8 +66,7 @@ Page({
           url: url
         })
       }
-      let date = dayjs(res.data.date).tz(dayjs.tz.guess())
-
+      let date = time.utcToDate(res.data.date)
       this.setData({
         name: res.data.name,
         introduction: res.data.introduction,
@@ -130,8 +129,8 @@ Page({
         console.log(this.data)
         console.log(e)
         let formData = e.detail.value
-        dayjs.extend(customParseFormat)
-        let date = dayjs(formData.date + ' ' + formData.time, 'YYYY-MM-DD hh:mm').format()
+        // let date = dayjs(formData.date + ' ' + formData.time, 'YYYY-MM-DD hh:mm').format()
+        let date = time.StringToDate(formData.date, formData.time)
         let uploadInfo = {
           activityId:this.data.id,
           name: formData.name,
