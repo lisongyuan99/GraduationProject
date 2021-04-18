@@ -12,13 +12,15 @@ export default {
     }
   },
 
-  getRegion2(code){
+  getRegion2(code) {
     let temp = []
     temp.push(area.province_list[parseInt(code / 10000) * 10000])
     temp.push(area.city_list[parseInt(code / 100) * 100])
     temp.push(area.county_list[code])
     return temp
+  },
+
+  fixTo2(num) {
+    return num.toFixed(2).toString()
   }
-
-
 }

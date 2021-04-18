@@ -7,14 +7,14 @@
       <view class="item acea-row row-between-wrapper">
         <view>活动名称</view>
         <view class="input">
-          <input type="text" name="name" value="{{userInfo.nickname}}" placeholder="{{placeholder}}"></input>
+          <input type="text" name="name" placeholder="{{placeholder}}"></input>
         </view>
       </view>
 
       <view class="item acea-row row-between-wrapper">
         <view>活动简介</view>
         <view class="input">
-          <input type="text" name="introduction" value="{{userInfo.nickname}}" placeholder="{{placeholder}}"></input>
+          <input type="text" name="introduction" placeholder="{{placeholder}}"></input>
         </view>
       </view>
 
@@ -38,7 +38,7 @@
       </view>
 
       <view class="item acea-row row-between-wrapper">
-        <view>日期</view>
+        <view>活动日期</view>
         <view class="input acea-row row-between-wrapper">
           <picker mode="date" name="date" value="{{date}}" start="{{date}}" bindchange="onDateChange">
             {{date}}<text class="iconfont icon-xiangyou"></text>
@@ -47,7 +47,7 @@
       </view>
 
       <view class="item acea-row row-between-wrapper">
-        <view>时间</view>
+        <view>活动时间</view>
         <view class="input acea-row row-between-wrapper">
           <picker mode="time" name="time" value="{{time}}" bindchange="onTimeChange">
             {{time}}<text class="iconfont icon-xiangyou"></text>
@@ -56,7 +56,7 @@
       </view>
 
       <view class="item acea-row row-between-wrapper">
-        <view>地区</view>
+        <view>活动地区</view>
         <view class="input acea-row row-between-wrapper">
           <!-- <picker mode="region" name="region" value="{{region}}" custom-item="{{regionCustomItem}}" bindchange="onRegionChange">
             {{region[0]}} {{region[1]}} {{region[2]}}
@@ -66,23 +66,57 @@
             {{region[0]}} {{region[1]}} {{region[2]}}
             <text class="iconfont icon-xiangyou"></text>
           </view>
+
           <van-popup show="{{ showAreaPicker }}" bind:close="closeAreaPicker" position="bottom">
-            <van-area area-list="{{ areaList }}" bind:confirm="confirmArea" bind:cancel="closeAreaPicker" value="{{regionCode}}"></van-area>
+            <van-area area-list="{{ areaList }}" bind:confirm="confirmArea" bind:cancel="closeAreaPicker"
+              value="{{regionCode}}"></van-area>
           </van-popup>
         </view>
       </view>
+
       <view class="item acea-row row-between-wrapper">
-        <view>详细地址</view>
-        <view class="input">
-          <input type="text" name="address" value="{{userInfo.nickname}}" placeholder="{{placeholder}}"></input>
+        <view>活动地址</view>
+        <view class="input content" bindtap="selectPosition">
+          {{address ? address : '点击选择'}}
+          <text class="iconfont icon-xiangyou"></text>
         </view>
       </view>
+
       <view class="item acea-row row-between-wrapper">
         <view>商品详情</view>
         <navigator url="/pages/editor/editor" hover-class="none" class="input">
           {{detailText}}<text class="iconfont icon-xiangyou"></text>
         </navigator>
       </view>
+
+      <view class="item acea-row row-between-wrapper">
+        <view>免费活动</view>
+        <view class="input">
+          <van-switch checked="{{ free }}" bind:change="onChange" size="40rpx" active-color="#e93323" />
+        </view>
+      </view>
+
+      <view class="item acea-row row-between-wrapper" wx:if="{{!free}}">
+        <view>活动价格</view>
+        <view class="input">
+          <input type="digit" name="price" placeholder="{{placeholder}}"></input>
+        </view>
+      </view>
+
+      <view class="item acea-row row-between-wrapper" wx:if="{{!free}}">
+        <view>活动原价</view>
+        <view class="input">
+          <input type="digit" name="ori" placeholder="{{placeholder}}"></input>
+        </view>
+      </view>
+
+      <view class="item acea-row row-between-wrapper">
+        <view>活动数量</view>
+        <view class="input">
+          <input type="number" name="count" placeholder="{{placeholder}}"></input>
+        </view>
+      </view>
+
     </view>
     <button class="modifyBnt bg-color" formType="submit">保存修改</button>
   </view>

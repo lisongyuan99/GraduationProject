@@ -37,40 +37,40 @@ import org.mybatis.dynamic.sql.util.mybatis3.MyBatis3Utils;
 
 @Mapper
 public interface ActivityMapper {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.5956115+08:00", comments="Source Table: activity")
-    BasicColumn[] selectList = BasicColumn.columnList(id, title, detail, subtitle, beginTime, endTime, timeType, organizerId, category, posLat, posLng, createTime, updateTime, positionCode, positionDetail, prize, popularity, pics, status);
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.7999484+08:00", comments="Source Table: activity")
+    BasicColumn[] selectList = BasicColumn.columnList(id, title, detail, subtitle, beginTime, organizerId, categoryId, posLat, posLng, positionCode, positionDetail, pics, status, price, priceOri, free, sum);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.5846431+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.7889796+08:00", comments="Source Table: activity")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     long count(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.5856385+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.7899752+08:00", comments="Source Table: activity")
     @DeleteProvider(type=SqlProviderAdapter.class, method="delete")
     int delete(DeleteStatementProvider deleteStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.5856385+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.7899752+08:00", comments="Source Table: activity")
     @InsertProvider(type=SqlProviderAdapter.class, method="insert")
     @Options(useGeneratedKeys=true,keyProperty="record.id")
     int insert(InsertStatementProvider<Activity> insertStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.5876334+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.7929672+08:00", comments="Source Table: activity")
     @Insert({
         "${insertStatement}"
     })
     @Options(useGeneratedKeys=true,keyProperty="records.id")
     int insertMultiple(@Param("insertStatement") String insertStatement, @Param("records") List<Activity> records);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.5886305+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.7929672+08:00", comments="Source Table: activity")
     default int insertMultiple(MultiRowInsertStatementProvider<Activity> multipleInsertStatement) {
         return insertMultiple(multipleInsertStatement.getInsertStatement(), multipleInsertStatement.getRecords());
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.5896277+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.7939646+08:00", comments="Source Table: activity")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @ResultMap("ActivityResult")
     Optional<Activity> selectOne(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.5896277+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.7939646+08:00", comments="Source Table: activity")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @Results(id="ActivityResult", value = {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
@@ -78,233 +78,217 @@ public interface ActivityMapper {
         @Result(column="detail", property="detail", jdbcType=JdbcType.VARCHAR),
         @Result(column="subtitle", property="subtitle", jdbcType=JdbcType.VARCHAR),
         @Result(column="begin_time", property="beginTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="end_time", property="endTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="time_type", property="timeType", jdbcType=JdbcType.INTEGER),
         @Result(column="organizer_id", property="organizerId", jdbcType=JdbcType.INTEGER),
-        @Result(column="category", property="category", jdbcType=JdbcType.INTEGER),
+        @Result(column="category_id", property="categoryId", jdbcType=JdbcType.INTEGER),
         @Result(column="pos_lat", property="posLat", jdbcType=JdbcType.DOUBLE),
         @Result(column="pos_lng", property="posLng", jdbcType=JdbcType.DOUBLE),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="position_code", property="positionCode", jdbcType=JdbcType.INTEGER),
         @Result(column="position_detail", property="positionDetail", jdbcType=JdbcType.VARCHAR),
-        @Result(column="prize", property="prize", jdbcType=JdbcType.DOUBLE),
-        @Result(column="popularity", property="popularity", jdbcType=JdbcType.DOUBLE),
         @Result(column="pics", property="pics", jdbcType=JdbcType.VARCHAR),
-        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER)
+        @Result(column="status", property="status", jdbcType=JdbcType.INTEGER),
+        @Result(column="price", property="price", jdbcType=JdbcType.DOUBLE),
+        @Result(column="price_ori", property="priceOri", jdbcType=JdbcType.DOUBLE),
+        @Result(column="free", property="free", jdbcType=JdbcType.BIT),
+        @Result(column="sum", property="sum", jdbcType=JdbcType.INTEGER)
     })
     List<Activity> selectMany(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.5906249+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.7949622+08:00", comments="Source Table: activity")
     @UpdateProvider(type=SqlProviderAdapter.class, method="update")
     int update(UpdateStatementProvider updateStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.5906249+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.7949622+08:00", comments="Source Table: activity")
     default long count(CountDSLCompleter completer) {
         return MyBatis3Utils.countFrom(this::count, activity, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.5906249+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.7959588+08:00", comments="Source Table: activity")
     default int delete(DeleteDSLCompleter completer) {
         return MyBatis3Utils.deleteFrom(this::delete, activity, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.5916223+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.7959588+08:00", comments="Source Table: activity")
     default int deleteByPrimaryKey(Integer id_) {
         return delete(c -> 
             c.where(id, isEqualTo(id_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.5916223+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.7959588+08:00", comments="Source Table: activity")
     default int insert(Activity record) {
         return MyBatis3Utils.insert(this::insert, record, activity, c ->
             c.map(title).toProperty("title")
             .map(detail).toProperty("detail")
             .map(subtitle).toProperty("subtitle")
             .map(beginTime).toProperty("beginTime")
-            .map(endTime).toProperty("endTime")
-            .map(timeType).toProperty("timeType")
             .map(organizerId).toProperty("organizerId")
-            .map(category).toProperty("category")
+            .map(categoryId).toProperty("categoryId")
             .map(posLat).toProperty("posLat")
             .map(posLng).toProperty("posLng")
-            .map(createTime).toProperty("createTime")
-            .map(updateTime).toProperty("updateTime")
             .map(positionCode).toProperty("positionCode")
             .map(positionDetail).toProperty("positionDetail")
-            .map(prize).toProperty("prize")
-            .map(popularity).toProperty("popularity")
             .map(pics).toProperty("pics")
             .map(status).toProperty("status")
+            .map(price).toProperty("price")
+            .map(priceOri).toProperty("priceOri")
+            .map(free).toProperty("free")
+            .map(sum).toProperty("sum")
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.5926196+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.7969563+08:00", comments="Source Table: activity")
     default int insertMultiple(Collection<Activity> records) {
         return MyBatis3Utils.insertMultiple(this::insertMultiple, records, activity, c ->
             c.map(title).toProperty("title")
             .map(detail).toProperty("detail")
             .map(subtitle).toProperty("subtitle")
             .map(beginTime).toProperty("beginTime")
-            .map(endTime).toProperty("endTime")
-            .map(timeType).toProperty("timeType")
             .map(organizerId).toProperty("organizerId")
-            .map(category).toProperty("category")
+            .map(categoryId).toProperty("categoryId")
             .map(posLat).toProperty("posLat")
             .map(posLng).toProperty("posLng")
-            .map(createTime).toProperty("createTime")
-            .map(updateTime).toProperty("updateTime")
             .map(positionCode).toProperty("positionCode")
             .map(positionDetail).toProperty("positionDetail")
-            .map(prize).toProperty("prize")
-            .map(popularity).toProperty("popularity")
             .map(pics).toProperty("pics")
             .map(status).toProperty("status")
+            .map(price).toProperty("price")
+            .map(priceOri).toProperty("priceOri")
+            .map(free).toProperty("free")
+            .map(sum).toProperty("sum")
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.593617+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.7979645+08:00", comments="Source Table: activity")
     default int insertSelective(Activity record) {
         return MyBatis3Utils.insert(this::insert, record, activity, c ->
             c.map(title).toPropertyWhenPresent("title", record::getTitle)
             .map(detail).toPropertyWhenPresent("detail", record::getDetail)
             .map(subtitle).toPropertyWhenPresent("subtitle", record::getSubtitle)
             .map(beginTime).toPropertyWhenPresent("beginTime", record::getBeginTime)
-            .map(endTime).toPropertyWhenPresent("endTime", record::getEndTime)
-            .map(timeType).toPropertyWhenPresent("timeType", record::getTimeType)
             .map(organizerId).toPropertyWhenPresent("organizerId", record::getOrganizerId)
-            .map(category).toPropertyWhenPresent("category", record::getCategory)
+            .map(categoryId).toPropertyWhenPresent("categoryId", record::getCategoryId)
             .map(posLat).toPropertyWhenPresent("posLat", record::getPosLat)
             .map(posLng).toPropertyWhenPresent("posLng", record::getPosLng)
-            .map(createTime).toPropertyWhenPresent("createTime", record::getCreateTime)
-            .map(updateTime).toPropertyWhenPresent("updateTime", record::getUpdateTime)
             .map(positionCode).toPropertyWhenPresent("positionCode", record::getPositionCode)
             .map(positionDetail).toPropertyWhenPresent("positionDetail", record::getPositionDetail)
-            .map(prize).toPropertyWhenPresent("prize", record::getPrize)
-            .map(popularity).toPropertyWhenPresent("popularity", record::getPopularity)
             .map(pics).toPropertyWhenPresent("pics", record::getPics)
             .map(status).toPropertyWhenPresent("status", record::getStatus)
+            .map(price).toPropertyWhenPresent("price", record::getPrice)
+            .map(priceOri).toPropertyWhenPresent("priceOri", record::getPriceOri)
+            .map(free).toPropertyWhenPresent("free", record::getFree)
+            .map(sum).toPropertyWhenPresent("sum", record::getSum)
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.5956115+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.7999484+08:00", comments="Source Table: activity")
     default Optional<Activity> selectOne(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectOne(this::selectOne, selectList, activity, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.5966088+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.8009456+08:00", comments="Source Table: activity")
     default List<Activity> select(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectList(this::selectMany, selectList, activity, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.5966088+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.8009456+08:00", comments="Source Table: activity")
     default List<Activity> selectDistinct(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectDistinct(this::selectMany, selectList, activity, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.5966088+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.8009456+08:00", comments="Source Table: activity")
     default Optional<Activity> selectByPrimaryKey(Integer id_) {
         return selectOne(c ->
             c.where(id, isEqualTo(id_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.5976062+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.8019431+08:00", comments="Source Table: activity")
     default int update(UpdateDSLCompleter completer) {
         return MyBatis3Utils.update(this::update, activity, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.5976062+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.8019431+08:00", comments="Source Table: activity")
     static UpdateDSL<UpdateModel> updateAllColumns(Activity record, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(title).equalTo(record::getTitle)
                 .set(detail).equalTo(record::getDetail)
                 .set(subtitle).equalTo(record::getSubtitle)
                 .set(beginTime).equalTo(record::getBeginTime)
-                .set(endTime).equalTo(record::getEndTime)
-                .set(timeType).equalTo(record::getTimeType)
                 .set(organizerId).equalTo(record::getOrganizerId)
-                .set(category).equalTo(record::getCategory)
+                .set(categoryId).equalTo(record::getCategoryId)
                 .set(posLat).equalTo(record::getPosLat)
                 .set(posLng).equalTo(record::getPosLng)
-                .set(createTime).equalTo(record::getCreateTime)
-                .set(updateTime).equalTo(record::getUpdateTime)
                 .set(positionCode).equalTo(record::getPositionCode)
                 .set(positionDetail).equalTo(record::getPositionDetail)
-                .set(prize).equalTo(record::getPrize)
-                .set(popularity).equalTo(record::getPopularity)
                 .set(pics).equalTo(record::getPics)
-                .set(status).equalTo(record::getStatus);
+                .set(status).equalTo(record::getStatus)
+                .set(price).equalTo(record::getPrice)
+                .set(priceOri).equalTo(record::getPriceOri)
+                .set(free).equalTo(record::getFree)
+                .set(sum).equalTo(record::getSum);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.5986107+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.80294+08:00", comments="Source Table: activity")
     static UpdateDSL<UpdateModel> updateSelectiveColumns(Activity record, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(title).equalToWhenPresent(record::getTitle)
                 .set(detail).equalToWhenPresent(record::getDetail)
                 .set(subtitle).equalToWhenPresent(record::getSubtitle)
                 .set(beginTime).equalToWhenPresent(record::getBeginTime)
-                .set(endTime).equalToWhenPresent(record::getEndTime)
-                .set(timeType).equalToWhenPresent(record::getTimeType)
                 .set(organizerId).equalToWhenPresent(record::getOrganizerId)
-                .set(category).equalToWhenPresent(record::getCategory)
+                .set(categoryId).equalToWhenPresent(record::getCategoryId)
                 .set(posLat).equalToWhenPresent(record::getPosLat)
                 .set(posLng).equalToWhenPresent(record::getPosLng)
-                .set(createTime).equalToWhenPresent(record::getCreateTime)
-                .set(updateTime).equalToWhenPresent(record::getUpdateTime)
                 .set(positionCode).equalToWhenPresent(record::getPositionCode)
                 .set(positionDetail).equalToWhenPresent(record::getPositionDetail)
-                .set(prize).equalToWhenPresent(record::getPrize)
-                .set(popularity).equalToWhenPresent(record::getPopularity)
                 .set(pics).equalToWhenPresent(record::getPics)
-                .set(status).equalToWhenPresent(record::getStatus);
+                .set(status).equalToWhenPresent(record::getStatus)
+                .set(price).equalToWhenPresent(record::getPrice)
+                .set(priceOri).equalToWhenPresent(record::getPriceOri)
+                .set(free).equalToWhenPresent(record::getFree)
+                .set(sum).equalToWhenPresent(record::getSum);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.5986107+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.80294+08:00", comments="Source Table: activity")
     default int updateByPrimaryKey(Activity record) {
         return update(c ->
             c.set(title).equalTo(record::getTitle)
             .set(detail).equalTo(record::getDetail)
             .set(subtitle).equalTo(record::getSubtitle)
             .set(beginTime).equalTo(record::getBeginTime)
-            .set(endTime).equalTo(record::getEndTime)
-            .set(timeType).equalTo(record::getTimeType)
             .set(organizerId).equalTo(record::getOrganizerId)
-            .set(category).equalTo(record::getCategory)
+            .set(categoryId).equalTo(record::getCategoryId)
             .set(posLat).equalTo(record::getPosLat)
             .set(posLng).equalTo(record::getPosLng)
-            .set(createTime).equalTo(record::getCreateTime)
-            .set(updateTime).equalTo(record::getUpdateTime)
             .set(positionCode).equalTo(record::getPositionCode)
             .set(positionDetail).equalTo(record::getPositionDetail)
-            .set(prize).equalTo(record::getPrize)
-            .set(popularity).equalTo(record::getPopularity)
             .set(pics).equalTo(record::getPics)
             .set(status).equalTo(record::getStatus)
+            .set(price).equalTo(record::getPrice)
+            .set(priceOri).equalTo(record::getPriceOri)
+            .set(free).equalTo(record::getFree)
+            .set(sum).equalTo(record::getSum)
             .where(id, isEqualTo(record::getId))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-06T16:14:28.5996013+08:00", comments="Source Table: activity")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-17T07:58:35.8039378+08:00", comments="Source Table: activity")
     default int updateByPrimaryKeySelective(Activity record) {
         return update(c ->
             c.set(title).equalToWhenPresent(record::getTitle)
             .set(detail).equalToWhenPresent(record::getDetail)
             .set(subtitle).equalToWhenPresent(record::getSubtitle)
             .set(beginTime).equalToWhenPresent(record::getBeginTime)
-            .set(endTime).equalToWhenPresent(record::getEndTime)
-            .set(timeType).equalToWhenPresent(record::getTimeType)
             .set(organizerId).equalToWhenPresent(record::getOrganizerId)
-            .set(category).equalToWhenPresent(record::getCategory)
+            .set(categoryId).equalToWhenPresent(record::getCategoryId)
             .set(posLat).equalToWhenPresent(record::getPosLat)
             .set(posLng).equalToWhenPresent(record::getPosLng)
-            .set(createTime).equalToWhenPresent(record::getCreateTime)
-            .set(updateTime).equalToWhenPresent(record::getUpdateTime)
             .set(positionCode).equalToWhenPresent(record::getPositionCode)
             .set(positionDetail).equalToWhenPresent(record::getPositionDetail)
-            .set(prize).equalToWhenPresent(record::getPrize)
-            .set(popularity).equalToWhenPresent(record::getPopularity)
             .set(pics).equalToWhenPresent(record::getPics)
             .set(status).equalToWhenPresent(record::getStatus)
+            .set(price).equalToWhenPresent(record::getPrice)
+            .set(priceOri).equalToWhenPresent(record::getPriceOri)
+            .set(free).equalToWhenPresent(record::getFree)
+            .set(sum).equalToWhenPresent(record::getSum)
             .where(id, isEqualTo(record::getId))
         );
     }

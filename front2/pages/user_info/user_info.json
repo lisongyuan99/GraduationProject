@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "navbar": "/components/navbar/index",
-    "mp-uploader": "weui-miniprogram/uploader/uploader"
-  },
-  "navigationBarTextStyle": "white"
-}

@@ -1,0 +1,41 @@
+<!--pages/verify_order/verify_order.wxml-->
+<navbar parameter='{{parameter}}'></navbar>
+<view class='product-con'>
+  <scroll-view scroll-top="{{scrollTop}}" scroll-y='true' scroll-with-animation="true" 
+    bindscroll="scroll" class="my-scroll">
+    <image class="pic" src="{{activityInfo.images[0]}}"></image>
+    <view id="past0">
+      <view class='wrapper'>
+        <view class='name'>商品名称</view>
+        <view class='label acea-row row-between-wrapper'>
+          <view>订单编号</view>
+        </view>
+        <view class='label acea-row row-between-wrapper'>
+          <view>下单时间</view>
+        </view>
+        <view class='label acea-row row-between-wrapper'>
+          <view>单价</view> <view>数量</view>
+        </view>
+        <view class='title acea-row row-between-wrapper'>
+          <view class='name'>总价</view> <view class='name num'>￥100.00</view>
+        </view>
+        <!-- <view class="list">
+          <view class="item acea-row row-between-wrapper">
+            <view>使用个数</view>
+            <van-stepper value="1" min="1" max="{{5}}"/>
+          </view>
+        </view> -->
+
+
+
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="buttom-paddle">
+    <view class="button-panel">
+      <button class="button-left">取消</button>
+      <button class="button-right confirm">使用</button>
+    </view>
+  </view>
+</view>

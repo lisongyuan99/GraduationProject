@@ -36,12 +36,13 @@ public class VisitService {
                     count = Integer.parseInt(countString);
                 }
                 visitRepository.insertActivityCount(e.getId(), e.getOrganizerId(), count);
-                stringRedisTemplate.delete(ACTIVITY_PREFIX + e.getId());
+                // stringRedisTemplate.delete(ACTIVITY_PREFIX + e.getId());
             }
             return result.get(result.size()-1).getId();
         }
     }
 
+    // TODO 需要改进
     @Transactional
     public int statistic(int lastId, int limit) {
         List<Activity> result = visitRepository.getActivitiesId(lastId, limit);
@@ -55,7 +56,7 @@ public class VisitService {
                     count = Integer.parseInt(countString);
                 }
                 visitRepository.insertActivityCount(e.getId(), e.getOrganizerId(), count);
-                stringRedisTemplate.delete(ACTIVITY_PREFIX + e.getId());
+                // stringRedisTemplate.delete(ACTIVITY_PREFIX + e.getId());
             }
             return result.get(result.size()-1).getId();
         }

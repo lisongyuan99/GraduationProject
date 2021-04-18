@@ -13,4 +13,9 @@ public class ActivityBriefInfo {
     private String name;
     private int regionCode;
     private Date date;
+    private  boolean free;
+    private int category;
+    private int count;
+    private double price;
+    private double ori;
 }

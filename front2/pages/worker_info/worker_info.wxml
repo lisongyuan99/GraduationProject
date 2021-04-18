@@ -1,0 +1,30 @@
+<navbar parameter='{{parameter}}'></navbar>
+<form bindsubmit="formSubmit">
+  <view class='personal-data'>
+    <form class='list' bindsubmit="formSubmit">
+      <view class='item acea-row row-between-wrapper'>
+        <view>姓名</view>
+        <view class='input'><input type='text' name='nickname' value='{{nickname}}'></input></view>
+      </view>
+      <view class='item acea-row row-between-wrapper'>
+        <view>
+          <mp-uploader class="my-uploader" max-count="1" title="头像" files="{{images}}" bindselect="selectImage"
+            binddelete="deleteImage">
+          </mp-uploader>
+        </view>
+      </view>
+      <view class='item acea-row row-between-wrapper'>
+        <view>手机号码</view>
+        <navigator url="/pages/user_phone/user_phone" hover-class="none" class="input" wx:if="{{!phone}}">
+          点击绑定手机号<text class="iconfont icon-xiangyou"></text>
+        </navigator>
+        <navigator  url="/pages/user_phone/user_phone" class='input acea-row row-between-wrapper' wx:else>
+          <input type='text' disabled='true' name='phone' value='{{phone}}' class='id'></input>
+          <text class='iconfont icon-xiangyou'></text>
+        </navigator>
+      </view>
+      
+      <button class='modifyBnt bg-color' formType="submit">保存修改</button>
+    </form>
+  </view>
+</form>

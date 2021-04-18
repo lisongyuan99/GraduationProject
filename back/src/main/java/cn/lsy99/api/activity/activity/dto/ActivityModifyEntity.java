@@ -18,4 +18,10 @@ public class ActivityModifyEntity {
     private int regionCode;
     private String address;
     private String detail;
+    private boolean free;
+    private int count;
+    private double price;
+    private double ori;
+    private double lat;
+    private double lng;
 }

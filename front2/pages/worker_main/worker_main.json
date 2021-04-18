@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "navbar": "/components/navbar/index",
+    "ec-canvas": "/ec-canvas/ec-canvas",
+    "van-icon" : "/components/vant/icon/index",
+    "van-grid": "/components/vant/grid/index",
+    "van-grid-item": "/components/vant/grid-item/index"
+  },
+  "navigationBarTextStyle": "white"
+}

@@ -1,0 +1,74 @@
+/* pages/fan_list/fan_list.wxss */
+.user .fan {
+  padding: 0 30rpx;
+  height: 190rpx;
+  position: relative;
+}
+
+.user .fan .picTxt {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user .fan .picTxt .pictrue {
+  width: 120rpx;
+  height: 120rpx;
+}
+
+.user .fan .picTxt .pictrue image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+}
+
+.user .fan .picTxt .text {
+  margin-left: 35rpx;
+  margin-right: 35rpx
+}
+
+.user .fan .picTxt .text .name {
+  font-size: 32rpx;
+  max-width: 270rpx;
+}
+
+.user .fan .picTxt .text .member {
+  padding: 0 10rpx;
+  height: 36rpx;
+  background-color: rgba(0, 0, 0, 0.2);
+  font-size: 20rpx;
+  border-radius: 30rpx;
+  margin-left: 17rpx;
+}
+
+.user .fan .picTxt .text .member image {
+  width: 28rpx;
+  height: 28rpx;
+  font-size: 20rpx;
+  margin-right: 8rpx;
+}
+
+.user .fan .picTxt .text .id {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 26rpx;
+  margin-top: 15rpx;
+}
+
+.user .fan .picTxt .text .id .iconfont {
+  font-size: 30rpx;
+  margin-left: 12rpx;
+}
+
+.btn::after {
+  border: 0;
+}
+
+.fan {
+  display: flex;
+  align-content: space-around;
+}
+
+
+.btn {
+  margin: 0;
+}

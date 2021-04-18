@@ -1,8 +1,8 @@
 import {
   wxp
 } from './wxp'
-// const baseUrl = "http://localhost:8080"
-const baseUrl = "https://lsy99.cn:50002"
+const baseUrl = "http://localhost:50002"
+// const baseUrl = "https://lsy99.cn:50002"
 const tokenHeader = 'Token'
 export default {
   req(options) {

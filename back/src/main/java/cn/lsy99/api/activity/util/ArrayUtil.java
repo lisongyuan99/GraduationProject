@@ -6,13 +6,20 @@ import org.springframework.stereotype.Component;
 public class ArrayUtil {
     private static final String DIVIDER = "|";
     private static final String DIVIDER_REGEXP = "\\|";
-    public static String[] StringToStringArray(String string){
+
+    public static String[] StringToStringArray(String string) {
+        if (string == null || string.equals("")) {
+            return new String[0];
+        }
         return string.split(DIVIDER_REGEXP);
     }
 
-    public static String StringArrayToString(String[] strings){
+    public static String StringArrayToString(String[] strings) {
+        if (strings == null || strings.length == 0) {
+            return "";
+        }
         StringBuilder result = new StringBuilder();
-        for(String s: strings){
+        for (String s : strings) {
             result.append(s);
             result.append(DIVIDER);
         }
@@ -22,7 +29,7 @@ public class ArrayUtil {
         return result.toString();
     }
 
-    public static String getDivider(){
+    public static String getDivider() {
         return DIVIDER;
     }
 }

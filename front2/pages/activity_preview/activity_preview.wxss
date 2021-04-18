@@ -142,7 +142,6 @@ button::after{
 .button-panel{
   display: flex;
   flex-direction: row;
-  
 }
 .button-left{
   padding-left: 50rpx;
@@ -164,4 +163,56 @@ button::after{
 .customer-panel{
   display: flex;
   flex-direction: row;
+}
+
+.ori{
+  text-decoration:line-through;
+  color: #777 ;
+}
+.rest{
+  color: #777;
+}
+
+.line{
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.title{
+  font-size: 48rpx;
+}
+
+.vote{
+  width: 50rpx;
+  height: 50rpx;
+}
+.vote_panel{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.vote_button{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20rpx;
+}
+
+.fan{padding:0 30rpx;height:190rpx;position:relative; background-color: #fff;}
+.picTxt{display: flex; justify-content: space-between;}
+.picTxt .pictrue{width:120rpx;height:120rpx;}
+.picTxt .pictrue image{width:100%;height:100%;border-radius:50%;border:2px solid #ffffff;}
+.picTxt .text{ margin-left:35rpx; margin-right:35rpx}
+.picTxt .text .name{font-size:32rpx;max-width:270rpx;}
+.picTxt .text .member{padding:0 10rpx;height:36rpx;background-color:rgba(0, 0, 0, 0.2);font-size:20rpx;border-radius:30rpx;margin-left:17rpx;}
+.picTxt .text .member image{width:28rpx;height:28rpx;font-size:20rpx;margin-right:8rpx;}
+.picTxt .text .id{color:rgba(255,255,255,0.6);font-size:26rpx;margin-top:15rpx;}
+.picTxt .text .id .iconfont{font-size:30rpx;margin-left:12rpx;}
+
+.my-map{
+  width: 100%; 
+  height: 200px;
+  border-radius:200px
 }

@@ -6,6 +6,7 @@ import {
 } from '../../utils/wxp'
 import area from '../../utils/area'
 import time from '../../utils/time'
+const chooseLocation = requirePlugin('chooseLocation');
 Page({
 
   /**
@@ -34,13 +35,17 @@ Page({
     detail: '',
     detailText: '',
     areaList: {},
-    showAreaPicker: false
+    showAreaPicker: false,
+    address: '',
+    location: {},
+    free: true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    chooseLocation.setLocation(null);
     this.setData({
       date: time.dateToDateString(new Date()),
       time: time.dateToTimeString(new Date()),
@@ -51,11 +56,13 @@ Page({
     // this.setLocation()
     // this.getAllCategory()
   },
-  // 生命周期 显示时 获取editor中的文字
+  // 生命周期 显示时 获取editor中的文字 或者获取地址
   onShow() {
+
     // console.log('show')
     // console.log(!!getApp().globalData.editorContent)
     let editorContent = getApp().globalData.editorContent
+    let key = 'HOMBZ-XYPC4-JONU6-DXDR7-DYONE-CPBF7';
     if (editorContent) {
       console.log(editorContent)
       // let temp = editorContent.text.replace(/\s+/, '')
@@ -68,58 +75,85 @@ Page({
         detailText: '尚未填写，点击编辑'
       })
     }
+    const location = chooseLocation.getLocation();
+    console.log(location)
+    if (location) {
+      this.setData({
+        location: {
+          lat: location.latitude,
+          lng: location.longitude
+        },
+        address: location.name
+      })
+      wxp.request({
+        url: `https://apis.map.qq.com/ws/geocoder/v1/?location=${location.latitude},${location.longitude}&key=${key}`,
+        method: 'GET'
+      }).then(res => {
+        console.log(res.data)
+        this.setData({
+          regionCode: res.data.result.ad_info.adcode,
+          region: [res.data.result.address_component.province, res.data.result.address_component.city, res.data.result.address_component.district]
+        })
+      })
+    }
   },
   // 提交表单
   formSubmit(e) {
     // console.log(this.data.images)
     wxp.showToast({
-      title: '上传中',
-      icon: 'loading'
-    }).then(() => {
-      let fileList = []
-      for (let file of this.data.images) {
-        fileList.push(file.url)
-      }
-      console.log(fileList)
-      return req.uploadFiles(fileList)
-    }).then((res) => {
-      console.log(res)
-      this.setData({
-        uploadFiles: res
-      })
-      console.log(this.data)
-      console.log(e)
-      let formData = e.detail.value
-      // let date = dayjs(formData.date + ' ' + formData.time, 'YYYY-MM-DD hh:mm').format()
-      let date = date = time.StringToDate(formData.date, formData.time)
-      let uploadInfo = {
-        name: formData.name,
-        introduction: formData.introduction,
-        pictures: this.data.uploadFiles,
-        category: formData.category,
-        date: date,
-        regionCode: this.data.regionCode,
-        address: formData.address,
-        detail: this.data.detail
-      }
-      console.log(uploadInfo)
-      // wxp.hideToast()
-      return req.post({
-        url: '/activity/add',
-        data: uploadInfo
-      })
-    }).then(res => {
-      console.log(res)
-      wxp.hideToast()
-    }).then(() => {
-      wx.navigateBack()
-    }).catch((res) => {
-      wxp.showToast({
-        title: res.message,
-        icon: 'error'
-      })
-    })
+        title: '上传中',
+        icon: 'loading'
+      }).then(() => {
+        let fileList = []
+        for (let file of this.data.images) {
+          fileList.push(file.url)
+        }
+        console.log(fileList)
+        return req.uploadFiles(fileList)
+      }).then((res) => {
+        console.log(res)
+        this.setData({
+          uploadFiles: res
+        })
+        console.log(this.data)
+        console.log(e)
+        let formData = e.detail.value
+        // let date = dayjs(formData.date + ' ' + formData.time, 'YYYY-MM-DD hh:mm').format()
+        let date = date = time.StringToDate(formData.date, formData.time)
+        let uploadInfo = {
+          name: formData.name,
+          introduction: formData.introduction,
+          pictures: this.data.uploadFiles,
+          category: formData.category,
+          date: date,
+          regionCode: this.data.regionCode,
+          address: this.data.address,
+          detail: this.data.detail,
+          free: this.data.free,
+          count: formData.count,
+          price: formData.price,
+          ori: formData.ori,
+          lat: this.data.location.lat,
+          lng: this.data.location.lng
+        }
+        console.log(uploadInfo)
 
+        return req.post({
+          url: '/activity/add',
+          data: uploadInfo
+        })
+      })
+      .then(res => {
+        console.log(res)
+        wxp.hideToast()
+      }).then(() => {
+        wx.navigateBack()
+      }).catch((res) => {
+        wxp.showToast({
+          title: res.message,
+          icon: 'error'
+        })
+      })
   },
   // 获取当前位置信息
   setLocation() {
@@ -209,7 +243,7 @@ Page({
   },
   // 地区改变
   onRegionChange(e) {
-    // console.log(e)
+    console.log(e)
     this.setData({
       region: e.detail.value,
       regionCode: e.detail.code.length != 0 ? e.detail.code[e.detail.code.length - 1] : '000000'
@@ -234,11 +268,50 @@ Page({
     for (let value of e.detail.values) {
       temp.push(value.name)
     }
+    // 需要重设详细地址
     this.setData({
       showAreaPicker: false,
       regionCode: e.detail.values[e.detail.values.length - 1].code,
-      region: temp
+      region: temp,
+      location:{},
+      address:''
     })
-    console.log(this.data)
+    // console.log(this.data)
+  },
+  selectPosition() {
+    let key = 'HOMBZ-XYPC4-JONU6-DXDR7-DYONE-CPBF7'; //使用在腾讯位置服务申请的key
+    let referer = '毕业设计'; //调用插件的app的名称
+    let location = JSON.stringify({
+      latitude: 39.90517,
+      longitude: 116.393822
+    });
+    if (this.data.regionCode !== 0) {
+      wxp.request({
+        url: `https://apis.map.qq.com/ws/district/v1/search?key=${key}&keyword=${this.data.regionCode}`,
+        method: 'GET'
+      }).then(res => {
+        console.log(res.data)
+        console.log(res.data.result[0][0].location)
+        location = JSON.stringify({
+          latitude: res.data.result[0][0].location.lat,
+          longitude: res.data.result[0][0].location.lng
+        })
+        wx.navigateTo({
+          url: `plugin://chooseLocation/index?key=${key}&referer=${referer}&location=${location}`
+        });
+      })
+    } else {
+      wx.navigateTo({
+        url: `plugin://chooseLocation/index?key=${key}&referer=${referer}&location=${location}`
+      });
+    }
+
+
+  },
+  onChange() {
+    let temp = this.data.free
+    this.setData({
+      free: !temp
+    })
   }
 })

@@ -1,19 +1,26 @@
 {
   "pages": [
-    "pages/user/user",
+    "pages/main_page/main_page",
+    "pages/worker_main/worker_main",
+    "pages/boss_main/boss_main",
     "pages/activity_new/activity_new",
     "pages/comment_list/comment_list",
     "pages/fan_list/fan_list",
     "pages/activity_list/activity_list",
-    "pages/user_info/user_info",
+    "pages/shop_info/shop_info",
     "pages/user_phone/user_phone",
     "pages/contact_us/contact_us",
-    "pages/feedback_list/feedback_list",
     "pages/editor/editor",
     "pages/activity_preview/activity_preview",
-    "pages/balance/balance",
+    "pages/user_cash/user_cash",
     "pages/activity_edit/activity_edit",
-    "pages/activity_user/activity_user"
+    "pages/activity_user/activity_user",
+    "pages/verify_order/verify_order",
+    "pages/shop_review/shop_review",
+    "pages/worker_scan_qr/worker_scan_qr",
+    "pages/worker_manage/worker_manage",
+    "pages/worker_qr/worker_qr",
+    "pages/worker_info/worker_info"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -27,11 +34,20 @@
   },
   "permission": {
     "scope.userLocation": {
-      "desc": "你的位置信息将用于设置活动地址"
+      "desc": "你的位置信息将用于小程序定位"
+    },
+    "scope.camera": {
+      "desc": "使用相机扫描二维码"
     }
   },
   "requiredBackgroundModes": [
     "location"
   ],
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "plugins": {
+    "chooseLocation": {
+      "version": "1.0.5",
+      "provider": "wx76a9a06e5b4e693e"
+    }
+  }
 }

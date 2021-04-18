@@ -2,7 +2,10 @@ package cn.lsy99.api.activity.auth;
 
 import cn.lsy99.api.activity.auth.dto.WechatUserInfo;
 import cn.lsy99.api.activity.generator.UserRole;
-import cn.lsy99.api.activity.generator.mapper.*;
+import cn.lsy99.api.activity.generator.mapper.ActivityMapper;
+import cn.lsy99.api.activity.generator.mapper.ActivityStatisticsMapper;
+import cn.lsy99.api.activity.generator.mapper.OrganizerMapper;
+import cn.lsy99.api.activity.generator.mapper.ShopFollowMapper;
 import cn.lsy99.api.activity.generator.table.ActivityStatistics;
 import cn.lsy99.api.activity.generator.table.Organizer;
 import lombok.extern.slf4j.Slf4j;
@@ -11,15 +14,15 @@ import org.mybatis.dynamic.sql.render.RenderingStrategies;
 import org.mybatis.dynamic.sql.select.render.SelectStatementProvider;
 import org.springframework.stereotype.Repository;
 
-import static cn.lsy99.api.activity.generator.mapper.ActivityStatisticsDynamicSqlSupport.activityStatistics;
-import static cn.lsy99.api.activity.generator.mapper.OrganizerDynamicSqlSupport.organizer;
-import static cn.lsy99.api.activity.generator.mapper.ActivityDynamicSqlSupport.*;
-import static cn.lsy99.api.activity.generator.mapper.OrganizerCustomerDynamicSqlSupport.*;
-import static org.mybatis.dynamic.sql.SqlBuilder.*;
-
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+
+import static cn.lsy99.api.activity.generator.mapper.ActivityDynamicSqlSupport.activity;
+import static cn.lsy99.api.activity.generator.mapper.ActivityStatisticsDynamicSqlSupport.activityStatistics;
+import static cn.lsy99.api.activity.generator.mapper.OrganizerDynamicSqlSupport.organizer;
+import static cn.lsy99.api.activity.generator.mapper.ShopFollowDynamicSqlSupport.shopFollow;
+import static org.mybatis.dynamic.sql.SqlBuilder.*;
 
 @Repository
 @Slf4j
@@ -30,7 +33,7 @@ public class AuthRepository {
     @Resource
     private ActivityMapper activityMapper;
     @Resource
-    private OrganizerCustomerMapper organizerCustomerMapper;
+    private ShopFollowMapper shopFollowMapper;
     @Resource
     private ActivityStatisticsMapper activityStatisticsMapper;
 
@@ -66,8 +69,6 @@ public class AuthRepository {
         Organizer organizer = Organizer.builder()
                 .wxOpenId(openId)
                 .type(newRole)
-                .createTime(now)
-                .updateTime(now)
                 .build();
         int insertResult = organizerMapper.insertSelective(organizer);
         log.info(String.valueOf(insertResult));
@@ -118,9 +119,9 @@ public class AuthRepository {
      * @return 粉丝个数
      */
     public long getFollowerCount(int organizerId) {
-        SelectStatementProvider selectStatementProvider = SqlBuilder.select(count(organizerCustomer.allColumns()))
-                .from(organizerCustomer)
-                .where(organizerCustomer.organizerId, isEqualTo(organizerId))
+        SelectStatementProvider selectStatementProvider = select(count(shopFollow.allColumns()))
+                .from(shopFollow)
+                .where(shopFollow.organizerId, isEqualTo(organizerId))
                 .build().render(RenderingStrategies.MYBATIS3);
         return organizerCustomerMapper.count(selectStatementProvider);
     }

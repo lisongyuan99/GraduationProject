@@ -1,8 +1,0 @@
-{
-  "usingComponents": {
-    "navbar": "/components/navbar/index",
-    "ec-canvas": "/ec-canvas/ec-canvas",
-    "van-icon" : "/components/vant/icon/index"
-  },
-  "navigationBarTextStyle": "white"
-}

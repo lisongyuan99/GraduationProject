@@ -13,7 +13,7 @@ Page({
    */
   data: {
     productList: [],
-    debug:'not loaded',
+    debug: 'not loaded',
     parameter: {
       'navbar': '1',
       'return': '1',
@@ -21,6 +21,7 @@ Page({
       'color': true,
       'class': '0'
     },
+    allCategory: [],
     navH: "",
     is_switch: true,
     where: {
@@ -46,6 +47,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options)
+    this.setData({
+      ['where.sid']: options.sid || 0,
+      title: options.title || '',
+      ['where.keyword']: options.searchValue || '',
+      navH: app.globalData.navHeight
+    });
     this.getAllActivity()
   },
   /**
@@ -74,29 +82,49 @@ Page({
   },
   getAllActivity() {
     wxp.showToast({
-      title: '加载中',
-      icon: 'loading'
-    }).then(() => {
-      return req.get({
-        url: "/activity/my"
-      })
-    }).then(res => {
-      console.log(res)
-      let list = []
-      for (let item of res.data) {
-        list.push({
-          id: item.id,
-          name: item.name,
-          image: item.pic,
-          time: time.dateToFullString(time.utcToDate(item.date)),
-          position: util.getRegion(item.regionCode) //item.regionCode
+        title: '加载中',
+        icon: 'loading'
+      }).then(() => {
+        return req.get({
+          url: '/activity/allCategory'
         })
-      }
-      
-      this.setData({
-        productList: list
+      }) .then(res => {
+        console.log(res)
+        this.setData({
+          allCategory: res.data
+        })
+        return req.get({
+          url: "/activity/my"
+        })
+      }).then(res => {
+        console.log(res)
+        let list = []
+        for (let item of res.data) {
+          let lable = ''
+          for(let category of this.data.allCategory){
+            // console.log(category, item.category)
+            if(category.id === item.category){
+              lable = category.name
+            }
+          }
+          list.push({
+            id: item.id,
+            name: item.name,
+            image: item.pic,
+            time: time.dateToFullString(time.utcToDate(item.date)),
+            position: util.getRegion(item.regionCode), //item.regionCode
+            free: item.free,
+            price: item.price,
+            ori: item.ori,
+            count: item.count,
+            category: lable
+          })
+        }
+        this.setData({
+          productList: list
+        })
+
       })
-    })
   },
 
   onReady: function () {

@@ -141,3 +141,6 @@
 .bg-color-hui{
     background: #bbbbbb !important;
 }
+.input{
+    word-break:break-all;
+}

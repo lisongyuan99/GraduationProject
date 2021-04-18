@@ -25,3 +25,6 @@
 picker{text-align:right; width: 100%;}
 .content{text-align:right; width: 100%;}
 .uploader-view{width: 100%;}
+.content{
+  word-break:break-all;
+}

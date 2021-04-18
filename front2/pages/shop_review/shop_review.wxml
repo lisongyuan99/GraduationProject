@@ -1,0 +1,80 @@
+<navbar parameter='{{parameter}}'></navbar>
+<view class="notice">后端尚未绑定，点击提交跳转到正常的老板主页</view>
+<form bindsubmit="formSubmit">
+  <view class='personal-data'>
+    <form class='list' bindsubmit="formSubmit">
+      <view class='item acea-row row-between-wrapper'>
+        <view>商家名称</view>
+        <view class='input'><input type='text' name='nickname' value='{{nickname}}'></input></view>
+      </view>
+      <view class='item acea-row row-between-wrapper'>
+        <view>商家简介</view>
+        <view class='input'><input type='text' name='motto' value='{{motto}}'></input></view>
+      </view>
+      <view class='item acea-row row-between-wrapper'>
+        <view>
+          <mp-uploader class="my-uploader" max-count="1" title="头像" files="{{images}}" bindselect="selectImage"
+            binddelete="deleteImage">
+          </mp-uploader>
+        </view>
+      </view>
+      <view class='item acea-row row-between-wrapper'>
+        <view>手机号码</view>
+        <navigator url="/pages/user_phone/user_phone" hover-class="none" class="input" wx:if="{{!phone}}">
+          点击绑定手机号<text class="iconfont icon-xiangyou"></text>
+        </navigator>
+        <navigator  url="/pages/user_phone/user_phone" class='input acea-row row-between-wrapper' wx:else>
+          <input type='text' disabled='true' name='phone' value='{{phone}}' class='id'></input>
+          <text class='iconfont icon-xiangyou'></text>
+        </navigator>
+      </view>
+      <view class='item acea-row row-between-wrapper'>
+        <view>邮箱</view>
+        <view class="input">
+          <view class='input'><input type='text' name='email' value='{{email}}'></input></view>
+        </view>
+      </view>
+      <view class="item acea-row row-between-wrapper">
+        <view>店铺地区</view>
+        <view class="input content">
+          <!-- <picker mode="region" name="region" value="{{region}}" custom-item="{{regionCustomItem}}" bindchange="onRegionChange">
+            {{region[0]}} {{region[1]}} {{region[2]}}
+            
+          </picker> -->
+          <view class="content" bindtap="openAreaPicker">
+            {{region[0]}} {{region[1]}} {{region[2]}}
+            <text class="iconfont icon-xiangyou"></text>
+          </view>
+
+          <van-popup show="{{ showAreaPicker }}" bind:close="closeAreaPicker" position="bottom">
+            <van-area area-list="{{ areaList }}" bind:confirm="confirmArea" bind:cancel="closeAreaPicker"
+              value="{{regionCode}}"></van-area>
+          </van-popup>
+        </view>
+      </view>
+
+      <view class="item acea-row row-between-wrapper">
+        <view>商家地址</view>
+        <view class="input content" bindtap="selectPosition">
+          {{address ? address : '点击选择'}}
+          <text class="iconfont icon-xiangyou"></text>
+        </view>
+      </view>
+      <view class='item acea-row row-between-wrapper'>
+        <view>
+          <mp-uploader class="my-uploader" max-count="9" title="店铺照片" files="{{images2}}" bindselect="selectImage"
+            binddelete="deleteImage">
+          </mp-uploader>
+        </view>
+      </view>
+      <view class='item acea-row row-between-wrapper'>
+        <view>
+          <mp-uploader class="my-uploader" max-count="9" title="营业执照等证件" files="{{images3}}" bindselect="selectImage"
+            binddelete="deleteImage">
+          </mp-uploader>
+        </view>
+      </view>
+      <button class='modifyBnt bg-color' formType="submit">提交</button>
+    </form>
+  </view>
+</form>

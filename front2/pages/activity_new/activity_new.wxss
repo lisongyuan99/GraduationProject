@@ -17,7 +17,7 @@
 .personal-data .list .item .phone{width:160rpx;height:56rpx;font-size:24rpx;color:#fff;line-height:56rpx;border-radius: 32rpx}
 .personal-data .list .item .pictrue{width:88rpx;height:88rpx;}
 .personal-data .list .item .pictrue image{width:100%;height:100%;border-radius:50%;}
-.personal-data .list .item .input{width:415rpx;text-align:right;color:#868686;}
+.personal-data .list .item .input{width:415rpx;text-align:right;color:#868686; }
 .personal-data .list .item .input .id{width:365rpx;}
 .personal-data .list .item .input .iconfont{font-size:35rpx;}
 .personal-data .modifyBnt{font-size:32rpx;color:#fff;width:690rpx;height:90rpx;border-radius:45rpx;text-align:center;line-height:90rpx;margin:76rpx auto 0 auto;}
@@ -25,3 +25,9 @@
 picker{text-align:right; width: 100%;}
 .content{text-align:right; width: 100%;}
 .uploader-view{width: 100%;}
+.content{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  word-break:keep-all;
+}

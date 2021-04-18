@@ -7,6 +7,7 @@ import {
 import area from '../../utils/area'
 import util from '../../utils/util'
 import time from '../../utils/time'
+const chooseLocation = requirePlugin('chooseLocation');
 Page({
 
   /**
@@ -39,13 +40,18 @@ Page({
     detail: '',
     detailText: '',
     areaList: {},
-    showAreaPicker: false
+    showAreaPicker: false,
+    address: '',
+    location: {},
+    free: true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    chooseLocation.setLocation(null);
+    let key = 'HOMBZ-XYPC4-JONU6-DXDR7-DYONE-CPBF7';
     console.log(options.id)
     this.getAllCategory()
     this.setData({
@@ -73,8 +79,8 @@ Page({
         address: res.data.address,
         images: tempImage,
         category: res.data.category,
-        date: date.format('YYYY-MM-DD'),
-        time: date.format('HH:mm'),
+        date: time.dateToDateString(date),
+        time: time.dateToTimeString(date),
         regionCode: res.data.regionCode,
         region: util.getRegion2(res.data.regionCode),
         detail: res.data.detail
@@ -86,6 +92,27 @@ Page({
       }
       getApp().globalData.editorContent = {
         html: res.data.detail
+      }
+      const location = chooseLocation.getLocation();
+      console.log(location)
+      if (location) {
+        this.setData({
+          location: {
+            lat: location.latitude,
+            lng: location.longitude
+          },
+          address: location.name
+        })
+        wxp.request({
+          url: `https://apis.map.qq.com/ws/geocoder/v1/?location=${location.latitude},${location.longitude}&key=${key}`,
+          method: 'GET'
+        }).then(res => {
+          console.log(res.data)
+          this.setData({
+            regionCode: res.data.result.ad_info.adcode,
+            region: [res.data.result.address_component.province, res.data.result.address_component.city, res.data.result.address_component.district]
+          })
+        })
       }
     })
     // this.setLocation()
@@ -256,15 +283,6 @@ Page({
     })
   },
   // 地区改变
-  // onRegionChange(e) {
-  //   // console.log(e)
-  //   this.setData({
-  //     region: e.detail.value,
-  //     regionCode: e.detail.code.length != 0 ? e.detail.code[e.detail.code.length - 1] : '000000'
-  //   })
-  //   console.log(this.data)
-  // },
-  //vant 选择地区
   openAreaPicker() {
     console.log('open')
     this.setData({
@@ -288,5 +306,41 @@ Page({
       region: temp
     })
     console.log(this.data)
+  },
+  selectPosition() {
+    let key = 'HOMBZ-XYPC4-JONU6-DXDR7-DYONE-CPBF7'; //使用在腾讯位置服务申请的key
+    let referer = '毕业设计'; //调用插件的app的名称
+    let location = JSON.stringify({
+      latitude: 39.90517,
+      longitude: 116.393822
+    });
+    if (this.data.regionCode !== 0) {
+      wxp.request({
+        url: `https://apis.map.qq.com/ws/district/v1/search?key=${key}&keyword=${this.data.regionCode}`,
+        method: 'GET'
+      }).then(res => {
+        console.log(res.data)
+        console.log(res.data.result[0][0].location)
+        location = JSON.stringify({
+          latitude: res.data.result[0][0].location.lat,
+          longitude: res.data.result[0][0].location.lng
+        })
+        wx.navigateTo({
+          url: `plugin://chooseLocation/index?key=${key}&referer=${referer}&location=${location}`
+        });
+      })
+    } else {
+      wx.navigateTo({
+        url: `plugin://chooseLocation/index?key=${key}&referer=${referer}&location=${location}`
+      });
+    }
+
+
+  },
+  onChange() {
+    let temp = this.data.free
+    this.setData({
+      free: !temp
+    })
   }
 })

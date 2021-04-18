@@ -1,6 +1,8 @@
 import req from '../../utils/req'
 import util from '../../utils/util'
-import { wxp } from '../../utils/wxp'
+import {
+  wxp
+} from '../../utils/wxp'
 import time from '../../utils/time'
 const app = getApp();
 
@@ -61,6 +63,11 @@ Page({
       // 'unit_name': 123,
       // 'give_integral': 13,
     }, //商品详情
+    markers: [{
+      id: 1,
+      latitude: 36.77771,
+      longitude: 114.49095,
+    }],
     productAttr: [], //组件展示属性
     productValue: [], //系统属性
     couponList: [], //优惠券
@@ -149,48 +156,59 @@ Page({
       url: '/activity/getById',
       data: id
     }).then(res => {
-      console.log(res)
+      console.log(res.data)
       let data = res.data
       this.setData({
-        activityInfo: {
-          images: data.pics,
-          title: data.name,
-          description: data.description,
-          time: time.dateToFullString(time.utcToDate(data.time)),
-          position: util.getRegion(data.regionCode),
-          address: data.address,
-          detail: data.detail,
-          userNum: data.user
-        }
+        activityInfo: data,
+        id: data.id
+      })
+      let timeString = time.dateToFullString(new Date(data.time))
+      this.setData({
+        'activityInfo.time': timeString
+      })
+      if (!data.free) {
+        let price = util.fixTo2(data.price)
+        let ori = util.fixTo2(data.ori)
+        this.setData({
+          'activityInfo.price': price,
+          'activityInfo.ori': ori
+        })
+      }
+      this.setData({
+        markers: [{
+          id: 1,
+          latitude: data.lat,
+          longitude: data.lng,
+        }]
       })
     })
   },
-  toUserPage(){
+  toUserPage() {
     wx.navigateTo({
-      url:"/pages/activity_user/activity_user?id=" + this.data.id
+      url: "/pages/activity_user/activity_user?id=" + this.data.id
     })
   },
-  editActivity(){
+  editActivity() {
     wx.navigateTo({
       url: '/pages/activity_edit/activity_edit?id=' + this.data.id,
     })
   },
-  deleteActivity(){
+  deleteActivity() {
     wxp.showModal({
-      title:'确认删除吗'
-    }).then(res=>{
-      if(res.confirm){
+      title: '确认删除吗'
+    }).then(res => {
+      if (res.confirm) {
         // console.log('确认')
         return req.post({
-          url:'/activity/delete',
-          data:this.data.id
+          url: '/activity/delete',
+          data: this.data.id
         })
-      } else if(res.cancel){
+      } else if (res.cancel) {
         // console.log('取消')
       }
-    }).then(res=>{
+    }).then(res => {
       console.log(res)
-      if(res && res.statusCode == 200){
+      if (res && res.statusCode == 200) {
 
       }
     })

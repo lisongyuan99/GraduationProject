@@ -31,7 +31,7 @@ public class ActivityController {
 //        String token = headers.get(tokenHeader);
         String token = headers.get(tokenHeader);
         JwtInfo jwtInfo = JwtUtil.getInfoFromToken(token);
-//        log.info(addActivityEntity.toString());
+        log.info(activityModifyEntity.toString());
 //        log.info(jwtInfo.toString());
         // if(addActivityEntity.getName()==null!!)
         if (StringUtils.isEmpty(activityModifyEntity.getName()) || StringUtils.isEmpty(activityModifyEntity.getDate())) {

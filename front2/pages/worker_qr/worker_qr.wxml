@@ -1,0 +1,24 @@
+<!--pages/worker_qr/worker_qr.wxml-->
+<navbar parameter="{{parameter}}"></navbar>
+<view class="user">
+  <view class="fan acea-row row-between-wrapper">
+    <view class="picTxt acea-row row-between-wrapper">
+      <view class="pictrue">
+        <image wx:if="{{shop.avatar}}" src="{{shop.avatar}}"></image>
+        <image wx:else src="/images/noAvatar.svg"></image>
+      </view>
+      <view class="text">
+        <view class="acea-row row-middle">
+          <view wx:if="{{shop.name}}" class="name line1">{{shop.name}}</view>
+          <view wx:else class="name line1">无名氏</view>
+        </view>
+        <view>
+          <text class="name" wx:if="{{shop.description}}">{{shop.description}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="qr-container">
+  <canvas canvas-id="qr-code" class="qr"/>
+</view>
