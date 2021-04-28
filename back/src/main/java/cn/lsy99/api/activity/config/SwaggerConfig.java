@@ -21,7 +21,7 @@ public class SwaggerConfig {
     public Docket api() {
         //在配置好的配置类中增加此段代码即可
         ParameterBuilder ticketPar = new ParameterBuilder();
-        List<Parameter> pars = new ArrayList<Parameter>();
+        List<Parameter> pars = new ArrayList<>();
         ticketPar.name("Token").description("用户Token")//name表示名称，description表示描述
                 .modelRef(new ModelRef("string")).parameterType("header")
                 .required(false).defaultValue("Bearer ").build();//required表示是否必填，defaultvalue表示默认值

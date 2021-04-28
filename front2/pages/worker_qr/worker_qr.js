@@ -13,11 +13,7 @@ Page({
       'color': true,
       'class': '0'
     },
-    shop: {
-      avatar: "/images/noAvatar.svg",
-      name: "XX公司",
-      description: "商家简介：减少事务损耗和浪费，倡导健康生活"
-    }
+    shop: {}
   },
 
 
@@ -40,6 +36,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.setData({
+      shop: getApp().globalData.shop
+    })
     wx.getSystemInfo().then(res => {
       console.log(res)
       let width = res.windowWidth*0.6
@@ -47,7 +46,9 @@ Page({
         width: width,
         height: width,
         canvasId: 'qr-code',
-        text: '测试文字',
+        text: JSON.stringify({
+          shopId: getApp().globalData.shop.id
+        }),
         // v1.0.0+版本支持在二维码上绘制图片
       })
     })

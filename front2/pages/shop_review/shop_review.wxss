@@ -34,3 +34,10 @@
   font-size:40rpx;
   color: #f00;
 }
+.my-uploader{
+  width: 100%;
+}
+
+page{
+  background-color: #fff !important;
+}

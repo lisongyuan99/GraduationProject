@@ -36,7 +36,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getAllFans()
   },
 
   /**
@@ -78,6 +78,7 @@ Page({
     req.get({
       url: '/follower/all'
     }).then(res => {
+      console.log(res)
       var list = res.data
       this.setData({
         fansList: list

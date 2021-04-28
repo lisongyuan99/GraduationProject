@@ -1,3 +1,5 @@
+const { default: req } = require("../../utils/req")
+
 // pages/worker_scan_qr/worker_scan_qr.js
 Page({
 
@@ -15,18 +17,36 @@ Page({
   },
 
   scanQr(e) {
-    wx.navigateTo({
-      url: '/pages/worker_main/worker_main',
-    })
-    // wx.scanCode()
-    //   .then(res => {
-    //     console.log(res.result)
-    //     wx.navigateTo({
-    //       url: '/pages/worker_main/worker_main',
-    //     })
-    //   }).catch(res => {
-    //     console.log(res)
-    //   })
+    // wx.navigateTo({
+    //   url: '/pages/worker_main/worker_main',
+    // })
+    wx.scanCode()
+      .then(res => {
+        console.log(res.result)
+        let result = JSON.parse(res.result)
+        console.log(result.shopId)
+        if (result.shopId) {
+          return req.post({
+            url:'/user/workerAdd',
+            data: result.shopId
+          })
+        } else {
+          throw '二维码格式错误'
+        }
+      }).then(res=>{
+        wx.showToast({
+          title: '加入商铺成功',
+        })
+        wx.navigateTo({
+          url: '/pages/worker_info/worker_info?next=wait',
+        })
+      }).catch(res => {
+        console.log(res)
+        wx.showToast({
+          title: '二维码格式错误',
+          icon: 'error'
+        })
+      })
   },
 
   /**

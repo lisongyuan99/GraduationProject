@@ -20,7 +20,8 @@
     "pages/worker_scan_qr/worker_scan_qr",
     "pages/worker_manage/worker_manage",
     "pages/worker_qr/worker_qr",
-    "pages/worker_info/worker_info"
+    "pages/worker_info/worker_info",
+    "pages/wait/wait"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -35,9 +36,6 @@
   "permission": {
     "scope.userLocation": {
       "desc": "你的位置信息将用于小程序定位"
-    },
-    "scope.camera": {
-      "desc": "使用相机扫描二维码"
     }
   },
   "requiredBackgroundModes": [

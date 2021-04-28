@@ -33,16 +33,19 @@
         <table tableName="activity">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table tableName="activity_follow">
-            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
-        </table>
         <table tableName="activity_count">
+            <generatedKey column="activity_id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table tableName="activity_statistics">
+        <table tableName="activity_follow">
+            <generatedKey column="activity_id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table tableName="cart">
+        <table tableName="admin">
+            <generatedKey column="name" sqlStatement="JDBC" identity="true"/>
         </table>
         <table tableName="category">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
+        <table tableName="comment">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
         <table tableName="customer">
@@ -54,7 +57,7 @@
         <table tableName="order_info">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table tableName="organizer">
+        <table tableName="seller">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
         <table tableName="shop">
@@ -63,7 +66,12 @@
         <table tableName="shop_follow">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-
+        <table tableName="shop_vip">
+            <generatedKey column="shop_id" sqlStatement="JDBC" identity="true"/>
+        </table>
+        <table tableName="vip_detail">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
 
     </context>
 </generatorConfiguration>

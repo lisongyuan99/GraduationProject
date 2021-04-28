@@ -1,0 +1,8 @@
+<!--pages/main_page/mainpage.wxml-->
+<navbar parameter='{{parameter}}'></navbar>
+<view class="main-panel">
+  <view class="my-button">
+    <van-icon name="clock-o" size="150rpx"/>
+    <text>请等待审核</text>
+  </view>
+</view>

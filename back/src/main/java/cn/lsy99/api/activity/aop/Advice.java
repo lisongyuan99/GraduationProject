@@ -39,9 +39,9 @@ public class Advice {
     @Value("${http.token.header}")
     private String tokenHeader;
 
-    //  判断token是否正确以及角色是否是ORG
-    @Before("@annotation(cn.lsy99.api.activity.aop.annotation.OrgTokenCheck)")
-    public void orgTokenCheck(JoinPoint point) {
+    //  判断token是否正确以及角色是否是BOSS
+    @Before("@annotation(cn.lsy99.api.activity.aop.annotation.BossTokenCheck)")
+    public void bossTokenCheck(JoinPoint point) {
         System.out.println("check");
         RequestAttributes ra = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes sra = (ServletRequestAttributes) ra;
@@ -52,9 +52,66 @@ public class Advice {
                 throw new NoTokenException();
             }
             JwtInfo info = JwtUtil.getInfoFromToken(token);
-            if (info.getRole() != UserRole.ORG) {
+            if (info.getRole() != UserRole.BOSS) {
                 throw new ForbiddenException();
             }
+        } else {
+            throw new NoTokenException();
+        }
+    }
+
+    @Before("@annotation(cn.lsy99.api.activity.aop.annotation.AdminTokenCheck)")
+    public void adminTokenCheck(JoinPoint point) {
+        System.out.println("check");
+        RequestAttributes ra = RequestContextHolder.getRequestAttributes();
+        ServletRequestAttributes sra = (ServletRequestAttributes) ra;
+        if (sra != null) {
+            HttpServletRequest request = sra.getRequest();
+            String token = request.getHeader(tokenHeader);
+            if (token == null) {
+                throw new NoTokenException();
+            }
+            JwtInfo info = JwtUtil.getInfoFromToken(token);
+            if (info.getRole() != UserRole.ADMIN) {
+                throw new ForbiddenException();
+            }
+        } else {
+            throw new NoTokenException();
+        }
+    }
+
+    @Before("@annotation(cn.lsy99.api.activity.aop.annotation.SellerTokenCheck)")
+    public void sellerTokenCheck(JoinPoint point) {
+        System.out.println("check");
+        RequestAttributes ra = RequestContextHolder.getRequestAttributes();
+        ServletRequestAttributes sra = (ServletRequestAttributes) ra;
+        if (sra != null) {
+            HttpServletRequest request = sra.getRequest();
+            String token = request.getHeader(tokenHeader);
+            if (token == null) {
+                throw new NoTokenException();
+            }
+            JwtInfo info = JwtUtil.getInfoFromToken(token);
+            if (!(info.getRole() == UserRole.BOSS || info.getRole() != UserRole.WORKER)) {
+                throw new ForbiddenException();
+            }
+        } else {
+            throw new NoTokenException();
+        }
+    }
+
+    @Before("@annotation(cn.lsy99.api.activity.aop.annotation.TokenCheck)")
+    public void tokenCheck(JoinPoint point) {
+        System.out.println("check");
+        RequestAttributes ra = RequestContextHolder.getRequestAttributes();
+        ServletRequestAttributes sra = (ServletRequestAttributes) ra;
+        if (sra != null) {
+            HttpServletRequest request = sra.getRequest();
+            String token = request.getHeader(tokenHeader);
+            if (token == null) {
+                throw new NoTokenException();
+            }
+            JwtInfo info = JwtUtil.getInfoFromToken(token);
         } else {
             throw new NoTokenException();
         }

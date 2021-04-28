@@ -1,5 +1,6 @@
 package cn.lsy99.api.activity.auth.dto;
 
+import cn.lsy99.api.activity.generator.table.Shop;
 import lombok.Builder;
 import lombok.Data;
 
@@ -7,9 +8,10 @@ import lombok.Data;
 @Builder
 public class LoginResult {
     private int id;
+    private int type;
     private String token;
-    private String nickName;
-    private String motto;
-    private String avatarUrl;
+    private String name;
     private String phone;
+    private String avatar;
+    private Shop shop;
 }

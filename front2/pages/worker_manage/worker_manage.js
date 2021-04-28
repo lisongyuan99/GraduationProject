@@ -1,6 +1,3 @@
-import {
-  wxp
-} from '../../utils/wxp';
 import req from '../../utils/req'
 Page({
 
@@ -16,24 +13,8 @@ Page({
       'class': '0'
     },
     active: 0,
-    workerList: [{
-      id: 1,
-      name: '张三',
-      phone: '13812345678'
-    }, {
-      id: 2,
-      name: '李四',
-      phone: '13822345678'
-    }, {
-      id: 3,
-      name: '王五',
-      phone: '13832345678'
-    }],
-    newWorkerList: [{
-      id: 1,
-      name: '王二麻',
-      phone: '13812345678'
-    }]
+    workerList: [],
+    newWorkerList: []
   },
 
   /**
@@ -54,7 +35,92 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.getWorkerList()
+  },
 
+  onChange(){
+    this.getWorkerList()
+  },
+
+  getWorkerList() {
+    req.get({
+      url: '/user/getWorker'
+    }).then(res => {
+      // console.log(res)
+      this.setData({
+        workerList: res.data
+      })
+      return req.get({
+        url: '/user/getWorkerVerify'
+      })
+    }).then(res => {
+      // console.log(res)
+      this.setData({
+        newWorkerList: res.data
+      })
+    })
+  },
+
+  accept(e) {
+    wx.showModal({
+      title: '确认接受'
+    }).then(res => {
+      if (res.confirm) {
+        return req.post({
+          url: '/user/passWorker',
+          data: e.target.dataset.fanId
+        })
+      }
+    }).then(res => {
+      console.log(res)
+      this.getWorkerList()
+      wx.showToast({
+        title: '已通过',
+        icon: 'success'
+      })
+    })
+  },
+
+  deny(e) {
+    // console.log(e.target.dataset.fanId)
+    wx.showModal({
+      title: '确认拒绝'
+    }).then(res => {
+      if (res.confirm) {
+        return req.post({
+          url: '/user/removeWorker',
+          data: e.target.dataset.fanId
+        })
+      }
+    }).then(res => {
+      console.log(res)
+      this.getWorkerList()
+      wx.showToast({
+        title: '已拒绝',
+        icon: 'success'
+      })
+    })
+  },
+
+  remove(e) {
+    // console.log(e.target.dataset.fanId)
+    wx.showModal({
+      title: '确认删除'
+    }).then(res => {
+      if (res.confirm) {
+        return req.post({
+          url: '/user/removeWorker',
+          data: e.target.dataset.fanId
+        })
+      }
+    }).then(res => {
+      console.log(res)
+      this.getWorkerList()
+      wx.showToast({
+        title: '已删除',
+        icon: 'success'
+      })
+    })
   },
 
   /**

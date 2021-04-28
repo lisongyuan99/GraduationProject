@@ -72,4 +72,12 @@ public class GlobalExceptionHandler {
                 "InputFieldWrong",
                 "输入字段错误");
     }
+
+    @ExceptionHandler(value = WrongPasswordException.class)
+    public ResponseEntity<ErrorResponseBody> WrongPasswordExceptionHandler(Exception e) {
+        log.warn(e.toString());
+        return resFactory.getResponse(HttpStatus.UNAUTHORIZED,
+                "WrongUsernameOrPassword",
+                "用户名或密码错误");
+    }
 }

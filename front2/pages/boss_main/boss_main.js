@@ -19,9 +19,8 @@ Page({
       'color': true,
       'class': '0'
     },
-    isLogin: false,
     nickName: null,
-    avatarUrl: null,
+    avatar: null,
     ec: {
       lazyLoad: true
     },
@@ -30,25 +29,22 @@ Page({
     flag: true
   },
 
+  onLoad(){
+    
+  },
   onShow() {
-    // req.get({
-    //   url: '/auth/getHomepageCounts'
-    // }).then(res => {
-    //   this.setData({
-    //     activityCount: res.data.activityCount,
-    //     followerCount: res.data.followerCount,
-    //     balance: res.data.balance,
-    //     // showChart: true
-    //   })
-    // })
+    this.setData({
+      nickName: getApp().globalData.name,
+      avatar: getApp().globalData.avatar,
+      phone: getApp().globalData.phone
+    })
   },
 
   onReady() {
-    this.ecComponent = this.selectComponent('#my-chart')
-    // this.login()
-    if (!this.chart) {
-      this.init()
-    }
+    // this.ecComponent = this.selectComponent('#my-chart')
+    // if (!this.chart) {
+    //   this.init()
+    // }
   },
 
   // 跳转
@@ -64,64 +60,6 @@ Page({
       })
     }
 
-  },
-
-  // 登录
-  login(e) {
-    console.log("login")
-    wx.showLoading({
-      title: '正在登录',
-      mask: true
-    })
-    wxp.login()
-      .then(res => {
-        console.log(res)
-        return req.post({
-          url: '/auth/login',
-          data: res.code
-        })
-      }).then(res => {
-        console.log(res)
-        this.setData({
-          isLogin: true,
-          avatarUrl: res.data.avatarUrl,
-          nickName: res.data.nickName,
-          phone: res.data.phone
-        })
-        getApp().globalData.token = res.data.token
-        return req.get({
-          url: '/auth/getHomepageCounts'
-        })
-      }).then(res => {
-        this.setData({
-          activityCount: res.data.activityCount,
-          followerCount: res.data.followerCount,
-          balance: res.data.balance,
-          // showChart: true
-        })
-        this.chart.clear()
-        this.chart.setOption(this.getOption(res.data.data))
-        wx.hideLoading()
-        wx.showToast({
-          title: '登录成功',
-          icon: 'success'
-        })
-      })
-      .catch(res => {
-        console.log(res)
-        wx.hideLoading()
-        if (this.data.isLogin) {
-          wx.showToast({
-            title: '登录成功',
-            icon: 'success'
-          })
-        } else {
-          wx.showToast({
-            title: '登录失败',
-            icon: 'error'
-          })
-        }
-      })
   },
 
   // 如果没有必要信息点击获取
@@ -168,22 +106,22 @@ Page({
       })
   },
   // 初始化图表
-  init(e) {
-    this.ecComponent.init((canvas, width, height, dpr) => {
-      // 获取组件的 canvas、width、height 后的回调函数
-      // 在这里初始化图表
-      const chart = echarts.init(canvas, null, {
-        width: width,
-        height: height,
-        devicePixelRatio: dpr // new
-      });
-      // 将图表实例绑定到 this 上，可以在其他成员函数（如 dispose）中访问
-      this.chart = chart;
-      // 注意这里一定要返回 chart 实例，否则会影响事件处理等
-      return chart;
-    });
-    console.log("init")
-  },
+  // init(e) {
+  //   this.ecComponent.init((canvas, width, height, dpr) => {
+  //     // 获取组件的 canvas、width、height 后的回调函数
+  //     // 在这里初始化图表
+  //     const chart = echarts.init(canvas, null, {
+  //       width: width,
+  //       height: height,
+  //       devicePixelRatio: dpr // new
+  //     });
+  //     // 将图表实例绑定到 this 上，可以在其他成员函数（如 dispose）中访问
+  //     this.chart = chart;
+  //     // 注意这里一定要返回 chart 实例，否则会影响事件处理等
+  //     return chart;
+  //   });
+  //   console.log("init")
+  // },
 
   click(e) {
     if (!this.chart) {

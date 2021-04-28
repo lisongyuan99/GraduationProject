@@ -1,13 +1,15 @@
 package cn.lsy99.api.activity.user;
 
-import cn.lsy99.api.activity.generator.table.Organizer;
-import cn.lsy99.api.activity.user.dto.UserProfile;
-import cn.lsy99.api.activity.user.dto.UserProfileInput;
+import cn.lsy99.api.activity.generator.UserRole;
+import cn.lsy99.api.activity.generator.table.Seller;
+import cn.lsy99.api.activity.user.dto.WorkerInfo;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,42 +19,85 @@ public class UserService {
     private UserRepository userRepository;
 
     // 绑定电话
-    public boolean bindPhone(int id, String phone) {
-        Organizer organizer = Organizer.builder()
-                .id(id)
-                .phoneNum(phone)
-                .build();
-        int result = userRepository.bindPhone(organizer);
-        log.info(String.valueOf(result));
-        return result == 1;
+    public int bindPhone(int id, String phone) {
+        return userRepository.bindPhone(id, phone);
     }
 
-    // 获取用户信息
-    public UserProfile getUserProfile(int id) {
-        Optional<Organizer> optionalOrganizer = userRepository.getUserProfile(id);
-        if (optionalOrganizer.isPresent()) {
-            Organizer organizer = optionalOrganizer.get();
-            return UserProfile.builder()
-                    .name(organizer.getNickname())
-                    .motto(organizer.getMotto())
-                    .avatar(organizer.getAvatar())
-                    .phone(organizer.getPhoneNum())
-                    .email(organizer.getEmail())
-                    .build();
+    // 修改信息
+    public int modifyInfo(int id, String name, String avatar) {
+        return userRepository.modifyInfo(id, name, avatar);
+    }
+
+    //  商店添加用户
+    public int workerAdd(int workerId, int shopId) {
+        Optional<Seller> result = userRepository.getById(workerId);
+        if (result.isPresent() && result.get().getType() == UserRole.EMPTY.ordinal()) {
+            return userRepository.workerAdd(workerId, shopId);
         } else {
-            return null;
+            return 0;
         }
     }
 
-    // 更新用户信息
-    public boolean updateUserProfile(int id, UserProfileInput input) {
-        Organizer organizer = Organizer.builder()
-                .id(id)
-                .nickname(input.getName())
-                .motto(input.getMotto())
-                .email(input.getEmail())
-                .avatar(input.getAvatar())
-                .build();
-        return userRepository.updateUserProfile(organizer) == 1;
+    // 获取员工
+    public List<WorkerInfo> getWorker (int bossId){
+        Optional<Seller> seller = userRepository.getById(bossId);
+        List<WorkerInfo> result = new ArrayList<>();
+        if (seller.isPresent() && seller.get().getShopId() != null) {
+            List<Seller> sellerList = userRepository.getWorker(seller.get().getShopId());
+            for (Seller s : sellerList) {
+                result.add(WorkerInfo.builder()
+                        .id(s.getId())
+                        .name(s.getNickname())
+                        .avatar(s.getAvatar())
+                        .phone(s.getPhone())
+                        .build());
+            }
+        }
+        return result;
+    }
+
+    // 获取等待认证员工
+    public List<WorkerInfo> getWorkerToVerify (int bossId){
+        Optional<Seller> seller = userRepository.getById(bossId);
+        List<WorkerInfo> result = new ArrayList<>();
+        if (seller.isPresent() && seller.get().getShopId() != null) {
+            List<Seller> sellerList = userRepository.getWorkerToVerify(seller.get().getShopId());
+            for (Seller s : sellerList) {
+                result.add(WorkerInfo.builder()
+                        .id(s.getId())
+                        .name(s.getNickname())
+                        .avatar(s.getAvatar())
+                        .phone(s.getPhone()).build());
+            }
+        }
+        return result;
+    }
+
+    public boolean removeWorker(int bossId, int workerId){
+        Optional<Seller> boss = userRepository.getById(bossId);
+        Optional<Seller> worker = userRepository.getById(workerId);
+        if (boss.isPresent() && worker.isPresent()) {
+            if (boss.get().getShopId().equals(worker.get().getShopId())) {
+                if(boss.get().getType() == UserRole.BOSS.ordinal()){
+                    userRepository.removeWorker(workerId);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean acceptWorker(int bossId, int workerId){
+        Optional<Seller> boss = userRepository.getById(bossId);
+        Optional<Seller> worker = userRepository.getById(workerId);
+        if (boss.isPresent() && worker.isPresent()) {
+            if (boss.get().getShopId().equals(worker.get().getShopId())) {
+                if(boss.get().getType() == UserRole.BOSS.ordinal()){
+                    userRepository.acceptWorker(workerId);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

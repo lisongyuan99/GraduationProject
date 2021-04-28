@@ -3,6 +3,7 @@ import {
   wxp
 } from '../../utils/wxp'
 import area from '../../utils/area'
+import util from '../../utils/util'
 const app = getApp();
 const chooseLocation = requirePlugin('chooseLocation');
 
@@ -19,15 +20,17 @@ Page({
       'color': true,
       'class': '0'
     },
-    nickname: '',
-    motto: '',
-    email: '',
-    images: [],
+    id: 0,
+    name: '',
+    description: '',
+    avatar: [],
+    picture: [],
+    license: [],
     phone: '',
     region: ['不限', '不限', '不限'],
     regionCode: 0,
     showAreaPicker: false,
-    areaList:{},
+    areaList: {},
     address: '',
     location: {},
   },
@@ -35,18 +38,20 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad(options) {
     this.setData({
       areaList: area
     })
-    chooseLocation.setLocation(null);
     this.getProfile()
+    chooseLocation.setLocation(null);
   },
   onShow() {
+    
+    // 设置地址相关
     let key = 'HOMBZ-XYPC4-JONU6-DXDR7-DYONE-CPBF7';
     const location = chooseLocation.getLocation();
-    console.log(location)
     if (location) {
+      console.log(location)
       this.setData({
         location: {
           lat: location.latitude,
@@ -69,66 +74,131 @@ Page({
 
   getProfile() {
     req.get({
-      url: '/user/getProfile'
+      url: '/shop/getShopModifyInfo'
     }).then(res => {
-      console.log(res)
+      let picList = []
+      for(let pic of res.data.picture){
+        picList.push({url:pic})
+      }
       this.setData({
-        nickname: res.data.name,
-        motto: res.data.motto,
-        phone: res.data.phone,
-        email: res.data.email,
-        images: [{
+        id: res.data.id,
+        name: res.data.name,
+        description: res.data.description,
+        avatar: [{
           url: res.data.avatar
-        }]
+        }],
+        license: [{
+          url: res.data.license
+        }],
+        picture: picList,
+        region: util.getRegion2(res.data.regionCode),
+        regionCode: res.data.regionCode,
+        address: res.data.address,
+        location:{
+          lat: res.data.lat,
+          lng: res.data.lng
+        }
       })
+      console.log(this.data)
     })
   },
 
-  selectImage(e) {
-    // console.log('select')
-    // console.log(e)
-    let temp = this.data.images
+  // 更改头像
+  selectAvatar(e) {
+    let temp = this.data.avatar
     for (let image of e.detail.tempFilePaths) {
       temp.push({
         url: image
       })
     }
     this.setData({
-      images: temp
+      avatar: temp
     })
   },
-
-  deleteImage(e) {
-    // console.log('delete')
-    // console.log(e.detail.index)
+  deleteAvatar(e) {
     let index = e.detail.index
-    this.data.images.splice(index, 1)
-    // console.log(this.data.images)
+    this.data.avatar.splice(index, 1)
   },
-
-  async formSubmit(e) {
-    console.log(e.detail.value)
-    console.log(this.data.images)
-    let values = e.detail.value
-    let image
-    if (this.data.images[0].url) {
-      await req.uploadFiles([this.data.images[0].url]).then(res => {
-        image = res[0]
+  // 更改执照
+  selectLicense(e) {
+    let temp = this.data.license
+    for (let image of e.detail.tempFilePaths) {
+      temp.push({
+        url: image
       })
     }
-    req.post({
-      url: '/user/updateProfile',
-      data: {
-        name: values.nickname,
-        motto: values.motto,
-        avatar: image,
-        email: values.email
+    this.setData({
+      license: temp
+    })
+  },
+  deleteAvatar(e) {
+    let index = e.detail.index
+    this.data.license.splice(index, 1)
+  },
+  // 更改店铺照片
+  selectPicture(e) {
+    let temp = this.data.picture
+    for (let image of e.detail.tempFilePaths) {
+      temp.push({
+        url: image
+      })
+    }
+    this.setData({
+      picture: temp
+    })
+  },
+  deletePicture(e) {
+    let index = e.detail.index
+    this.data.picture.splice(index, 1)
+  },
+  // 提交表单
+  formSubmit(e) {
+    console.log(e)
+    console.log(this.data)
+    wx.showToast({
+      title: '上传中',
+      icon: 'loading'
+    }).then(async () => {
+      let avatar = await req.uploadFiles(this.getFileUrl(this.data.avatar))
+      let license = await req.uploadFiles(this.getFileUrl(this.data.license))
+      let picture = await req.uploadFiles(this.getFileUrl(this.data.picture))
+      if (avatar.length === 1) {
+        avatar = avatar[0]
+      } else {
+        avatar = ''
       }
+      if (license.length === 1) {
+        license = license[0]
+      } else {
+        license = ''
+      }
+      let info = {
+        name: e.detail.value.name,
+        description: e.detail.value.description,
+        avatar: avatar,
+        license: license,
+        picture: picture,
+        regionCode: this.data.regionCode,
+        address: this.data.address,
+        lat: this.data.location.lat,
+        lng: this.data.location.lon,
+      }
+      return req.post({
+        url: '/shop/modify',
+        data: info
+      })
     }).then(res => {
       console.log(res)
+      return wx.hideToast()
+    }).then(res=>{
+      wx.showToast({
+        title:'修改成功',
+        icon: 'success'
+      })
     })
-
-
+    // .then(() => {
+    //   wx.navigateBack()
+    // })
   },
   //vant 选择地区
   openAreaPicker() {
@@ -185,5 +255,13 @@ Page({
         url: `plugin://chooseLocation/index?key=${key}&referer=${referer}&location=${location}`
       });
     }
+  },
+  // 绑定的图片数组种中图片url数组
+  getFileUrl(origin) {
+    let fileList = []
+    for (let file of origin) {
+      fileList.push(file.url)
+    }
+    return fileList
   },
 })

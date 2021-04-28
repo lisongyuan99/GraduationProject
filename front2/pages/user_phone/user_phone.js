@@ -36,12 +36,9 @@ Page({
     disabled: false,
     active: false,
     second: 0,
-    userInfo: {},
     phone: '',
     phoneCode: '',
     imagesCode: false,
-    httpUrl: '',
-    captchaimg: ''
   },
 
   // 发送验证码
@@ -90,12 +87,19 @@ Page({
   // 提交
   submit() {
     req.post({
-      url:'/user/verifyPhoneCode',
+      url: '/user/verifyPhoneCode',
       data: {
         phoneNum: this.data.phone,
         code: this.data.phoneCode
       }
-    }).then(res=>{
+    }).then(res => {
+      return wx.showToast({
+        title: '绑定成功',
+        icon: 'success'
+      })
+    }).then(res => {
+      wx.navigateBack()
+    }).catch(res => {
       console.log(res)
     })
   },
@@ -103,7 +107,14 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {},
+  onLoad: function (options) {
+    console.log(options)
+    // if (!options.back) {
+    //   this.setData({
+    //     next: options.next
+    //   })
+    // }
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

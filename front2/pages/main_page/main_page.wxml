@@ -1,13 +1,11 @@
 <!--pages/main_page/mainpage.wxml-->
 <navbar parameter='{{parameter}}'></navbar>
-<view class="notice">若已经注册验证成功，直接进入对应主页</view>
-<view class="notice">若已没有注册过显示此页面</view>
 <view class="main-panel">
   <view class="my-button" bindtap="gotoShopReview">
     <van-icon name="manager-o" size="150rpx"/>
     <text>我是老板</text>
   </view>
-  <view class="my-button" bindtap="gotoScanQR">
+  <view class="my-button" bindtap="gotoWorker">
     <van-icon name="friends-o" size="150rpx"/>
     <text>我是员工</text>
   </view>

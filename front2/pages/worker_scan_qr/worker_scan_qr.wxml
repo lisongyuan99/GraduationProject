@@ -1,7 +1,5 @@
 <!--pages/worker_scan_qr/worker_scan_qr.wxml-->
 <navbar parameter='{{parameter}}'></navbar>
-<view class="notice">扫描老板主页生成的二维码，扫码后等待老板同意，老板同意后登录直接进入员工首页</view>
-<view class="notice">后端尚未绑定，点击图标之后进入员工主页</view>
 <view class="main-panel">
   <view class="my-button" bindtap="scanQr">
     <van-icon name="scan" size="150rpx"/>

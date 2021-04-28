@@ -1,6 +1,6 @@
 package cn.lsy99.api.activity.follower;
 
-import cn.lsy99.api.activity.aop.annotation.OrgTokenCheck;
+import cn.lsy99.api.activity.aop.annotation.BossTokenCheck;
 import cn.lsy99.api.activity.follower.dto.CustomerInfo;
 import cn.lsy99.api.activity.util.JwtInfo;
 import cn.lsy99.api.activity.util.JwtUtil;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpHeaders;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +22,7 @@ public class FollowerController {
     @Autowired
     private FollowerService followerService;
 
-    @OrgTokenCheck
+    @BossTokenCheck
     @GetMapping("all")
     public List<CustomerInfo> all(@RequestHeader Map<String, String> headers) {
         // System.out.println(headers.toString());
@@ -32,7 +31,7 @@ public class FollowerController {
         return followerService.getAllFollower(jwtInfo.getId());
     }
 
-    @OrgTokenCheck
+    @BossTokenCheck
     @PostMapping("remove")
     public boolean remove(@RequestHeader Map<String, String> headers, @RequestBody int followerId) {
         String token = headers.get(tokenHeader);

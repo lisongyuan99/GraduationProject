@@ -4,17 +4,18 @@
   <view class="header bg-color acea-row row-between-wrapper">
     <view class="picTxt acea-row row-between-wrapper">
       <view class="pictrue">
-        <image src="{{avatarUrl?avatarUrl:'/images/noAvatar.svg'}}"></image>
+        <image src="{{avatar?avatar:'/images/noAvatar.svg'}}"></image>
       </view>
       <view class="text">
         <!-- <view class="name line1"> {{userInfo.uid ? userInfo.nickname : "请点击授权"}}</view> -->
-        <view class="name line1" wx:if="{{isLogin && nickName}}">{{nickName}}</view>
-        <button class="name line1 btn" wx:elif="{{isLogin && (!nickName || !avatarUrl)}}"
+        <view class="name line1" wx:if="{{nickName}}">{{nickName}}</view>
+        <view class="name line1" wx:else>无名氏</view>
+        <!-- <button class="name line1 btn" wx:elif="{{isLogin && (!nickName || !avatarUrl)}}"
           bindtap="getUserProfile">点击获取用户信息</button>
-        <button class="name line1 btn" wx:else bindtap="login"> 点击登录 </button>
-        <view class="id" wx:if="{{phone && isLogin}}" data-url="/pages/user_phone/user_phone" bindtap="goPages">
-          已认证手机<text class="iconfont icon-bianji1"></text></view>
-        <view wx:if="{{!phone && isLogin}}" data-url="/pages/user_phone/user_phone" bindtap="goPages"><text
+        <button class="name line1 btn" wx:else bindtap="login"> 点击登录 </button> -->
+        <view class="id" wx:if="{{phone}}" data-url="/pages/user_phone/user_phone" bindtap="goPages">
+          手机号<text class="iconfont icon-bianji1"></text></view>
+        <view wx:else data-url="/pages/user_phone/user_phone" bindtap="goPages"><text
             class="binding">绑定手机号</text></view>
       </view>
     </view>
@@ -37,8 +38,8 @@
       <view class="title acea-row row-middle">常用操作</view>
       <van-grid>
         <van-grid-item icon="add-o" text="发布活动" url="/pages/activity_new/activity_new"/>
-        <van-grid-item icon="setting-o" text="修改店铺资料" url="/pages/shop_info/shop_info"/>
-        <van-grid-item icon="setting-o" text="修改我的资料" url="/pages/worker_info/worker_info"/>
+        <van-grid-item icon="setting-o" text="店铺资料" url="/pages/shop_info/shop_info"/>
+        <van-grid-item icon="setting-o" text="我的资料" url="/pages/worker_info/worker_info"/>
         <van-grid-item icon="scan" text="扫码核验" bindtap="scanQr"/>
         <van-grid-item icon="friends-o" text="员工管理" url="/pages/worker_manage/worker_manage"/>
         <van-grid-item icon="qr" text="店铺二维码" url="/pages/worker_qr/worker_qr"/>
@@ -46,19 +47,19 @@
       </van-grid>
     </view>
 
-    <view class="data-chart">
+    <!-- <view class="data-chart">
       <view class="title acea-row row-between-wrapper">
-        <view>活动趋势</view>
+        <view>活动趋势</view> -->
         <!-- <view class="detail" data-url="/pages/order_list/index" bindtap="goPages">
           详情<text class="iconfont icon-jiantou"></text>
         </view> -->
-      </view>
+      <!-- </view>
       <view class="data-chart-container  acea-row row-middle">
         <view class="container">
           <ec-canvas id="my-chart" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
         </view>
       </view>
-    </view>
+    </view> -->
 
   </view>
 </view>

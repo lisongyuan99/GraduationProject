@@ -21,7 +21,7 @@
             </view>
           </view>
         </view>
-        <button class="btn" size="mini" type="warn" bindtap="deleteFan" data-fan-id="{{item.id}}">移除</button>
+        <button class="btn" size="mini" type="warn" bindtap="remove" data-fan-id="{{item.id}}">移除</button>
       </view>
     </view>
     <view wx:else class="user">
@@ -48,8 +48,8 @@
             </view>
           </view>
         </view>
-        <button class="btn" size="mini" bindtap="deleteFan" data-fan-id="{{item.id}}">接受</button>
-        <button class="btn" size="mini" type="warn" bindtap="deleteFan" data-fan-id="{{item.id}}">拒绝</button>
+        <button class="btn" size="mini" bindtap="accept" data-fan-id="{{item.id}}">接受</button>
+        <button class="btn" size="mini" type="warn" bindtap="deny" data-fan-id="{{item.id}}">拒绝</button>
       </view>
     </view>
   </van-tab>

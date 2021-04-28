@@ -61,7 +61,7 @@ export default {
         indexList.push(-1)
       }
     }
-    console.log(indexList, fileList)
+    // console.log(indexList, fileList)
     let uploadedFileList = [] // 不重复的文件 地址是上传后的地址
     // 上传文件
     for (let file of fileList) {
@@ -69,7 +69,7 @@ export default {
         filePath: file.url,
         name: "file"
       }).then(res => {
-        console.log(res)
+        // console.log(res)
         if (res.statusCode == 200) {
           uploadedFileList.push(res.data)
         } else {
@@ -92,7 +92,7 @@ export default {
   },
   processToken(options) {
     let token = getApp().globalData.token
-    // let token = 'TokenHere'
+    // let token = "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiMSIsInN1YiI6IjMxIiwiaWF0IjoxNjE5NDk2NTcyLCJleHAiOjE2MTk1ODI5NzJ9.Kihm0CCt_NJGlF9WXdmmeDaCMNGpzQR3QuheYGD4MDjuJbgndE16Dxhj95DWkWqVnOt7y2URhzg62W78CDUutQ"
     if (!(typeof token == "undefined" || token == null || token == "")) {
       if (options.header) {
         if (!options.header.token) {

@@ -19,15 +19,17 @@ Page({
       'color': true,
       'class': '0'
     },
-    nickname: '',
-    motto: '',
+    name: '',
+    description: '',
     email: '',
-    images: [],
+    avatar: [],
+    picture: [],
+    license: [],
     phone: '',
     region: ['不限', '不限', '不限'],
     regionCode: 0,
     showAreaPicker: false,
-    areaList:{},
+    areaList: {},
     address: '',
     location: {},
   },
@@ -40,13 +42,13 @@ Page({
       areaList: area
     })
     chooseLocation.setLocation(null);
-    this.getProfile()
   },
   onShow() {
+    // 设置地址相关
     let key = 'HOMBZ-XYPC4-JONU6-DXDR7-DYONE-CPBF7';
     const location = chooseLocation.getLocation();
-    console.log(location)
     if (location) {
+      console.log(location)
       this.setData({
         location: {
           lat: location.latitude,
@@ -68,48 +70,125 @@ Page({
   },
 
   getProfile() {
-    req.get({
-      url: '/user/getProfile'
-    }).then(res => {
-      console.log(res)
-      this.setData({
-        nickname: res.data.name,
-        motto: res.data.motto,
-        phone: res.data.phone,
-        email: res.data.email,
-        images: [{
-          url: res.data.avatar
-        }]
-      })
-    })
+
   },
 
-  selectImage(e) {
+  // 更改头像
+  selectAvatar(e) {
     // console.log('select')
     // console.log(e)
-    let temp = this.data.images
+    let temp = this.data.avatar
     for (let image of e.detail.tempFilePaths) {
       temp.push({
         url: image
       })
     }
     this.setData({
-      images: temp
+      avatar: temp
     })
   },
-
-  deleteImage(e) {
+  deleteAvatar(e) {
     // console.log('delete')
     // console.log(e.detail.index)
     let index = e.detail.index
-    this.data.images.splice(index, 1)
+    this.data.avatar.splice(index, 1)
     // console.log(this.data.images)
   },
-
-  async formSubmit(e) {
-    wx.navigateTo({
-      url: '/pages/boss_main/boss_main',
+  // 更改执照
+  selectLicense(e) {
+    // console.log('select')
+    // console.log(e)
+    let temp = this.data.license
+    for (let image of e.detail.tempFilePaths) {
+      temp.push({
+        url: image
+      })
+    }
+    this.setData({
+      license: temp
     })
+  },
+  deleteAvatar(e) {
+    // console.log('delete')
+    // console.log(e.detail.index)
+    let index = e.detail.index
+    this.data.license.splice(index, 1)
+    // console.log(this.data.images)
+  },
+  // 更改店铺照片
+  selectPicture(e) {
+    // console.log('select')
+    // console.log(e)
+    let temp = this.data.picture
+    for (let image of e.detail.tempFilePaths) {
+      temp.push({
+        url: image
+      })
+    }
+    this.setData({
+      picture: temp
+    })
+  },
+  deletePicture(e) {
+    let index = e.detail.index
+    this.data.picture.splice(index, 1)
+  },
+
+  formSubmit(e) {
+    console.log(e)
+    console.log(this.data)
+    wx.showToast({
+      title: '上传中',
+      icon: 'loading'
+    }).then(async () => {
+      let avatar = await req.uploadFiles(this.getFileUrl(this.data.avatar))
+      let license = await req.uploadFiles(this.getFileUrl(this.data.license))
+      let picture = await req.uploadFiles(this.getFileUrl(this.data.picture))
+      if (avatar.length === 1) {
+        avatar = avatar[0]
+      } else {
+        avatar = ''
+      }
+      if (license.length === 1) {
+        license = license[0]
+      } else {
+        license = ''
+      }
+      let info = {
+        name: e.detail.value.name,
+        description: e.detail.value.description,
+        avatar: avatar,
+        license: license,
+        picture: picture,
+        regionCode: this.data.regionCode,
+        address: this.data.address,
+        lat: this.data.location.lat,
+        lng: this.data.location.lng,
+      }
+      console.log(info)
+      return req.post({
+        url: '/shop/new',
+        data: info
+      })
+    }).then(res => {
+      console.log(res)
+      wx.hideToast()
+      wx.navigateTo({
+        url: '/pages/worker_info/worker_info?next=wait',
+      })
+    })
+    // wx.navigateTo({
+    //   url: '/pages/boss_main/boss_main',
+    // })
+  },
+
+  // 绑定的图片数组种中图片url数组
+  getFileUrl(origin) {
+    let fileList = []
+    for (let file of origin) {
+      fileList.push(file.url)
+    }
+    return fileList
   },
   //vant 选择地区
   openAreaPicker() {
