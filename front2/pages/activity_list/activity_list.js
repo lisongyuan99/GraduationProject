@@ -13,6 +13,7 @@ Page({
    */
   data: {
     productList: [],
+    productListShow: [],
     debug: 'not loaded',
     parameter: {
       'navbar': '1',
@@ -40,7 +41,8 @@ Page({
     loadend: false,
     loading: false,
     loadTitle: '加载更多',
-    userInfo: {}
+    userInfo: {},
+    type: 0
   },
 
   /**
@@ -55,6 +57,12 @@ Page({
       navH: app.globalData.navHeight
     });
     this.getAllActivity()
+  },
+  changeType(e) {
+    this.setData({
+      type: e.target.dataset.type
+    })
+    this.changeShowProduct()
   },
   /**
    * 商品详情跳转
@@ -82,76 +90,74 @@ Page({
   },
   getAllActivity() {
     wxp.showToast({
-        title: '加载中',
-        icon: 'loading'
-      }).then(() => {
-        return req.get({
-          url: '/activity/allCategory'
-        })
-      }) .then(res => {
-        console.log(res)
-        this.setData({
-          allCategory: res.data
-        })
-        return req.get({
-          url: "/activity/my"
-        })
-      }).then(res => {
-        console.log(res)
-        let list = []
-        for (let item of res.data) {
-          let lable = ''
-          for(let category of this.data.allCategory){
-            // console.log(category, item.category)
-            if(category.id === item.category){
-              lable = category.name
-            }
-          }
-          list.push({
-            id: item.id,
-            name: item.name,
-            image: item.pic,
-            time: time.dateToFullString(time.utcToDate(item.date)),
-            position: util.getRegion(item.regionCode), //item.regionCode
-            free: item.free,
-            price: item.price,
-            ori: item.ori,
-            count: item.count,
-            category: lable
-          })
-        }
-        this.setData({
-          productList: list
-        })
-
+      title: '加载中',
+      icon: 'loading'
+    }).then(() => {
+      return req.get({
+        url: '/activity/allCategory'
       })
+    }).then(res => {
+      // console.log(res)
+      this.setData({
+        allCategory: res.data
+      })
+      return req.get({
+        url: "/activity/my"
+      })
+    }).then(res => {
+      console.log(res)
+      let list = []
+      for (let item of res.data) {
+        let lable = ''
+        for (let category of this.data.allCategory) {
+          // console.log(category, item.category)
+          if (category.id === item.category) {
+            lable = category.name
+          }
+        }
+        list.push({
+          id: item.id,
+          name: item.name,
+          image: item.pic,
+          time: time.dateToFullString(time.utcToDate(item.date)),
+          position: util.getRegion(item.regionCode), //item.regionCode
+          free: item.free,
+          price: item.price,
+          ori: item.ori,
+          count: item.count,
+          category: lable,
+          status: item.status
+        })
+      }
+      this.setData({
+        productList: list
+      })
+      this.changeShowProduct()
+    })
   },
-
-  onReady: function () {
-
+  changeShowProduct() {
+    if (this.data.type == 0) {
+      this.setData({
+        productListShow: this.data.productList
+      })
+    } else {
+      let temp = []
+      let helper = [-1, 0, 2, 3]
+      console.log()
+      for (let e of this.data.productList) {
+        if (helper[this.data.type] == e.status) {
+          temp.push(e)
+        }
+      }
+      this.setData({
+        productListShow: temp
+      })
+      console.log(JSON.stringify(this.data.productListShow))
+    }
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
 
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */

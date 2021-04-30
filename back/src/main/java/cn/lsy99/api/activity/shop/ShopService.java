@@ -33,15 +33,19 @@ public class ShopService {
                 .status(ShopStatus.NOT_VERIFY.ordinal())
                 .build();
         shopRepository.changeBossStatus(id, UserRole.BOSS);
-        Optional<Shop> oldShop = shopRepository.getShopByBossId(id);
-        if (oldShop.isPresent()) {
-            shop.setId(oldShop.get().getId());
-            shopRepository.updateShop(shop);
-            return oldShop.get().getId();
-        } else {
-            int shopId = shopRepository.newShop(shop);
-            return shopRepository.sellerUpdateShopId(id, shopId);
-        }
+        int shopId = shopRepository.newShop(shop);
+        shopRepository.initBalance(shopId);
+        shopRepository.initVip(shopId);
+        return shopRepository.sellerUpdateShopId(id, shopId);
+//        Optional<Shop> oldShop = shopRepository.getShopByBossId(id);
+//        if (oldShop.isPresent()) {
+//            shop.setId(oldShop.get().getId());
+//            shopRepository.updateShop(shop);
+//            return oldShop.get().getId();
+//        } else {
+//            int shopId = shopRepository.newShop(shop);
+//            return shopRepository.sellerUpdateShopId(id, shopId);
+//        }
     }
 
     public ShopModifyEntity getShopInfo(int bossId) {

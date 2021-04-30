@@ -112,9 +112,9 @@
 <view class='mask' wx:if="{{posterImageStatus}}"></view>
 <canvas class="canvas" canvas-id='myCanvas' wx:if="{{canvasStatus}}"></canvas> -->
 <view class="buttom-paddle">
-  <view class="customer-panel" bindtap="toUserPage">
+  <view class="customer-panel" bindtap="toOrderPage">
     <van-icon name="friends-o" />
-    <view>关注人数:{{activityInfo.followUserNum}}</view>
+    <view>相关订单:{{activityInfo.followUserNum}}</view>
     <van-icon name="arrow" />
   </view>
   <!-- <view class="button-panel">

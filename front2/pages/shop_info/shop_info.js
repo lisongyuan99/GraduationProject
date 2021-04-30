@@ -46,7 +46,7 @@ Page({
     chooseLocation.setLocation(null);
   },
   onShow() {
-    
+
     // 设置地址相关
     let key = 'HOMBZ-XYPC4-JONU6-DXDR7-DYONE-CPBF7';
     const location = chooseLocation.getLocation();
@@ -77,8 +77,10 @@ Page({
       url: '/shop/getShopModifyInfo'
     }).then(res => {
       let picList = []
-      for(let pic of res.data.picture){
-        picList.push({url:pic})
+      for (let pic of res.data.picture) {
+        picList.push({
+          url: pic
+        })
       }
       this.setData({
         id: res.data.id,
@@ -94,7 +96,7 @@ Page({
         region: util.getRegion2(res.data.regionCode),
         regionCode: res.data.regionCode,
         address: res.data.address,
-        location:{
+        location: {
           lat: res.data.lat,
           lng: res.data.lng
         }
@@ -181,7 +183,7 @@ Page({
         regionCode: this.data.regionCode,
         address: this.data.address,
         lat: this.data.location.lat,
-        lng: this.data.location.lon,
+        lng: this.data.location.lng,
       }
       return req.post({
         url: '/shop/modify',
@@ -190,9 +192,9 @@ Page({
     }).then(res => {
       console.log(res)
       return wx.hideToast()
-    }).then(res=>{
+    }).then(res => {
       wx.showToast({
-        title:'修改成功',
+        title: '修改成功',
         icon: 'success'
       })
     })
@@ -235,7 +237,15 @@ Page({
       latitude: 39.90517,
       longitude: 116.393822
     });
-    if (this.data.regionCode !== 0) {
+    if (this.data.location) {
+      let location = JSON.stringify({
+        latitude: this.data.location.lat,
+        longitude: this.data.location.lng
+      });
+      wx.navigateTo({
+        url: `plugin://chooseLocation/index?key=${key}&referer=${referer}&location=${location}`
+      });
+    } else if (this.data.regionCode !== 0) {
       wxp.request({
         url: `https://apis.map.qq.com/ws/district/v1/search?key=${key}&keyword=${this.data.regionCode}`,
         method: 'GET'

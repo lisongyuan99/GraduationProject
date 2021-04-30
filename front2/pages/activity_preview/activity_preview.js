@@ -183,9 +183,9 @@ Page({
       })
     })
   },
-  toUserPage() {
+  toOrderPage() {
     wx.navigateTo({
-      url: "/pages/activity_user/activity_user?id=" + this.data.id
+      url: "/pages/activity_order_list/activity_order_list?id=" + this.data.id
     })
   },
   editActivity() {

@@ -29,6 +29,41 @@
           "pathName": "pages/worker_info/worker_info",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/activity_list/activity_list",
+          "pathName": "pages/activity_list/activity_list",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/comment_list/comment_list",
+          "pathName": "pages/comment_list/comment_list",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/order_list/order_list",
+          "pathName": "pages/order_list/order_list",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/order_details/order_details",
+          "pathName": "pages/order_details/order_details",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/user_cash/user_cash",
+          "pathName": "pages/user_cash/user_cash",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/user_vip/user_vip",
+          "pathName": "pages/user_vip/user_vip",
+          "scene": null
         }
       ]
     }

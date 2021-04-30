@@ -1,0 +1,36 @@
+<navbar parameter='{{parameter}}'></navbar>
+<view class='integral-details'>
+   <view class='header'>
+      <view class='currentScore'>剩余天数</view>
+      <view class="money">{{restDay}}天</view>
+      <view class='line'></view>
+      <view class='nav acea-row'>
+         <view class='item'>
+            <view class='num'>{{lastRenew}}</view>
+            <view>上次续费</view>
+         </view>
+         <view class='item'>
+            <view class='num'>{{expireDate}}</view>
+            <view>过期时间</view>
+         </view>
+      </view>
+   </view>
+   <view class='wrapper'>
+      <view class='nav acea-row'>
+         <view class='title'>
+            <van-button class="get-money" size="large" color="#E93323" block bindtap="renew1">点击续费(30天)</van-button>
+            <van-button class="get-money" size="large" color="#E93323" block bindtap="renew2">点击续费(365天)</van-button>
+         </view>
+      </view>
+      <view scroll-y="true" class='list'>
+         <view class='item acea-row row-between-wrapper' wx:for="{{list}}" wx:key='index'>
+            <view>
+               <view class='state'>{{item.info}}</view>
+               <view>{{item.time}}</view>
+            </view>
+            <view class='num font-color' wx:if="{{item.price>0}}"> +￥{{item.price}}</view>
+            <view class='num' wx:else>-￥{{-item.price}}</view>
+         </view>
+      </view>
+   </view>
+</view>

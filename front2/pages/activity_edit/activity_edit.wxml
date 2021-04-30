@@ -81,12 +81,14 @@
           <text class="iconfont icon-xiangyou"></text>
         </view>
       </view>
+
       <view class="item acea-row row-between-wrapper">
         <view>商品详情</view>
         <navigator url="/pages/editor/editor" hover-class="none" class="input">
           {{detailText}}<text class="iconfont icon-xiangyou"></text>
         </navigator>
       </view>
+
       <view class="item acea-row row-between-wrapper">
         <view>免费活动</view>
         <view class="input">
@@ -114,9 +116,8 @@
           <input type="number" name="count" placeholder="{{placeholder}}"></input>
         </view>
       </view>
+
     </view>
-
-
     <button class="modifyBnt bg-color" formType="submit">保存修改</button>
   </view>
 </form>

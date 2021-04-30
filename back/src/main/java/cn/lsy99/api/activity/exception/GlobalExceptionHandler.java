@@ -80,4 +80,20 @@ public class GlobalExceptionHandler {
                 "WrongUsernameOrPassword",
                 "用户名或密码错误");
     }
+
+    @ExceptionHandler(value = NoEnoughBalanceException.class)
+    public ResponseEntity<ErrorResponseBody> NoEnoughBalanceExceptionHandler(Exception e) {
+        log.warn(e.toString());
+        return resFactory.getResponse(HttpStatus.FORBIDDEN,
+                "NoEnoughBalance",
+                "余额不足");
+    }
+
+    @ExceptionHandler(value = NoShopException.class)
+    public ResponseEntity<ErrorResponseBody> NoShopExceptionHandler(Exception e) {
+        log.warn(e.toString());
+        return resFactory.getResponse(HttpStatus.FORBIDDEN,
+                "NoShop",
+                "商店尚未开通");
+    }
 }

@@ -34,10 +34,11 @@
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
         <table tableName="activity_count">
-            <generatedKey column="activity_id" sqlStatement="JDBC" identity="true"/>
+        </table>
+        <table tableName="activity_statistics">
         </table>
         <table tableName="activity_follow">
-            <generatedKey column="activity_id" sqlStatement="JDBC" identity="true"/>
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
         <table tableName="admin">
             <generatedKey column="name" sqlStatement="JDBC" identity="true"/>
@@ -67,11 +68,14 @@
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
         <table tableName="shop_vip">
-            <generatedKey column="shop_id" sqlStatement="JDBC" identity="true"/>
         </table>
         <table tableName="vip_detail">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-
+        <table tableName="shop_bill">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
+        <table tableName="shop_balance">
+        </table>
     </context>
 </generatorConfiguration>

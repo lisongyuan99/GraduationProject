@@ -5,8 +5,8 @@ import {
   wxp
 } from '../../utils/wxp'
 import area from '../../utils/area'
-import util from '../../utils/util'
 import time from '../../utils/time'
+import util from '../../utils/util';
 const chooseLocation = requirePlugin('chooseLocation');
 Page({
 
@@ -42,10 +42,9 @@ Page({
     areaList: {},
     showAreaPicker: false,
     address: '',
-    location: {},
+    location: null,
     free: true
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -65,7 +64,6 @@ Page({
       data: this.data.id
     }).then(res => {
       console.log(res)
-
       let tempImage = []
       for (let url of res.data.pictures) {
         tempImage.push({
@@ -74,6 +72,7 @@ Page({
       }
       let date = time.utcToDate(res.data.date)
       this.setData({
+        id: res.data.activityId,
         name: res.data.name,
         introduction: res.data.introduction,
         address: res.data.address,
@@ -118,11 +117,12 @@ Page({
     // this.setLocation()
     // this.getAllCategory()
   },
-  // 生命周期 显示时 获取editor中的文字
+  // 生命周期 显示时 获取editor中的文字 或者获取地址
   onShow() {
     // console.log('show')
     // console.log(!!getApp().globalData.editorContent)
     let editorContent = getApp().globalData.editorContent
+    let key = 'HOMBZ-XYPC4-JONU6-DXDR7-DYONE-CPBF7';
     if (editorContent) {
       console.log(editorContent)
       // let temp = editorContent.text.replace(/\s+/, '')
@@ -133,6 +133,28 @@ Page({
     } else {
       this.setData({
         detailText: '尚未填写，点击编辑'
+      })
+    }
+    const location = chooseLocation.getLocation();
+    console.log(location)
+    if (location) {
+      this.setData({
+        location: {
+          lat: location.latitude,
+          lng: location.longitude
+        },
+        address: location.name
+      })
+      wxp.request({
+        url: `https://apis.map.qq.com/ws/geocoder/v1/?location=${location.latitude},${location.longitude}&key=${key}`,
+        method: 'GET'
+      }).then(res => {
+        // console.log(res.data)
+        this.setData({
+          regionCode: res.data.result.ad_info.adcode,
+          region: [res.data.result.address_component.province, res.data.result.address_component.city, res.data.result.address_component.district]
+        })
+        console.log
       })
     }
   },
@@ -147,6 +169,7 @@ Page({
         for (let file of this.data.images) {
           fileList.push(file.url)
         }
+        console.log(fileList)
         return req.uploadFiles(fileList)
       }).then((res) => {
         console.log(res)
@@ -157,7 +180,7 @@ Page({
         console.log(e)
         let formData = e.detail.value
         // let date = dayjs(formData.date + ' ' + formData.time, 'YYYY-MM-DD hh:mm').format()
-        let date = time.StringToDate(formData.date, formData.time)
+        let date = date = time.StringToDate(formData.date, formData.time)
         let uploadInfo = {
           activityId:this.data.id,
           name: formData.name,
@@ -166,34 +189,48 @@ Page({
           category: formData.category,
           date: date,
           regionCode: this.data.regionCode,
-          address: formData.address,
-          detail: this.data.detail
+          address: this.data.address,
+          detail: this.data.detail,
+          free: this.data.free,
+          count: formData.count,
+          price: formData.price,
+          ori: formData.ori,
+          lat: this.data.location.lat,
+          lng: this.data.location.lng
         }
         console.log(uploadInfo)
-
         return req.post({
           url: '/activity/edit',
           data: uploadInfo
         })
-      }).then(res => {
-        console.log(res)
-        return wxp.showToast({
-          title:'修改成功',
-          duration: 1500
-        })
-      }).then(res=>{
-        return wxp.navigateBack()
       })
-      .catch((res) => {
+      .then(res => {
+        console.log(res)
         wxp.hideToast()
-        return wxp.showToast({
+      }).then(() => {
+        wx.navigateBack()
+      }).catch((res) => {
+        wxp.showToast({
           title: res.message,
           icon: 'error'
         })
-      }).then(() => {
-        wxp.hideToast()
       })
-
+  },
+  getShopPosition() {
+    req.get({
+      url: '/activity/shopAddress'
+    }).then(res => {
+      console.log(res)
+      this.setData({
+        regionCode: res.data.regionCode,
+        region: util.getRegion2(res.data.regionCode),
+        address: res.data.address,
+        location: {
+          lat: res.data.lat,
+          lng: res.data.lng
+        }
+      })
+    })
   },
   // 获取当前位置信息
   setLocation() {
@@ -234,7 +271,6 @@ Page({
     req.get({
       url: '/activity/allCategory'
     }).then(res => {
-      // console.log(res)
       this.setData({
         allCategory: res.data
       })
@@ -283,6 +319,15 @@ Page({
     })
   },
   // 地区改变
+  onRegionChange(e) {
+    console.log(e)
+    this.setData({
+      region: e.detail.value,
+      regionCode: e.detail.code.length != 0 ? e.detail.code[e.detail.code.length - 1] : '000000'
+    })
+    console.log(this.data)
+  },
+  //vant 选择地区
   openAreaPicker() {
     console.log('open')
     this.setData({
@@ -300,12 +345,15 @@ Page({
     for (let value of e.detail.values) {
       temp.push(value.name)
     }
+    // 需要重设详细地址
     this.setData({
       showAreaPicker: false,
       regionCode: e.detail.values[e.detail.values.length - 1].code,
-      region: temp
+      region: temp,
+      location: {},
+      address: ''
     })
-    console.log(this.data)
+    // console.log(this.data)
   },
   selectPosition() {
     let key = 'HOMBZ-XYPC4-JONU6-DXDR7-DYONE-CPBF7'; //使用在腾讯位置服务申请的key
@@ -314,7 +362,16 @@ Page({
       latitude: 39.90517,
       longitude: 116.393822
     });
-    if (this.data.regionCode !== 0) {
+    console.log(this.data.regionCode)
+    if (this.data.location) {
+      let location = JSON.stringify({
+        latitude: this.data.location.lat,
+        longitude: this.data.location.lng
+      });
+      wx.navigateTo({
+        url: `plugin://chooseLocation/index?key=${key}&referer=${referer}&location=${location}`
+      });
+    } else if (this.data.regionCode !== 0) {
       wxp.request({
         url: `https://apis.map.qq.com/ws/district/v1/search?key=${key}&keyword=${this.data.regionCode}`,
         method: 'GET'
@@ -334,8 +391,6 @@ Page({
         url: `plugin://chooseLocation/index?key=${key}&referer=${referer}&location=${location}`
       });
     }
-
-
   },
   onChange() {
     let temp = this.data.free

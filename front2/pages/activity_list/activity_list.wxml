@@ -1,13 +1,34 @@
 <navbar parameter='{{parameter}}'></navbar>
-<view class='productList'>
-   <view class='search bg-color acea-row row-between-wrapper' style='top:{{navH}}rpx'>
+<view class="top">
+   <view class='search bg-color acea-row row-between-wrapper'>
       <view class='input acea-row row-between-wrapper'><text class='iconfont icon-sousuo'></text>
-        <form bindsubmit="searchSubmit">
-          <input placeholder-class='placeholder'  placeholder='搜索活动' placeholder-class='placeholder' bindconfirm="searchSubmit" confirm-type='search' name="search" value='{{where.keyword}}'></input>
-        </form>
+         <form bindsubmit="searchSubmit">
+            <input placeholder-class='placeholder' placeholder='搜索活动' placeholder-class='placeholder'
+               bindconfirm="searchSubmit" confirm-type='search' name="search" value='{{where.keyword}}'></input>
+         </form>
       </view>
       <view class='iconfont {{is_switch==true?"icon-pailie":"icon-tupianpailie"}}' bindtap='Changswitch'></view>
    </view>
+
+   <view class="evaluate-list">
+      <view class='btn acea-row row-middle'>
+         <view class='item {{type==0 ? "bg-color":""}}' bindtap='changeType' data-type='0'>
+            全部
+         </view>
+         <view class='item {{type==1 ? "bg-color":""}}' bindtap='changeType' data-type='1'>
+            已通过
+         </view>
+         <view class='item {{type==2 ? "bg-color":""}}' bindtap='changeType' data-type='2'>
+            待审核
+         </view>
+         <view class='item {{type==3 ? "bg-color":""}}' bindtap='changeType' data-type='3'>
+            已拒绝
+         </view>
+      </view>
+   </view>
+</view>
+
+<view class='productList'>
    <!-- <view class='nav acea-row row-middle' style='top:{{navH}}rpx;'>
      <view class='item {{title ? "font-color":""}}' bindtap='set_where' data-type='1'>{{title ? title:'默认'}}</view>
      <view class='item' bindtap='set_where' data-type='2'>
@@ -25,11 +46,12 @@
      <view class='item {{nows ? "font-color":""}}' bindtap='set_where' data-type='4'>新品</view>
    </view> -->
    <view class='list acea-row row-between-wrapper {{is_switch==true?"":"on"}}'>
-      <block wx:for="{{productList}}" wx:key='index'>
+      <block wx:for="{{productListShow}}" wx:key='index'>
          <view class='item {{is_switch==true?"":"on"}}' bindtap="goDetail" data-id='{{item.id}}'>
             <view class='pictrue {{is_switch==true?"":"on"}}'>
                <image src='{{item.image}}' class='{{is_switch==true?"":"on"}}'></image>
-               <text class='{{is_switch === true ? "pictrue_log_big" : "pictrue_log"}} pictrue_log_class'>{{item.category}}</text>
+               <text
+                  class='{{is_switch === true ? "pictrue_log_big" : "pictrue_log"}} pictrue_log_class'>{{item.category}}</text>
             </view>
             <view class='text {{is_switch==true?"":"on"}}'>
                <view class='name line1'>{{item.name}}</view>
@@ -43,14 +65,13 @@
                <view class='money font-color {{is_switch==true?"":"on"}}' wx:else>
                   免费
                </view>
-               
+
                <view class='vip acea-row row-between-wrapper {{is_switch==true?"":"on"}}'>
                   <view class='vip-money' wx:if="{{item.ori && !item.free}}">
                      ￥{{item.ori}}
                   </view>
                   <view>剩余{{item.count}}件</view>
                </view>
-               
             </view>
          </view>
       </block>
@@ -63,6 +84,8 @@
    </view>
 </view>
 <view class='noCommodity' wx:if="{{productList.length==0}}">
-   <view class='pictrue'><image src='/images/noShopper.png'></image></view>
+   <view class='pictrue'>
+      <image src='/images/noShopper.png'></image>
+   </view>
    <!-- <recommend host_product="{{host_product}}"></recommend> -->
 </view>

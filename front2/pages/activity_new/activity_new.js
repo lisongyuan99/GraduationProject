@@ -6,6 +6,7 @@ import {
 } from '../../utils/wxp'
 import area from '../../utils/area'
 import time from '../../utils/time'
+import util from '../../utils/util';
 const chooseLocation = requirePlugin('chooseLocation');
 Page({
 
@@ -37,10 +38,9 @@ Page({
     areaList: {},
     showAreaPicker: false,
     address: '',
-    location: {},
+    location: null,
     free: true
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -53,12 +53,10 @@ Page({
     })
     getApp().globalData.editorContent = null
     this.getAllCategory()
-    // this.setLocation()
-    // this.getAllCategory()
+    this.getShopPosition()
   },
   // 生命周期 显示时 获取editor中的文字 或者获取地址
   onShow() {
-
     // console.log('show')
     // console.log(!!getApp().globalData.editorContent)
     let editorContent = getApp().globalData.editorContent
@@ -89,11 +87,12 @@ Page({
         url: `https://apis.map.qq.com/ws/geocoder/v1/?location=${location.latitude},${location.longitude}&key=${key}`,
         method: 'GET'
       }).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         this.setData({
           regionCode: res.data.result.ad_info.adcode,
           region: [res.data.result.address_component.province, res.data.result.address_component.city, res.data.result.address_component.district]
         })
+        console.log
       })
     }
   },
@@ -137,7 +136,6 @@ Page({
           lng: this.data.location.lng
         }
         console.log(uploadInfo)
-
         return req.post({
           url: '/activity/add',
           data: uploadInfo
@@ -154,6 +152,22 @@ Page({
           icon: 'error'
         })
       })
+  },
+  getShopPosition() {
+    req.get({
+      url: '/activity/shopAddress'
+    }).then(res => {
+      console.log(res)
+      this.setData({
+        regionCode: res.data.regionCode,
+        region: util.getRegion2(res.data.regionCode),
+        address: res.data.address,
+        location: {
+          lat: res.data.lat,
+          lng: res.data.lng
+        }
+      })
+    })
   },
   // 获取当前位置信息
   setLocation() {
@@ -273,8 +287,8 @@ Page({
       showAreaPicker: false,
       regionCode: e.detail.values[e.detail.values.length - 1].code,
       region: temp,
-      location:{},
-      address:''
+      location: {},
+      address: ''
     })
     // console.log(this.data)
   },
@@ -285,7 +299,16 @@ Page({
       latitude: 39.90517,
       longitude: 116.393822
     });
-    if (this.data.regionCode !== 0) {
+    console.log(this.data.regionCode)
+    if (this.data.location) {
+      let location = JSON.stringify({
+        latitude: this.data.location.lat,
+        longitude: this.data.location.lng
+      });
+      wx.navigateTo({
+        url: `plugin://chooseLocation/index?key=${key}&referer=${referer}&location=${location}`
+      });
+    } else if (this.data.regionCode !== 0) {
       wxp.request({
         url: `https://apis.map.qq.com/ws/district/v1/search?key=${key}&keyword=${this.data.regionCode}`,
         method: 'GET'
@@ -305,8 +328,6 @@ Page({
         url: `plugin://chooseLocation/index?key=${key}&referer=${referer}&location=${location}`
       });
     }
-
-
   },
   onChange() {
     let temp = this.data.free

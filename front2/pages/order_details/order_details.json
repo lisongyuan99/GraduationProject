@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "navbar": "/components/navbar/index",
+    "orderGoods": "/components/orderGoods/index",
+    "van-steps": "/components/vant/steps/index",
+    "userEvaluation": "/components/userEvaluation/index"
+  },
+  "navigationBarTextStyle": "white"
+}

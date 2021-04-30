@@ -3,7 +3,7 @@ import {
 } from './wxp'
 const baseUrl = "http://localhost:50002"
 // const baseUrl = "https://lsy99.cn:50002"
-const tokenHeader = 'Token'
+const tokenHeader = 'token'
 export default {
   req(options) {
     options = this.processToken(options)
@@ -92,7 +92,6 @@ export default {
   },
   processToken(options) {
     let token = getApp().globalData.token
-    // let token = "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiMSIsInN1YiI6IjMxIiwiaWF0IjoxNjE5NDk2NTcyLCJleHAiOjE2MTk1ODI5NzJ9.Kihm0CCt_NJGlF9WXdmmeDaCMNGpzQR3QuheYGD4MDjuJbgndE16Dxhj95DWkWqVnOt7y2URhzg62W78CDUutQ"
     if (!(typeof token == "undefined" || token == null || token == "")) {
       if (options.header) {
         if (!options.header.token) {

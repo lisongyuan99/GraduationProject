@@ -171,8 +171,6 @@ button::after{
   font-size: 48rpx;
 }
 
-
-
 .name{
   font-size: 48rpx;
   font-weight: bold;

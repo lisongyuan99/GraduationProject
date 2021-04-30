@@ -31,7 +31,7 @@ Page({
     showAreaPicker: false,
     areaList: {},
     address: '',
-    location: {},
+    location: null,
   },
 
   /**
@@ -225,7 +225,15 @@ Page({
       latitude: 39.90517,
       longitude: 116.393822
     });
-    if (this.data.regionCode !== 0) {
+    if (this.data.location) {
+      let location = JSON.stringify({
+        latitude: this.data.location.lat,
+        longitude: this.data.location.lng
+      });
+      wx.navigateTo({
+        url: `plugin://chooseLocation/index?key=${key}&referer=${referer}&location=${location}`
+      });
+    } else if (this.data.regionCode !== 0) {
       wxp.request({
         url: `https://apis.map.qq.com/ws/district/v1/search?key=${key}&keyword=${this.data.regionCode}`,
         method: 'GET'

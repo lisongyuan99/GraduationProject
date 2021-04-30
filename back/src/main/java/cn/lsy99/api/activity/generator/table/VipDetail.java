@@ -14,18 +14,18 @@ import lombok.ToString;
 @Builder
 @ToString
 public class VipDetail {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-24T22:40:53.913351+08:00", comments="Source field: vip_detail.id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-30T19:11:00.3170032+08:00", comments="Source field: vip_detail.id")
     private Integer id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-24T22:40:53.913351+08:00", comments="Source field: vip_detail.pay_time")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-30T19:11:00.3170032+08:00", comments="Source field: vip_detail.pay_time")
     private Date payTime;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-24T22:40:53.913351+08:00", comments="Source field: vip_detail.add_days")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-30T19:11:00.3170032+08:00", comments="Source field: vip_detail.add_days")
     private Integer addDays;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-24T22:40:53.913351+08:00", comments="Source field: vip_detail.price")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-30T19:11:00.3170032+08:00", comments="Source field: vip_detail.price")
     private Double price;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-24T22:40:53.913351+08:00", comments="Source field: vip_detail.shop_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-30T19:11:00.3170032+08:00", comments="Source field: vip_detail.shop_id")
     private Integer shopId;
 }

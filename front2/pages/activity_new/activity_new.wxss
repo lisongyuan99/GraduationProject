@@ -25,9 +25,24 @@
 picker{text-align:right; width: 100%;}
 .content{text-align:right; width: 100%;}
 .uploader-view{width: 100%;}
+
 .content{
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  word-break:keep-all;
+}
+.my_content{
+  display: flex;
+  flex-direction: flex-end;
+}
+.notice{
+  font-size:40rpx;
+  color: #f00;
+}
+.my-uploader{
+  width: 100%;
+}
+
+page{
+  background-color: #fff !important;
 }

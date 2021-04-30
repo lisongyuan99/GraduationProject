@@ -21,6 +21,10 @@
     "pages/worker_manage/worker_manage",
     "pages/worker_qr/worker_qr",
     "pages/worker_info/worker_info",
+    "pages/order_list/order_list",
+    "pages/order_details/order_details",
+    "pages/activity_order_list/activity_order_list",
+    "pages/user_vip/user_vip",
     "pages/wait/wait"
   ],
   "window": {

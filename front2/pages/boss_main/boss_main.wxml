@@ -13,10 +13,14 @@
         <!-- <button class="name line1 btn" wx:elif="{{isLogin && (!nickName || !avatarUrl)}}"
           bindtap="getUserProfile">点击获取用户信息</button>
         <button class="name line1 btn" wx:else bindtap="login"> 点击登录 </button> -->
-        <view class="id" wx:if="{{phone}}" data-url="/pages/user_phone/user_phone" bindtap="goPages">
+        <!-- <view class="id" wx:if="{{phone}}" data-url="/pages/user_phone/user_phone" bindtap="goPages">
           手机号<text class="iconfont icon-bianji1"></text></view>
-        <view wx:else data-url="/pages/user_phone/user_phone" bindtap="goPages"><text
-            class="binding">绑定手机号</text></view>
+        <view wx:else data-url="/pages/user_phone/user_phone" bindtap="goPages">
+          <text class="binding">绑定手机号</text>
+        </view> -->
+        <view>
+          <text class="binding">会员有效期至 2021-09-01</text>
+        </view>
       </view>
     </view>
   </view>
@@ -28,32 +32,32 @@
       <van-grid column-num="2" direction="horizontal">
         <van-grid-item icon="coupon-o" text="我的活动" url="/pages/activity_list/activity_list" />
         <van-grid-item icon="like-o" text="我的粉丝" url="/pages/fan_list/fan_list" />
+        <van-grid-item icon="orders-o" text="我的订单" url="/pages/order_list/order_list" />
         <van-grid-item icon="cash-on-deliver" text="我的余额" url="/pages/user_cash/user_cash" />
-        <van-grid-item icon="comment-o" text="我的评价" url="/pages/comment_list/comment_list"/>
-
       </van-grid>
     </view>
 
     <view class="myService">
       <view class="title acea-row row-middle">常用操作</view>
       <van-grid>
-        <van-grid-item icon="add-o" text="发布活动" url="/pages/activity_new/activity_new"/>
-        <van-grid-item icon="setting-o" text="店铺资料" url="/pages/shop_info/shop_info"/>
-        <van-grid-item icon="setting-o" text="我的资料" url="/pages/worker_info/worker_info"/>
-        <van-grid-item icon="scan" text="扫码核验" bindtap="scanQr"/>
-        <van-grid-item icon="friends-o" text="员工管理" url="/pages/worker_manage/worker_manage"/>
-        <van-grid-item icon="qr" text="店铺二维码" url="/pages/worker_qr/worker_qr"/>
-        <van-grid-item icon="service-o" text="联系我们" url="/pages/contact_us/contact_us"/>
+        <van-grid-item icon="add-o" text="发布活动" url="/pages/activity_new/activity_new" />
+        <van-grid-item icon="setting-o" text="店铺资料" url="/pages/shop_info/shop_info" />
+        <van-grid-item icon="setting-o" text="我的资料" url="/pages/worker_info/worker_info" />
+        <van-grid-item icon="scan" text="扫码核验" bindtap="scanQr" />
+        <van-grid-item icon="friends-o" text="员工管理" url="/pages/worker_manage/worker_manage" />
+        <van-grid-item icon="qr" text="店铺二维码" url="/pages/worker_qr/worker_qr" />
+        <van-grid-item icon="vip-card-o" text="店铺会员" url="/pages/user_vip/user_vip" />
+        <van-grid-item icon="service-o" text="联系我们" url="/pages/contact_us/contact_us" />
       </van-grid>
     </view>
 
     <!-- <view class="data-chart">
       <view class="title acea-row row-between-wrapper">
         <view>活动趋势</view> -->
-        <!-- <view class="detail" data-url="/pages/order_list/index" bindtap="goPages">
+    <!-- <view class="detail" data-url="/pages/order_list/index" bindtap="goPages">
           详情<text class="iconfont icon-jiantou"></text>
         </view> -->
-      <!-- </view>
+    <!-- </view>
       <view class="data-chart-container  acea-row row-middle">
         <view class="container">
           <ec-canvas id="my-chart" canvas-id="mychart-bar" ec="{{ ec }}"></ec-canvas>
