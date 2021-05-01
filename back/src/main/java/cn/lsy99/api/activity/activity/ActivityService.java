@@ -1,6 +1,7 @@
 package cn.lsy99.api.activity.activity;
 
 import cn.lsy99.api.activity.activity.dto.*;
+import cn.lsy99.api.activity.exception.exception.NoEnoughRestActivityException;
 import cn.lsy99.api.activity.generator.ActivityStatus;
 import cn.lsy99.api.activity.generator.table.*;
 import cn.lsy99.api.activity.util.ArrayUtil;
@@ -8,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.swing.text.html.Option;
 import java.util.ArrayList;
@@ -78,11 +80,7 @@ public class ActivityService {
                 if (pics.length > 0) {
                     pic = pics[0];
                 }
-                int count = 0;
-                Optional<ActivityCount> countOptional = activityRepository.getCount(activity.getId());
-                if (countOptional.isPresent()) {
-                    count = countOptional.get().getCount();
-                }
+                int count = activityRepository.getCount(activity.getId());
                 ActivityBriefInfo temp = ActivityBriefInfo.builder()
                         .id(activity.getId())
                         .pic(pic)
@@ -95,6 +93,7 @@ public class ActivityService {
                         .ori(activity.getPriceOri())
                         .count(count)
                         .status(activity.getStatus())
+                        .view(activityRepository.getViewNum(id))
                         .build();
                 result.add(temp);
             }
@@ -113,6 +112,7 @@ public class ActivityService {
             Optional<Shop> shop = activityRepository.getShopById(activityOptional.get().getShopId());
             long upVote = activityRepository.getUpVoteNum(id);
             long downVote = activityRepository.getDownVoteNum(id);
+            double suggestion = activityRepository.getSuggestion(id);
             ActivityInfo result = ActivityInfo.builder()
                     .id(activity.getId())
                     .pics(ArrayUtil.StringToStringArray(activity.getPics()))
@@ -137,14 +137,15 @@ public class ActivityService {
                     .free(activity.getFree())
                     .price(activity.getPrice())
                     .ori(activity.getPriceOri())
+
+                    .suggestionAmount(suggestion)
                     .build();
             if (shop.isPresent()) {
                 result.setOrgAvatar(shop.get().getAvatar());
                 result.setOrgId(shop.get().getId());
-                // result.setOrgMotto(organizer.get().getMotto());
+                result.setOrgMotto(shop.get().getDescription());
                 result.setOrgName(shop.get().getName());
             }
-
             return result;
         } else {
             // TODO 异常处理
@@ -174,6 +175,7 @@ public class ActivityService {
         Optional<Activity> activityOptional = activityRepository.getById(id);
         if (activityOptional.isPresent()) {
             Activity activity = activityOptional.get();
+            activityRepository.getCount(id);
             return ActivityModifyEntity.builder()
                     .activityId(activity.getId())
                     .pictures(ArrayUtil.StringToStringArray(activity.getPics()))
@@ -183,6 +185,12 @@ public class ActivityService {
                     .category(activity.getCategoryId())
                     .regionCode(activity.getPositionCode())
                     .address(activity.getPositionDetail())
+                    .lat(activity.getPosLat())
+                    .lng(activity.getPosLng())
+                    .price(activity.getPrice())
+                    .ori(activity.getPriceOri())
+                    .count(activity.getSum())
+                    .rest(activityRepository.getCount(id))
                     .detail(activity.getDetail())
                     .build();
         } else {
@@ -194,24 +202,37 @@ public class ActivityService {
     @Transactional
     public int editActivity(int bossId, ActivityModifyEntity activityModifyEntity) {
         int activityId = activityModifyEntity.getActivityId();
-        log.info(activityModifyEntity.toString());
         Optional<Shop> shopOptional = activityRepository.getShopByBossId(bossId);
         Optional<Activity> activityOptional = activityRepository.getById(activityId);
+        int rest = activityRepository.getCount(activityId);
         if (shopOptional.isPresent() && activityOptional.isPresent()
                 && shopOptional.get().getId().equals(activityOptional.get().getShopId())) {
-            String pics = ArrayUtil.StringArrayToString(activityModifyEntity.getPictures());
-            return activityRepository.editActivity(Activity.builder()
+            Activity newActivity = Activity.builder()
                     .id(activityId)
                     .title(activityModifyEntity.getName())
                     .subtitle(activityModifyEntity.getIntroduction())
                     .detail(activityModifyEntity.getDetail())
-                    .beginTime(activityModifyEntity.getDate())
+                    .pics(ArrayUtil.StringArrayToString(activityModifyEntity.getPictures()))
                     .categoryId(activityModifyEntity.getCategory())
+                    .beginTime(activityModifyEntity.getDate())
                     .positionCode(activityModifyEntity.getRegionCode())
                     .positionDetail(activityModifyEntity.getAddress())
-                    .pics(pics)
+                    .posLat(activityModifyEntity.getLat())
+                    .posLng(activityModifyEntity.getLng())
+                    .free(activityModifyEntity.isFree())
+                    .sum(activityModifyEntity.getCount())
+                    .price(activityModifyEntity.getPrice())
+                    .priceOri(activityModifyEntity.getOri())
                     .status(ActivityStatus.WAIT_FOR_VERIFY.ordinal())
-                    .build());
+                    .build();
+            int sold = activityOptional.get().getSum() - rest;
+            int newRest = activityModifyEntity.getCount() - sold;
+            if (newRest < 0) {
+                throw new NoEnoughRestActivityException();
+            } else {
+                activityRepository.editActivityCount(activityId, newRest);
+            }
+            return activityRepository.editActivity(newActivity);
         }
         return -1;
     }

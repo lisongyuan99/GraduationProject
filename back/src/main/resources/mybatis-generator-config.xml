@@ -77,5 +77,8 @@
         </table>
         <table tableName="shop_balance">
         </table>
+        <table tableName="activity_suggestion">
+            <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
+        </table>
     </context>
 </generatorConfiguration>

@@ -3,9 +3,7 @@ package cn.lsy99.api.activity.user;
 import cn.lsy99.api.activity.aop.annotation.BossTokenCheck;
 import cn.lsy99.api.activity.aop.annotation.SellerTokenCheck;
 import cn.lsy99.api.activity.aop.annotation.TokenCheck;
-import cn.lsy99.api.activity.user.dto.PhoneNumCode;
-import cn.lsy99.api.activity.user.dto.UserInfoInput;
-import cn.lsy99.api.activity.user.dto.WorkerInfo;
+import cn.lsy99.api.activity.user.dto.*;
 import cn.lsy99.api.activity.util.JwtInfo;
 import cn.lsy99.api.activity.util.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -84,6 +82,7 @@ public class UserController {
         }
     }
 
+    // 修改信息
     @SellerTokenCheck
     @PostMapping("modifyInfo")
     public int modifyInfo(@RequestHeader Map<String, String> headers, @RequestBody UserInfoInput input) {
@@ -93,7 +92,23 @@ public class UserController {
         return userService.modifyInfo(id, input.getName(), input.getAvatar());
     }
 
-    @TokenCheck
+    // 获取用户信息
+    @SellerTokenCheck
+    @GetMapping("getInfo")
+    public UserInfo getInfo(@RequestHeader Map<String, String> headers){
+        JwtInfo jwtInfo = JwtUtil.getInfoFromToken(headers.get(tokenHeader));
+        return userService.getUserInfo(jwtInfo.getId());
+    }
+    // 获取信息, 显示在主页上
+    @SellerTokenCheck
+    @GetMapping("getHomepageInfo")
+    public HomepageInfo getHomepageInfo(@RequestHeader Map<String, String> headers){
+        JwtInfo jwtInfo = JwtUtil.getInfoFromToken(headers.get(tokenHeader));
+        return userService.getHomepageInfo(jwtInfo.getId());
+    }
+
+    // 加入店铺
+    @SellerTokenCheck
     @PostMapping("workerAdd")
     public int workerAdd(@RequestHeader Map<String, String> headers, @RequestBody int shopId){
         String token = headers.get(tokenHeader);
@@ -102,6 +117,7 @@ public class UserController {
         return userService.workerAdd(id, shopId);
     }
 
+    // 获取员工
     @BossTokenCheck
     @GetMapping("getWorker")
     public List<WorkerInfo> getWorker (@RequestHeader Map<String, String> headers){
@@ -111,6 +127,7 @@ public class UserController {
         return userService.getWorker(id);
     }
 
+    // 获取等待确认员工
     @BossTokenCheck
     @GetMapping("getWorkerVerify")
     public List<WorkerInfo> getWorkerVerify (@RequestHeader Map<String, String> headers){
@@ -120,7 +137,8 @@ public class UserController {
         return userService.getWorkerToVerify(id);
     }
 
-    @TokenCheck
+    // 通过员工
+    @BossTokenCheck
     @PostMapping("passWorker")
     public boolean passWorker(@RequestHeader Map<String, String> headers, @RequestBody int workerId){
         String token = headers.get(tokenHeader);
@@ -129,7 +147,8 @@ public class UserController {
         return userService.acceptWorker(id, workerId);
     }
 
-    @TokenCheck
+    // 移除员工
+    @BossTokenCheck
     @PostMapping("removeWorker")
     public boolean removeWorker(@RequestHeader Map<String, String> headers, @RequestBody int workerId){
         String token = headers.get(tokenHeader);

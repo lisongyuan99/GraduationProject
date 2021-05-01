@@ -2,7 +2,6 @@ import {
   wxp
 } from '../../utils/wxp'
 import req from '../../utils/req'
-import * as echarts from '../../ec-canvas/echarts'
 import time from '../../utils/time'
 
 Page({
@@ -33,10 +32,20 @@ Page({
     
   },
   onShow() {
-    this.setData({
-      nickName: getApp().globalData.name,
-      avatar: getApp().globalData.avatar,
-      phone: getApp().globalData.phone
+    this.getInfo()
+  },
+
+  getInfo(){
+    req.get({
+      url:'/user/getHomepageInfo'
+    }).then(res=>{
+      console.log(res)
+      this.setData({
+        nickName: res.data.name,
+        avatar: res.data.avatar,
+        expire: res.data.expire,
+        expireDate: time.dateToDateString(time.utcToDate(res.data.expireDate))
+      })
     })
   },
 

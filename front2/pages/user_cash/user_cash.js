@@ -17,7 +17,10 @@ Page({
     withdraw: '0.00',
     today: '0.00',
     sum: '0.00',
+    shopTopUp: false,
+    showWithdraw: false,
     list: [],
+    price:''
   },
 
   getInfo() {
@@ -52,4 +55,52 @@ Page({
   onLoad: function (options) {
     this.getInfo()
   },
+  openTopUp() {
+    this.setData({
+      price:'',
+      showTopUp: true
+    })
+  },
+  openWithdraw() {
+    this.setData({
+      price:'',
+      showWithdraw: true
+    })
+  },
+  empty(){},
+  topUp(){
+    req.post({
+      url:'/balance/topUp',
+      data: parseFloat(this.data.price)
+    }).then(res=>{
+      console.log(res)
+      this.getInfo()
+      wx.showToast({
+        title: '充值成功',
+        icon: 'success'
+      })
+    }).catch(res=>{
+
+    })
+  },
+  withdraw(){
+    req.post({
+      url:'/balance/withdraw',
+      data: parseFloat(this.data.price)
+    }).then(res=>{
+      this.getInfo()
+      console.log(res)
+      wx.showToast({
+        title: '提现成功',
+        icon: 'success'
+      })
+    }).catch(res=>{
+      this.getInfo()
+      console.log(res)
+      wx.showToast({
+        title: res.data.message,
+        icon: 'error'
+      })
+    })
+  }
 })

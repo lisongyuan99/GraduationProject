@@ -22,11 +22,11 @@
    <view class='wrapper'>
       <view class='nav acea-row'>
          <view class='title'>
-            <van-button class="get-money" size="large" color="#E93323" block>点击充值</van-button>
-            <van-button class="get-money" size="large" color="#E93323" block>点击提现</van-button>
+            <van-button class="get-money" size="large" color="#E93323" block bindtap="openTopUp">点击充值</van-button>
+            <van-button class="get-money" size="large" color="#E93323" block bindtap="openWithdraw">点击提现</van-button>
          </view>
       </view>
-      <view scroll-y="true" class='list' >
+      <view scroll-y="true" class='list'>
          <view class='item acea-row row-between-wrapper' wx:for="{{list}}" wx:key='index'>
             <view>
                <view class='state'>{{item.info}}</view>
@@ -38,3 +38,15 @@
       </view>
    </view>
 </view>
+
+<van-dialog use-slot title="充值金额" show="{{ showTopUp }}" show-cancel-button  bind:confirm="topUp">
+   <view class="input-outer">
+      <input class="input-inner" type="digit" model:value="{{price}}" bindinput="empty"></input>
+   </view>
+</van-dialog>
+
+<van-dialog use-slot title="提现金额" show="{{ showWithdraw }}" show-cancel-button bind:confirm="withdraw">
+   <view class="input-outer">
+      <input class="input-inner" type="digit" model:value="{{price}}" bindinput="empty"></input>
+   </view>
+</van-dialog>

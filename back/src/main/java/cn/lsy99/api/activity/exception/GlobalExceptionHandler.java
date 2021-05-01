@@ -96,4 +96,12 @@ public class GlobalExceptionHandler {
                 "NoShop",
                 "商店尚未开通");
     }
+
+    @ExceptionHandler(value = NoEnoughRestActivityException.class)
+    public ResponseEntity<ErrorResponseBody> NoEnoughRestActivityExceptionHandler(Exception e) {
+        log.warn(e.toString());
+        return resFactory.getResponse(HttpStatus.FORBIDDEN,
+                "NoEnoughRestActivity",
+                "剩余活动数量不足");
+    }
 }

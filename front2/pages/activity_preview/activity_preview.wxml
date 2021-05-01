@@ -1,132 +1,90 @@
 <navbar parameter='{{parameter}}'></navbar>
 <view class='product-con'>
-  <scroll-view scroll-top="{{scrollTop}}" scroll-y='true' scroll-with-animation="true" style='height:{{height}}px;'
-    bindscroll="scroll">
-    <view id="past0">
-      <productConSwiper imgUrls="{{activityInfo.pics}}"></productConSwiper>
-      <view class='wrapper'>
-        <view class='share acea-row row-between row-bottom'>
-          <view class='money font-color' wx:if="{{activityInfo.free}}">
-            <text class='num'>免费</text>
+  <view id="past0">
+    <productConSwiper imgUrls="{{activityInfo.pics}}"></productConSwiper>
+    <view class='wrapper'>
+      <view class='share acea-row row-between row-bottom'>
+        <view class='money font-color' wx:if="{{activityInfo.free}}">
+          <text class='num'>免费</text>
+        </view>
+        <view class='money font-color' wx:else>
+          <text class='num'>￥{{activityInfo.price}}</text>
+          <text class='ori'>￥{{activityInfo.ori}}</text>
+        </view>
+        <view class="vote_panel">
+          <view class="vote_button">
+            <image src="/images/up.svg" class="vote"></image>赞{{activityInfo.up}}
           </view>
-          <view class='money font-color' wx:else>
-            <text class='num'>￥{{activityInfo.price}}</text>
-            <text class='ori'>￥{{activityInfo.ori}}</text>
-          </view>
-          <view class="vote_panel">
-            <view class="vote_button">
-              <image src="/images/up.svg" class="vote"></image>赞{{activityInfo.up}}
-            </view>
-            <view class="vote_button">
-              <image src="/images/down.svg" class="vote"></image>踩{{activityInfo.down}}
-            </view>
-            <!-- <view class="vote_button">
-              <image src="/images/share.svg" class="vote"></image>分享
-            </view> -->
+          <view class="vote_button">
+            <image src="/images/down.svg" class="vote"></image>踩{{activityInfo.down}}
           </view>
         </view>
-        <view class='introduce'>{{activityInfo.name}}</view>
-        <view class='label acea-row row-between-wrapper'>
-          <view>{{activityInfo.description}}</view>
-        </view>
-        <view class='label acea-row row-between-wrapper'>
-          <view>库存{{activityInfo.rest}}</view>
-          <view>参与人数{{activityInfo.joinUserNum}}</view>
-          <view>浏览{{activityInfo.viewUserNum}}</view>
-        </view>
-        <view class='label acea-row row-between-wrapper'>
-          <view>活动时间{{activityInfo.time}}</view>
-        </view>
-
       </view>
-      <view class="fan acea-row row-between-wrapper">
-        <view class="picTxt acea-row row-between-wrapper">
-          <view class="pictrue">
-            <image wx:if="{{activityInfo.orgAvatar}}" src="{{activityInfo.orgAvatar}}"></image>
-            <image wx:else src="{{activityInfo.orgAvatar}}"></image>
-          </view>
+      <view class='introduce'>{{activityInfo.name}}</view>
+      <view class='label acea-row row-between-wrapper'>
+        <view>{{activityInfo.description}}</view>
+      </view>
+      <view class='label acea-row row-between-wrapper'>
+        <view>剩余{{activityInfo.rest}}件</view>
+        <view>参与人数{{activityInfo.joinUserNum}}</view>
+        <view>浏览{{activityInfo.viewUserNum}}</view>
+      </view>
+      <view class='label acea-row row-between-wrapper'>
+        <view>活动时间{{activityInfo.time}}</view>
+      </view>
 
-          <view class="text">
-            <view class="acea-row row-middle">
-              <view wx:if="{{activityInfo.orgName}}" class="name line1">发布商家:{{activityInfo.orgName}}</view>
-              <view wx:else class="name line1">发布商家:无名氏</view>
-            </view>
-            <view>
-              <text wx:if="{{activityInfo.motto}}">{{activityInfo.motto}}</text>
-              <text wx:else>这个人很懒，什么也没留下</text>
-            </view>
+    </view>
+    <view class="fan acea-row row-between-wrapper">
+      <view class="picTxt acea-row row-between-wrapper">
+        <view class="pictrue">
+          <image wx:if="{{activityInfo.orgAvatar}}" src="{{activityInfo.orgAvatar}}"></image>
+          <image wx:else src="{{activityInfo.orgAvatar}}"></image>
+        </view>
+
+        <view class="text">
+          <view class="acea-row row-middle">
+            <view wx:if="{{activityInfo.orgName}}" class="name line1">发布商家:{{activityInfo.orgName}}</view>
+            <view wx:else class="name line1">发布商家:无名氏</view>
+          </view>
+          <view>
+            <text wx:if="{{activityInfo.motto}}">{{activityInfo.motto}}</text>
+            <text wx:else>这个人很懒，什么也没留下</text>
           </view>
         </view>
       </view>
     </view>
+  </view>
 
-    <view class='product-intro' id="past3" wx:if="{{activityInfo.regionCode!==0}}">
-      <view class='title'>活动地址:{{activityInfo.address}}</view>
-      <map id="myMap"  class="my-map"
-      latitude="{{activityInfo.lat}}" longitude="{{activityInfo.lng}}"  markers="{{markers}}" show-location/>
+  <view class='product-intro' id="past3" wx:if="{{activityInfo.regionCode!==0}}">
+    <view class='title'>活动地址:{{activityInfo.address}}</view>
+    <map id="myMap" class="my-map" latitude="{{activityInfo.lat}}" longitude="{{activityInfo.lng}}"
+      markers="{{markers}}" show-location />
+  </view>
+  <view class='product-intro' id="past3">
+    <view class='title'>产品介绍</view>
+    <view class='conter'>
+      <rich-text nodes="{{activityInfo.detail}}"></rich-text>
     </view>
-    <!-- <view class='userEvaluation' id="past1">
-      <view class='title acea-row row-between-wrapper'>
-        <view>用户评价({{replyCount}})</view>
-        <navigator class='praise' hover-class='none' url='/pages/goods_comment_list/index?product_id={{id}}'>
-          <text class='font-color'>{{replyChance}}%</text>好评率
-          <text class='iconfont icon-jiantou'></text>
-        </navigator>
-      </view>
-      <userEvaluation reply="{{reply}}"></userEvaluation>
-    </view> -->
-    <view class='product-intro' id="past3">
-      <view class='title'>产品介绍</view>
-      <view class='conter'>
-        <rich-text nodes="{{activityInfo.detail}}"></rich-text>
-      </view>
-    </view>
-    <view style='height:120rpx;'></view>
-  </scroll-view>
-  <!-- <view class='footer acea-row row-between-wrapper'>
-    <button>编辑</button>
-    <button>删除</button>
-  </view> -->
+  </view>
+  <view style='height:120rpx;'></view>
 
-  <shareRedPackets sharePacket="{{sharePacket}}" bind:listenerActionSheet="listenerActionSheet"></shareRedPackets>
 </view>
-<!-- 分享按钮 -->
-<!-- <action-sheet hidden="{{actionSheetHidden}}" bindchange="listenerActionSheet" class='pro-wrapper' hover-class='none'>
-  <action-sheet-item hover-class='none'>
-    <button open-type="share" class='contact' hover-class='none'>
-      <view class='iconn'></view>
-      发送给朋友
-    </button>
-    <button class='contact' bindtap='goPoster' hover-class='none'>
-      <view class='iconn iconn1'></view>
-      生成海报
-    </button>
-  </action-sheet-item>
-</action-sheet> -->
-<!-- 海报展示 -->
-<!-- <view class='poster-pop' wx:if="{{posterImageStatus}}">
-  <image src='/images/poster-close.png' class='close' bindtap='posterImageClose'></image>
-  <image src='{{posterImage}}'></image>
-  <view class='save-poster' bindtap='savePosterPath'>保存到手机</view>
-</view>
-<view class='mask' wx:if="{{posterImageStatus}}"></view>
-<canvas class="canvas" canvas-id='myCanvas' wx:if="{{canvasStatus}}"></canvas> -->
+
 <view class="buttom-paddle">
   <view class="customer-panel" bindtap="toOrderPage">
     <van-icon name="friends-o" />
     <view>相关订单:{{activityInfo.followUserNum}}</view>
     <van-icon name="arrow" />
   </view>
-  <!-- <view class="button-panel">
-    <button type="default" class="my-button button-left">
-      <van-icon name="service-o" size="50rpx" color="#e93323"/>
-      默认按钮
-    </button>
-    <button type="default" class="my-button button-right" type="warn">
-      <van-icon name="service-o" size="50rpx" color="#e93323"/>
-      默认按钮
-    </button>
-  </view> -->
+  <view class="customer-panel" bindtap="openSuggestion">
+    <van-icon wx:if="{{ activityInfo.suggestionAmount!=0}}" name="fire-o" color="#e93323"/>
+    <van-icon wx:else name="fire-o"></van-icon>
+    <view>
+      <text wx:if="{{ activityInfo.suggestionAmount!=0}}"> 已推荐{{activityInfo.suggestionAmount}}</text>
+      <text wx:else>未推荐</text>
+    </view>
+    <van-icon name="arrow" />
+  </view>
   <view class="button-panel">
     <view class="icon-button" bindtap="editActivity">
       <van-icon name="edit" size="50rpx" color="#e93323" />
@@ -138,3 +96,9 @@
     </view>
   </view>
 </view>
+
+<van-dialog use-slot title="推荐金额" show="{{ showSuggestion }}" show-cancel-button  bind:confirm="addSuggest">
+   <view class="input-outer">
+      <input class="input-inner" type="digit" model:value="{{addSuggestPrice}}" bindinput="empty"></input>
+   </view>
+</van-dialog>

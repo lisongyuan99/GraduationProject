@@ -21,7 +21,7 @@
 .productList .list .item .pictrue image.on{border-radius:6rpx;}
 .productList .list .item .text{padding:20rpx 17rpx 26rpx 17rpx;font-size:30rpx;color:#222;}
 .productList .list .item .text.on{width:508rpx;padding:0 0 0 22rpx;}
-.productList .list .item .text .money{font-size:26rpx;font-weight:bold;margin-top:8rpx;}
+.productList .list .item .text .money{font-size:26rpx;font-weight:bold;margin-top:8rpx;display:flex;align-items: baseline;}
 /*.productList .list .item .text .money.on{margin-top:50rpx;}*/
 .productList .list .item .text .money .num{font-size:34rpx;}
 .productList .list .item .text .vip{font-size:22rpx;color:#aaa;margin-top:7rpx;}
@@ -58,7 +58,18 @@
   position: fixed;
   width: 100%;
 }
-page2{
-  background-color: #fff !important;
-  padding: 0;
+.price-ori{
+  font-size:24rpx;
+  color: #aaa;
+  text-decoration:line-through;
+  font-weight: normal;
+}
+.price{
+  font-size:30rpx;
+  color: #f44;
+  font-weight: bold;
+}
+.name{
+  font-size: 30rpx;
+  font-weight: bold;
 }

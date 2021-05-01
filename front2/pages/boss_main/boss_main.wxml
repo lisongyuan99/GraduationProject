@@ -19,7 +19,8 @@
           <text class="binding">绑定手机号</text>
         </view> -->
         <view>
-          <text class="binding">会员有效期至 2021-09-01</text>
+          <text wx:if="{{expire}}" class="binding">会员已过期</text>
+          <text wx:else class="binding">会员有效期至 {{expireDate}}</text>
         </view>
       </view>
     </view>

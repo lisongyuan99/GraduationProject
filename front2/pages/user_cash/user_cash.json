@@ -1,7 +1,8 @@
 {
   "usingComponents": {
     "navbar": "/components/navbar/index",
-    "van-button": "/components/vant/button/index"
+    "van-button": "/components/vant/button/index",
+    "van-dialog": "/components/vant/dialog/index"
   },
   "navigationBarTextStyle": "white"
 }

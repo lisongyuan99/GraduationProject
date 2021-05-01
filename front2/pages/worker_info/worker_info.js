@@ -31,8 +31,7 @@ Page({
     this.setData({
       next: options.next
     })
-    console.log(this.data.next)
-    if(this.data.next){
+    if(!this.data.next){
       this.getProfile()
     }
   },
@@ -41,7 +40,16 @@ Page({
   },
 
   getProfile() {
-
+    req.get({
+      url:'/user/getInfo'
+    }).then(res=>{
+      console.log(res)
+      this.setData({
+        nickname: res.data.name,
+        images: [{url:res.data.avatar}],
+        phone: res.data.phone
+      })
+    })
   },
 
   selectImage(e) {
@@ -93,8 +101,7 @@ Page({
         wx.navigateTo({
           url: '/pages/worker_scan_qr/worker_scan_qr'
         })
-      }
-      else {
+      } else {
         wx.navigateBack()
       }
     })

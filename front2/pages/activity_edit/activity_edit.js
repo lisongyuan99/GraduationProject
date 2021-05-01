@@ -17,7 +17,7 @@ Page({
     parameter: {
       'navbar': '1',
       'return': '1',
-      'title': '编辑活动',
+      'title': '新建活动',
       'color': true,
       'class': '0'
     },
@@ -26,13 +26,11 @@ Page({
       'id': 1,
       'name': '默认'
     }],
-    id: 0,
-    name: '',
-    introduction: '',
-    address: '',
+    id: '',
     date: '',
     time: '',
     category: '0',
+    count: 0,
     region: ['不限', '不限', '不限'],
     regionCode: 0,
     images: [],
@@ -43,89 +41,30 @@ Page({
     showAreaPicker: false,
     address: '',
     location: null,
-    free: true
+    free: true,
+    rest: 0,
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     chooseLocation.setLocation(null);
-    let key = 'HOMBZ-XYPC4-JONU6-DXDR7-DYONE-CPBF7';
-    console.log(options.id)
-    this.getAllCategory()
     this.setData({
+      id: options.id,
       areaList: area
     })
-    this.setData({
-      id: options.id
-    })
-    req.post({
-      url: "/activity/getByIdForEdit",
-      data: this.data.id
-    }).then(res => {
-      console.log(res)
-      let tempImage = []
-      for (let url of res.data.pictures) {
-        tempImage.push({
-          url: url
-        })
-      }
-      let date = time.utcToDate(res.data.date)
-      this.setData({
-        id: res.data.activityId,
-        name: res.data.name,
-        introduction: res.data.introduction,
-        address: res.data.address,
-        images: tempImage,
-        category: res.data.category,
-        date: time.dateToDateString(date),
-        time: time.dateToTimeString(date),
-        regionCode: res.data.regionCode,
-        region: util.getRegion2(res.data.regionCode),
-        detail: res.data.detail
-      })
-      if (res.data.detail) {
-        this.setData({
-          detailText: '点击编辑'
-        })
-      }
-      getApp().globalData.editorContent = {
-        html: res.data.detail
-      }
-      const location = chooseLocation.getLocation();
-      console.log(location)
-      if (location) {
-        this.setData({
-          location: {
-            lat: location.latitude,
-            lng: location.longitude
-          },
-          address: location.name
-        })
-        wxp.request({
-          url: `https://apis.map.qq.com/ws/geocoder/v1/?location=${location.latitude},${location.longitude}&key=${key}`,
-          method: 'GET'
-        }).then(res => {
-          console.log(res.data)
-          this.setData({
-            regionCode: res.data.result.ad_info.adcode,
-            region: [res.data.result.address_component.province, res.data.result.address_component.city, res.data.result.address_component.district]
-          })
-        })
-      }
-    })
-    // this.setLocation()
-    // this.getAllCategory()
+    console.log(this.data)
+    getApp().globalData.editorContent = null
+    this.getAllCategory()
+    this.getInfo()
   },
   // 生命周期 显示时 获取editor中的文字 或者获取地址
   onShow() {
-    // console.log('show')
-    // console.log(!!getApp().globalData.editorContent)
     let editorContent = getApp().globalData.editorContent
     let key = 'HOMBZ-XYPC4-JONU6-DXDR7-DYONE-CPBF7';
+    // 获取编辑器内容
     if (editorContent) {
       console.log(editorContent)
-      // let temp = editorContent.text.replace(/\s+/, '')
       this.setData({
         detail: editorContent.html,
         detailText: '点击编辑'
@@ -135,6 +74,7 @@ Page({
         detailText: '尚未填写，点击编辑'
       })
     }
+    // 获取地址 改变地区号码
     const location = chooseLocation.getLocation();
     console.log(location)
     if (location) {
@@ -157,6 +97,46 @@ Page({
         console.log
       })
     }
+  },
+  getInfo() {
+    let editorContent = getApp().globalData.editorContent
+    if (editorContent) {
+      editorContent.setContents({
+        html: res.data.detail
+      })
+    }
+    req.post({
+      url: '/activity/getByIdForEdit',
+      data: this.data.id
+    }).then(res => {
+      console.log(res)
+      let tempImage = []
+      for (let e of res.data.pictures) {
+        tempImage.push({
+          url: e
+        })
+      }
+      this.setData({
+        address: res.data.address,
+        category: res.data.categoty,
+        count: res.data.count,
+        date: time.dateToDateString(time.utcToDate(res.data.date)),
+        time: time.dateToTimeString(time.utcToDate(res.data.date)),
+        free: res.data.free,
+        introduction: res.data.introduction,
+        location: {
+          lat: res.data.lat,
+          lng: res.data.lng
+        },
+        name: res.data.name,
+        ori: res.data.ori,
+        images: tempImage,
+        price: res.data.price,
+        regionCode: res.data.regionCode,
+        region: util.getRegion2(res.data.regionCode),
+        rest: res.data.rest
+      })
+    })
   },
   // 提交表单
   formSubmit(e) {
@@ -182,9 +162,10 @@ Page({
         // let date = dayjs(formData.date + ' ' + formData.time, 'YYYY-MM-DD hh:mm').format()
         let date = date = time.StringToDate(formData.date, formData.time)
         let uploadInfo = {
-          activityId:this.data.id,
+          activityId: this.data.id,
           name: formData.name,
           introduction: formData.introduction,
+          detail: this.data.detail,
           pictures: this.data.uploadFiles,
           category: formData.category,
           date: date,
@@ -196,7 +177,7 @@ Page({
           price: formData.price,
           ori: formData.ori,
           lat: this.data.location.lat,
-          lng: this.data.location.lng
+          lng: this.data.location.lng,
         }
         console.log(uploadInfo)
         return req.post({
@@ -215,22 +196,6 @@ Page({
           icon: 'error'
         })
       })
-  },
-  getShopPosition() {
-    req.get({
-      url: '/activity/shopAddress'
-    }).then(res => {
-      console.log(res)
-      this.setData({
-        regionCode: res.data.regionCode,
-        region: util.getRegion2(res.data.regionCode),
-        address: res.data.address,
-        location: {
-          lat: res.data.lat,
-          lng: res.data.lng
-        }
-      })
-    })
   },
   // 获取当前位置信息
   setLocation() {

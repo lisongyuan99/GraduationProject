@@ -2,10 +2,13 @@ package cn.lsy99.api.activity.user;
 
 import cn.lsy99.api.activity.generator.UserRole;
 import cn.lsy99.api.activity.generator.mapper.SellerMapper;
+import cn.lsy99.api.activity.generator.mapper.ShopVipMapper;
 import cn.lsy99.api.activity.generator.table.Seller;
+import cn.lsy99.api.activity.generator.table.ShopVip;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +20,8 @@ public class UserRepository {
 
     @Autowired
     private SellerMapper sellerMapper;
+    @Autowired
+    private ShopVipMapper shopVipMapper;
 
     public Optional<Seller> getById(int id) {
         return sellerMapper.selectByPrimaryKey(id);
@@ -58,5 +63,16 @@ public class UserRepository {
     public void acceptWorker(int workerId){
         Seller seller = Seller.builder().id(workerId).type(UserRole.WORKER.ordinal()).build();
         sellerMapper.updateByPrimaryKeySelective(seller);
+    }
+
+    public Date getExpireTime(int shopId) {
+        Optional<ShopVip> shopVip = shopVipMapper.selectByPrimaryKey(shopId);
+        if (shopVip.isPresent()) {
+            return shopVip.get().getExpireTime();
+        } else {
+            Date date = new Date(0);
+            shopVipMapper.insert(ShopVip.builder().shopId(shopId).expireTime(date).build());
+            return date;
+        }
     }
 }

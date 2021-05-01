@@ -1,14 +1,17 @@
 package cn.lsy99.api.activity.user;
 
+import cn.lsy99.api.activity.exception.exception.NoShopException;
 import cn.lsy99.api.activity.generator.UserRole;
 import cn.lsy99.api.activity.generator.table.Seller;
+import cn.lsy99.api.activity.user.dto.HomepageInfo;
+import cn.lsy99.api.activity.user.dto.UserInfo;
 import cn.lsy99.api.activity.user.dto.WorkerInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -99,5 +102,28 @@ public class UserService {
             }
         }
         return false;
+    }
+
+    public UserInfo getUserInfo(int id) {
+        Optional<Seller> seller = userRepository.getById(id);
+        return seller.map(value -> UserInfo.builder()
+                .avatar(value.getAvatar())
+                .phone(value.getPhone())
+                .name(value.getNickname())
+                .build()).orElse(null);
+    }
+
+    public HomepageInfo getHomepageInfo(int id){
+        Optional<Seller> seller = userRepository.getById(id);
+        if (seller.isEmpty()) {
+            throw new NoShopException();
+        }
+        Date expireTime = userRepository.getExpireTime(seller.get().getShopId());
+        return HomepageInfo.builder()
+                .name(seller.get().getNickname())
+                .expireDate(expireTime)
+                .expire(new Date().compareTo(expireTime) > 0)
+                .avatar(seller.get().getAvatar())
+                .build();
     }
 }

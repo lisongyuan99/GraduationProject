@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +37,7 @@ public class BalanceRepository {
     public Optional<Seller> getSeller(int bossId) {
         return sellerMapper.selectByPrimaryKey(bossId);
     }
+
     // 获取余额
     public double getBalance(int shopId) {
         Optional<ShopBalance> result = shopBalanceMapper.selectByPrimaryKey(shopId);
@@ -69,7 +71,20 @@ public class BalanceRepository {
         return vipDetailMapper.select(c->c.where(vipDetail.shopId, isEqualTo(shopId)));
     }
 
+    // 获取活动
     public Optional<Activity> getActivity(int activityId) {
         return activityMapper.selectByPrimaryKey(activityId);
     }
+
+    // 更新账单
+    public int updateBalance(int shopId, double balance){
+        return shopBalanceMapper.updateByPrimaryKey(ShopBalance.builder().shopId(shopId).balance(balance).build());
+    }
+
+    // 添加账单
+    public int addBill(int shopId, Date time, double amount) {
+        ShopBill shopBill = ShopBill.builder().shopId(shopId).billTime(time).amount(amount).build();
+        return shopBillMapper.insert(shopBill);
+    }
+
 }

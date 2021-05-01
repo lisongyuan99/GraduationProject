@@ -13,9 +13,9 @@ import lombok.ToString;
 @Builder
 @ToString
 public class Admin {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-30T19:11:00.267135+08:00", comments="Source field: admin.name")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6568099+08:00", comments="Source field: admin.name")
     private String name;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-04-30T19:11:00.267135+08:00", comments="Source field: admin.password")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6568099+08:00", comments="Source field: admin.password")
     private String password;
 }

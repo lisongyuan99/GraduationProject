@@ -57,13 +57,10 @@ Page({
   },
   // 生命周期 显示时 获取editor中的文字 或者获取地址
   onShow() {
-    // console.log('show')
-    // console.log(!!getApp().globalData.editorContent)
     let editorContent = getApp().globalData.editorContent
     let key = 'HOMBZ-XYPC4-JONU6-DXDR7-DYONE-CPBF7';
     if (editorContent) {
       console.log(editorContent)
-      // let temp = editorContent.text.replace(/\s+/, '')
       this.setData({
         detail: editorContent.html,
         detailText: '点击编辑'

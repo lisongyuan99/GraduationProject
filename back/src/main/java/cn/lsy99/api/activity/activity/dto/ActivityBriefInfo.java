@@ -16,6 +16,7 @@ public class ActivityBriefInfo {
     private  boolean free;
     private int category;
     private int count;
+    private int view;
     private double price;
     private double ori;
     private int status;

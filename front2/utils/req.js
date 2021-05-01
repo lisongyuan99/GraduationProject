@@ -8,7 +8,16 @@ export default {
   req(options) {
     options = this.processToken(options)
     options.url = baseUrl + options.url
-    return wxp.request(options)
+    return new Promise((resolve, reject) => {
+      wxp.request(options).then(res => {
+        if (res.statusCode == 200) {
+          resolve(res)
+        } else {
+          reject(res)
+        }
+      })
+    })
+
   },
   get(options) {
     options.method = 'GET'
@@ -27,11 +36,11 @@ export default {
     let indexList = [] // fileList中的索引
     let fileList = [] // 不重复的文件 地址是tmp中的
     for (let file of files) {
-      if (file.startsWith("http://tmp/")||file.startsWith("wxfile://")){
+      if (file.startsWith("http://tmp/") || file.startsWith("wxfile://")) {
         // wxfile://
         await wxp.getFileInfo({
           filePath: file,
-        }).then(res => { 
+        }).then(res => {
           // 获取文件签名
           let addToFileList = true
           let addIndex = -1
@@ -80,7 +89,7 @@ export default {
     // 返回上传文件列表
     let returnList = []
     for (let index in indexList) {
-      if(indexList[index]>=0){
+      if (indexList[index] >= 0) {
         returnList.push(uploadedFileList[indexList[index]])
       } else {
         console.log(files)

@@ -103,4 +103,10 @@ public class ActivityController {
         JwtInfo jwtInfo = JwtUtil.getInfoFromToken(token);
         return activityService.getAddress(jwtInfo.getId());
     }
+
+//    @BossTokenCheck
+//    @PostMapping("suggestion")
+//    public boolean suggest(@RequestHeader Map<String, String> headers, @RequestBody double price){
+//        return
+//    }
 }

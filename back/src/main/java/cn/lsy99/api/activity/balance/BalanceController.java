@@ -6,10 +6,7 @@ import cn.lsy99.api.activity.util.JwtInfo;
 import cn.lsy99.api.activity.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -27,5 +24,21 @@ public class BalanceController {
         String token = headers.get(tokenHeader);
         JwtInfo jwtInfo = JwtUtil.getInfoFromToken(token);
         return balanceService.getBalanceInfo(jwtInfo.getId());
+    }
+
+    @BossTokenCheck
+    @PostMapping("topUp")
+    public boolean topUp(@RequestHeader Map<String, String> headers, @RequestBody double price) {
+        String token = headers.get(tokenHeader);
+        JwtInfo jwtInfo = JwtUtil.getInfoFromToken(token);
+        return balanceService.topUp(jwtInfo.getId(), price);
+    }
+
+    @BossTokenCheck
+    @PostMapping("withdraw")
+    public boolean withdraw(@RequestHeader Map<String, String> headers, @RequestBody double price) {
+        String token = headers.get(tokenHeader);
+        JwtInfo jwtInfo = JwtUtil.getInfoFromToken(token);
+        return balanceService.withdraw(jwtInfo.getId(), price);
     }
 }

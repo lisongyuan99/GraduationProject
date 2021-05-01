@@ -35,4 +35,6 @@ public class ActivityInfo {
     private String orgAvatar;
     private String orgName;
     private String orgMotto;
+
+    private double suggestionAmount;
 }

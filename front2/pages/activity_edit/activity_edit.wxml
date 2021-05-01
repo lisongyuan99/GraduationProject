@@ -99,21 +99,21 @@
       <view class="item acea-row row-between-wrapper" wx:if="{{!free}}">
         <view>活动价格</view>
         <view class="input">
-          <input type="digit" name="price" placeholder="{{placeholder}}"></input>
+          <input type="digit" name="price" value="{{price}}" placeholder="{{placeholder}}"></input>
         </view>
       </view>
 
       <view class="item acea-row row-between-wrapper" wx:if="{{!free}}">
         <view>活动原价</view>
         <view class="input">
-          <input type="digit" name="ori" placeholder="{{placeholder}}"></input>
+          <input type="digit" name="ori" value="{{ori}}" placeholder="{{placeholder}}"></input>
         </view>
       </view>
 
       <view class="item acea-row row-between-wrapper">
-        <view>活动数量</view>
+        <view>数量(不少于{{count-rest}})</view>
         <view class="input">
-          <input type="number" name="count" placeholder="{{placeholder}}"></input>
+          <input type="number" name="count" value="{{count}}" placeholder="{{placeholder}}"></input>
         </view>
       </view>
 

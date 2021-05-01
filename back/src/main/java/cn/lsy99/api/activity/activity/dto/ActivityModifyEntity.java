@@ -20,6 +20,7 @@ public class ActivityModifyEntity {
     private String detail;
     private boolean free;
     private int count;
+    private int rest;
     private double price;
     private double ori;
     private double lat;

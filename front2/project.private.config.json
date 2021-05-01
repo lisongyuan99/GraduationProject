@@ -63,6 +63,25 @@
         {
           "name": "pages/user_vip/user_vip",
           "pathName": "pages/user_vip/user_vip",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/activity_preview/activity_preview",
+          "pathName": "pages/activity_preview/activity_preview",
+          "query": "id=60",
+          "scene": null
+        },
+        {
+          "name": "pages/activity_edit/activity_edit",
+          "pathName": "pages/activity_edit/activity_edit",
+          "query": "id=60",
+          "scene": null
+        },
+        {
+          "name": "pages/activity_list/activity_list",
+          "pathName": "pages/activity_list/activity_list",
+          "query": "id=60",
           "scene": null
         }
       ]

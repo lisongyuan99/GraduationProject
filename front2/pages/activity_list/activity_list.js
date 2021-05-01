@@ -122,8 +122,9 @@ Page({
           time: time.dateToFullString(time.utcToDate(item.date)),
           position: util.getRegion(item.regionCode), //item.regionCode
           free: item.free,
-          price: item.price,
-          ori: item.ori,
+          price: item.price.toFixed(2),
+          ori: item.ori.toFixed(2),
+          view: item.view,
           count: item.count,
           category: lable,
           status: item.status
@@ -158,23 +159,4 @@ Page({
   onShow: function () {
 
   },
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  // onPullDownRefresh: function () {
-  //   this.setData({
-  //     ['where.page']: 1,
-  //     loadend: false,
-  //     productList: []
-  //   });
-  //   this.get_product_list();
-  //   wx.stopPullDownRefresh();
-  // },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  // onReachBottom: function () {
-  //   this.get_product_list();
-  // },
 })
