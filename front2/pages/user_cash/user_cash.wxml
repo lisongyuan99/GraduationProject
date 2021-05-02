@@ -27,19 +27,21 @@
          </view>
       </view>
       <view scroll-y="true" class='list'>
-         <view class='item acea-row row-between-wrapper' wx:for="{{list}}" wx:key='index'>
-            <view>
-               <view class='state'>{{item.info}}</view>
-               <view>{{item.time}}</view>
+         <view class='item acea-row row-between-wrapper' wx:for="{{list}}" wx:key='index' >
+            <view class="detail-list" bindtap="toDetail" data-type="{{item.type}}" data-id="{{item.id}}">
+               <view>
+                  <view class='state'>{{item.info}} {{item.type}} {{item.id}}</view>
+                  <view>{{item.time}}</view>
+               </view>
+               <view class='num font-color' wx:if="{{item.positive}}"> {{item.price}}</view>
+               <view class='num' wx:else>{{item.price}}</view>
             </view>
-            <view class='num font-color' wx:if="{{item.price>0}}"> +￥{{item.price}}</view>
-            <view class='num' wx:else>-￥{{-item.price}}</view>
          </view>
       </view>
    </view>
 </view>
 
-<van-dialog use-slot title="充值金额" show="{{ showTopUp }}" show-cancel-button  bind:confirm="topUp">
+<van-dialog use-slot title="充值金额" show="{{ showTopUp }}" show-cancel-button bind:confirm="topUp">
    <view class="input-outer">
       <input class="input-inner" type="digit" model:value="{{price}}" bindinput="empty"></input>
    </view>

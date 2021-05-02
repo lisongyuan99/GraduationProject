@@ -1,7 +1,9 @@
 package cn.lsy99.api.activity.activity;
 
 import cn.lsy99.api.activity.activity.dto.*;
+import cn.lsy99.api.activity.exception.exception.NoEnoughBalanceException;
 import cn.lsy99.api.activity.exception.exception.NoEnoughRestActivityException;
+import cn.lsy99.api.activity.exception.exception.NoShopException;
 import cn.lsy99.api.activity.generator.ActivityStatus;
 import cn.lsy99.api.activity.generator.table.*;
 import cn.lsy99.api.activity.util.ArrayUtil;
@@ -59,7 +61,6 @@ public class ActivityService {
             int result = activityRepository.addActivity(activity);
             log.info(activity.toString());
             int activityId = activity.getId();
-            int result1 = activityRepository.initCount(activityId, activityModifyEntity.getCount());
             int result3 = activityRepository.initStatistics(activityId);
             return activityId;
         }
@@ -204,9 +205,9 @@ public class ActivityService {
         int activityId = activityModifyEntity.getActivityId();
         Optional<Shop> shopOptional = activityRepository.getShopByBossId(bossId);
         Optional<Activity> activityOptional = activityRepository.getById(activityId);
-        int rest = activityRepository.getCount(activityId);
         if (shopOptional.isPresent() && activityOptional.isPresent()
                 && shopOptional.get().getId().equals(activityOptional.get().getShopId())) {
+            int used = activityOptional.get().getUsed();
             Activity newActivity = Activity.builder()
                     .id(activityId)
                     .title(activityModifyEntity.getName())
@@ -225,12 +226,8 @@ public class ActivityService {
                     .priceOri(activityModifyEntity.getOri())
                     .status(ActivityStatus.WAIT_FOR_VERIFY.ordinal())
                     .build();
-            int sold = activityOptional.get().getSum() - rest;
-            int newRest = activityModifyEntity.getCount() - sold;
-            if (newRest < 0) {
+            if (activityModifyEntity.getCount() < used) {
                 throw new NoEnoughRestActivityException();
-            } else {
-                activityRepository.editActivityCount(activityId, newRest);
             }
             return activityRepository.editActivity(newActivity);
         }
@@ -261,4 +258,27 @@ public class ActivityService {
                 .lng(value.getLng())
                 .build()).orElse(null);
     }
+
+    @Transactional
+    public boolean suggest(int bossId, int activityId, double price) {
+        log.info(String.valueOf(activityId));
+        log.info(String.valueOf(price));
+        Optional<Shop> shop = activityRepository.getShopByBossId(bossId);
+        if (shop.isEmpty()) {
+            throw new NoShopException();
+        }
+        Optional<Activity> activity = activityRepository.getById(activityId);
+        if (activity.isEmpty() || !activity.get().getShopId().equals(shop.get().getId())) {
+            // TODO 异常处理
+            throw new NoShopException();
+        }
+        double newBalance = activityRepository.getBalance(shop.get().getId()) - price;
+        if (newBalance < 0) {
+            throw new NoEnoughBalanceException();
+        }
+        activityRepository.updateBalance(shop.get().getId(), newBalance);
+        activityRepository.addSuggestion(activityId, price);
+        return true;
+    }
+
 }

@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static cn.lsy99.api.activity.generator.mapper.ActivityDynamicSqlSupport.activity;
+import static cn.lsy99.api.activity.generator.mapper.ActivitySuggestionDynamicSqlSupport.activitySuggestion;
 import static cn.lsy99.api.activity.generator.mapper.OrderInfoDynamicSqlSupport.orderInfo;
 import static cn.lsy99.api.activity.generator.mapper.ShopBillDynamicSqlSupport.shopBill;
 import static cn.lsy99.api.activity.generator.mapper.VipDetailDynamicSqlSupport.vipDetail;
@@ -33,6 +34,8 @@ public class BalanceRepository {
     private SellerMapper sellerMapper;
     @Resource
     private ActivityMapper activityMapper;
+    @Resource
+    private ActivitySuggestionMapper activitySuggestionMapper;
 
     public Optional<Seller> getSeller(int bossId) {
         return sellerMapper.selectByPrimaryKey(bossId);
@@ -66,9 +69,21 @@ public class BalanceRepository {
         return orderInfoMapper.selectMany(selectStatementProvider);
     }
 
+    public List<ActivitySuggestion> getSuggestion(int shopId) {
+        SelectStatementProvider selectStatementProvider = SqlBuilder
+                .select(activitySuggestion.allColumns())
+                .from(activitySuggestion)
+                .join(activity)
+                .on(activity.id, equalTo(activitySuggestion.activityId))
+                .where(activity.shopId, isEqualTo(shopId))
+                .build().render(RenderingStrategies.MYBATIS3);
+        return activitySuggestionMapper.selectMany(selectStatementProvider);
+
+    }
+
     // 获取所有vip明细
     public List<VipDetail> getVipDetail(int shopId) {
-        return vipDetailMapper.select(c->c.where(vipDetail.shopId, isEqualTo(shopId)));
+        return vipDetailMapper.select(c -> c.where(vipDetail.shopId, isEqualTo(shopId)));
     }
 
     // 获取活动
@@ -77,7 +92,7 @@ public class BalanceRepository {
     }
 
     // 更新账单
-    public int updateBalance(int shopId, double balance){
+    public int updateBalance(int shopId, double balance) {
         return shopBalanceMapper.updateByPrimaryKey(ShopBalance.builder().shopId(shopId).balance(balance).build());
     }
 

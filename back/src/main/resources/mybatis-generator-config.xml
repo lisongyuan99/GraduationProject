@@ -33,8 +33,6 @@
         <table tableName="activity">
             <generatedKey column="id" sqlStatement="JDBC" identity="true"/>
         </table>
-        <table tableName="activity_count">
-        </table>
         <table tableName="activity_statistics">
         </table>
         <table tableName="activity_follow">

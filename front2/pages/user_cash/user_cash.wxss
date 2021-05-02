@@ -57,3 +57,9 @@ border-radius:20rpx 0 0 0;}
   border-width: 5rpx;
   padding: 10rpx;
 }
+.detail-list{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

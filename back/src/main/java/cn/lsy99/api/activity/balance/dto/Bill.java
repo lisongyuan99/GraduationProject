@@ -11,5 +11,6 @@ public class Bill {
     private Date time;
     private String info;
     private double price;
-    private Integer orderId;
+    private int id;
+    private int type;
 }

@@ -20,7 +20,7 @@ Page({
     shopTopUp: false,
     showWithdraw: false,
     list: [],
-    price:''
+    price: ''
   },
 
   getInfo() {
@@ -31,9 +31,19 @@ Page({
       // console.log(time.dateToDateString(time.utcToDate(res.data.expireDate)))
       let myBill = []
       for (let e of res.data.bills) {
+        let positive = e.price > 0
+        let price
+        if (positive) {
+          price = '+￥' + e.price.toFixed(2)
+        } else {
+          price = '-￥' + (-e.price).toFixed(2)
+        }
         myBill.push({
           info: e.info,
-          price: e.price.toFixed(2),
+          price: price,
+          positive: positive,
+          type: e.type,
+          id: e.id,
           time: time.dateToFullString(time.utcToDate(e.time)),
           orderId: e.orderId
         })
@@ -57,44 +67,44 @@ Page({
   },
   openTopUp() {
     this.setData({
-      price:'',
+      price: '',
       showTopUp: true
     })
   },
   openWithdraw() {
     this.setData({
-      price:'',
+      price: '',
       showWithdraw: true
     })
   },
-  empty(){},
-  topUp(){
+  empty() {},
+  topUp() {
     req.post({
-      url:'/balance/topUp',
+      url: '/balance/topUp',
       data: parseFloat(this.data.price)
-    }).then(res=>{
+    }).then(res => {
       console.log(res)
       this.getInfo()
       wx.showToast({
         title: '充值成功',
         icon: 'success'
       })
-    }).catch(res=>{
+    }).catch(res => {
 
     })
   },
-  withdraw(){
+  withdraw() {
     req.post({
-      url:'/balance/withdraw',
+      url: '/balance/withdraw',
       data: parseFloat(this.data.price)
-    }).then(res=>{
+    }).then(res => {
       this.getInfo()
       console.log(res)
       wx.showToast({
         title: '提现成功',
         icon: 'success'
       })
-    }).catch(res=>{
+    }).catch(res => {
       this.getInfo()
       console.log(res)
       wx.showToast({
@@ -102,5 +112,18 @@ Page({
         icon: 'error'
       })
     })
+  },
+  toDetail(e) {
+    console.log(e.target.dataset)
+    let dataset = e.target.dataset
+    if (dataset.type == 1) {
+      wx.navigateTo({
+        url: "/pages/order_details/order_details?id="+dataset.id
+      })
+    } else if(dataset.type == 3) {
+      wx.navigateTo({
+        url: "/pages/activity_preview/activity_preview?id="+dataset.id
+      })
+    }
   }
 })

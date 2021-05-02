@@ -13,15 +13,15 @@ import lombok.ToString;
 @Builder
 @ToString
 public class Comment {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6568099+08:00", comments="Source field: comment.id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.6895635+08:00", comments="Source field: comment.id")
     private Integer id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6568099+08:00", comments="Source field: comment.customer_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.6895635+08:00", comments="Source field: comment.customer_id")
     private Integer customerId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6568099+08:00", comments="Source field: comment.activity_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.6895635+08:00", comments="Source field: comment.activity_id")
     private Integer activityId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6568099+08:00", comments="Source field: comment.text")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.6895635+08:00", comments="Source field: comment.text")
     private String text;
 }

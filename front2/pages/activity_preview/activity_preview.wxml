@@ -80,7 +80,7 @@
     <van-icon wx:if="{{ activityInfo.suggestionAmount!=0}}" name="fire-o" color="#e93323"/>
     <van-icon wx:else name="fire-o"></van-icon>
     <view>
-      <text wx:if="{{ activityInfo.suggestionAmount!=0}}"> 已推荐{{activityInfo.suggestionAmount}}</text>
+      <text wx:if="{{ activityInfo.suggestionAmount!=0}}">已推荐￥{{activityInfo.suggestionAmount}}</text>
       <text wx:else>未推荐</text>
     </view>
     <van-icon name="arrow" />

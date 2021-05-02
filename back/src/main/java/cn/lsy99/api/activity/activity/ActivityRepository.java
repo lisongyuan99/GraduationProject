@@ -16,7 +16,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import static cn.lsy99.api.activity.generator.mapper.ActivityCountDynamicSqlSupport.activityCount;
 import static cn.lsy99.api.activity.generator.mapper.ActivityDynamicSqlSupport.activity;
 import static cn.lsy99.api.activity.generator.mapper.ActivityFollowDynamicSqlSupport.activityFollow;
 import static cn.lsy99.api.activity.generator.mapper.ActivitySuggestionDynamicSqlSupport.activitySuggestion;
@@ -38,8 +37,6 @@ public class ActivityRepository {
     @Resource
     private ActivityMapper activityMapper;
     @Resource
-    private ActivityCountMapper activityCountMapper;
-    @Resource
     private ActivityFollowMapper activityFollowMapper;
     @Resource
     private CustomerMapper customerMapper;
@@ -47,6 +44,8 @@ public class ActivityRepository {
     private OrderInfoMapper orderInfoMapper;
     @Autowired
     private ActivitySuggestionMapper activitySuggestionMapper;
+    @Autowired
+    private ShopBalanceMapper shopBalanceMapper;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
@@ -79,15 +78,6 @@ public class ActivityRepository {
         return activity.getId();
     }
 
-    // 初始化活动个数
-    public int initCount(int id, int count) {
-        ActivityCount activityCount = ActivityCount.builder()
-                .activityId(id)
-                .count(count)
-                .build();
-        return activityCountMapper.insertSelective(activityCount);
-    }
-
     // 初始化活动统计
     public int initStatistics(int id) {
         ActivityStatistics activityStatistics = ActivityStatistics.builder()
@@ -105,15 +95,10 @@ public class ActivityRepository {
         );
     }
 
-    // 获取活动个数
+    // 获取活动剩余个数
     public int getCount(int activityId) {
-        Optional<ActivityCount> count = activityCountMapper
-                .selectOne(c -> c.where(activityCount.activityId, isEqualTo(activityId)));
-        if(count.isPresent()){
-            return count.get().getCount();
-        } else {
-            return 0;
-        }
+        Optional<Activity> activity = activityMapper.selectByPrimaryKey(activityId);
+        return activity.map(value -> value.getSum() - value.getUsed()).orElse(0);
     }
 
     // 按id获取活动
@@ -190,12 +175,6 @@ public class ActivityRepository {
         return activityMapper.updateByPrimaryKeySelective(activity);
     }
 
-    // 修改剩余活动
-    public int editActivityCount(int activityId, int rest) {
-        ActivityCount record = ActivityCount.builder().activityId(activityId).count(rest).build();
-        return activityCountMapper.updateByPrimaryKeySelective(record);
-    }
-
     // 删除活动(软删除)
     public int deleteActivity(int id) {
         // TODO 常量
@@ -216,6 +195,7 @@ public class ActivityRepository {
         return result;
     }
 
+    // 添加推荐
     public int addSuggestion(int activityId, double price) {
         ActivitySuggestion record = ActivitySuggestion.builder()
                 .activityId(activityId)
@@ -223,5 +203,20 @@ public class ActivityRepository {
                 .addTime(new Date())
                 .build();
         return activitySuggestionMapper.insertSelective(record);
+    }
+
+    // 获取余额
+    public double getBalance(int shopId) {
+        Optional<ShopBalance> balance = shopBalanceMapper.selectByPrimaryKey(shopId);
+        if (balance.isPresent()) {
+            return balance.get().getBalance();
+        } else {
+            return 0;
+        }
+    }
+
+    // 更新账单
+    public int updateBalance(int shopId, double balance){
+        return shopBalanceMapper.updateByPrimaryKey(ShopBalance.builder().shopId(shopId).balance(balance).build());
     }
 }

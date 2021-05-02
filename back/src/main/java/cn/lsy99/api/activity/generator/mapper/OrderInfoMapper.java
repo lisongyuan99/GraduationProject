@@ -37,40 +37,40 @@ import org.mybatis.dynamic.sql.util.mybatis3.MyBatis3Utils;
 
 @Mapper
 public interface OrderInfoMapper {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7125074+08:00", comments="Source Table: order_info")
     BasicColumn[] selectList = BasicColumn.columnList(id, customerId, status, price, createTime, payTime, refundTime, count, activityId, useTime);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7105099+08:00", comments="Source Table: order_info")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     long count(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7105099+08:00", comments="Source Table: order_info")
     @DeleteProvider(type=SqlProviderAdapter.class, method="delete")
     int delete(DeleteStatementProvider deleteStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7105099+08:00", comments="Source Table: order_info")
     @InsertProvider(type=SqlProviderAdapter.class, method="insert")
     @Options(useGeneratedKeys=true,keyProperty="record.id")
     int insert(InsertStatementProvider<OrderInfo> insertStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7105099+08:00", comments="Source Table: order_info")
     @Insert({
         "${insertStatement}"
     })
     @Options(useGeneratedKeys=true,keyProperty="records.id")
     int insertMultiple(@Param("insertStatement") String insertStatement, @Param("records") List<OrderInfo> records);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7105099+08:00", comments="Source Table: order_info")
     default int insertMultiple(MultiRowInsertStatementProvider<OrderInfo> multipleInsertStatement) {
         return insertMultiple(multipleInsertStatement.getInsertStatement(), multipleInsertStatement.getRecords());
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7115085+08:00", comments="Source Table: order_info")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @ResultMap("OrderInfoResult")
     Optional<OrderInfo> selectOne(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7115085+08:00", comments="Source Table: order_info")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @Results(id="OrderInfoResult", value = {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
@@ -86,28 +86,28 @@ public interface OrderInfoMapper {
     })
     List<OrderInfo> selectMany(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7115085+08:00", comments="Source Table: order_info")
     @UpdateProvider(type=SqlProviderAdapter.class, method="update")
     int update(UpdateStatementProvider updateStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7115085+08:00", comments="Source Table: order_info")
     default long count(CountDSLCompleter completer) {
         return MyBatis3Utils.countFrom(this::count, orderInfo, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7115085+08:00", comments="Source Table: order_info")
     default int delete(DeleteDSLCompleter completer) {
         return MyBatis3Utils.deleteFrom(this::delete, orderInfo, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7115085+08:00", comments="Source Table: order_info")
     default int deleteByPrimaryKey(Integer id_) {
         return delete(c -> 
             c.where(id, isEqualTo(id_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7115085+08:00", comments="Source Table: order_info")
     default int insert(OrderInfo record) {
         return MyBatis3Utils.insert(this::insert, record, orderInfo, c ->
             c.map(customerId).toProperty("customerId")
@@ -122,7 +122,7 @@ public interface OrderInfoMapper {
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7125074+08:00", comments="Source Table: order_info")
     default int insertMultiple(Collection<OrderInfo> records) {
         return MyBatis3Utils.insertMultiple(this::insertMultiple, records, orderInfo, c ->
             c.map(customerId).toProperty("customerId")
@@ -137,7 +137,7 @@ public interface OrderInfoMapper {
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7125074+08:00", comments="Source Table: order_info")
     default int insertSelective(OrderInfo record) {
         return MyBatis3Utils.insert(this::insert, record, orderInfo, c ->
             c.map(customerId).toPropertyWhenPresent("customerId", record::getCustomerId)
@@ -152,34 +152,34 @@ public interface OrderInfoMapper {
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7125074+08:00", comments="Source Table: order_info")
     default Optional<OrderInfo> selectOne(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectOne(this::selectOne, selectList, orderInfo, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7125074+08:00", comments="Source Table: order_info")
     default List<OrderInfo> select(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectList(this::selectMany, selectList, orderInfo, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7135186+08:00", comments="Source Table: order_info")
     default List<OrderInfo> selectDistinct(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectDistinct(this::selectMany, selectList, orderInfo, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7135186+08:00", comments="Source Table: order_info")
     default Optional<OrderInfo> selectByPrimaryKey(Integer id_) {
         return selectOne(c ->
             c.where(id, isEqualTo(id_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7135186+08:00", comments="Source Table: order_info")
     default int update(UpdateDSLCompleter completer) {
         return MyBatis3Utils.update(this::update, orderInfo, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7135186+08:00", comments="Source Table: order_info")
     static UpdateDSL<UpdateModel> updateAllColumns(OrderInfo record, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(customerId).equalTo(record::getCustomerId)
                 .set(status).equalTo(record::getStatus)
@@ -192,7 +192,7 @@ public interface OrderInfoMapper {
                 .set(useTime).equalTo(record::getUseTime);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7135186+08:00", comments="Source Table: order_info")
     static UpdateDSL<UpdateModel> updateSelectiveColumns(OrderInfo record, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(customerId).equalToWhenPresent(record::getCustomerId)
                 .set(status).equalToWhenPresent(record::getStatus)
@@ -205,7 +205,7 @@ public interface OrderInfoMapper {
                 .set(useTime).equalToWhenPresent(record::getUseTime);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7135186+08:00", comments="Source Table: order_info")
     default int updateByPrimaryKey(OrderInfo record) {
         return update(c ->
             c.set(customerId).equalTo(record::getCustomerId)
@@ -221,7 +221,7 @@ public interface OrderInfoMapper {
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-01T21:34:26.6724282+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7144977+08:00", comments="Source Table: order_info")
     default int updateByPrimaryKeySelective(OrderInfo record) {
         return update(c ->
             c.set(customerId).equalToWhenPresent(record::getCustomerId)

@@ -68,7 +68,8 @@ Page({
       })
       let timeString = time.dateToFullString(new Date(data.time))
       this.setData({
-        'activityInfo.time': timeString
+        'activityInfo.time': timeString,
+        'activityInfo.suggestionAmount': res.data.suggestionAmount.toFixed(2)
       })
       if (!data.free) {
         let price = util.fixTo2(data.price)
@@ -128,5 +129,26 @@ Page({
   },
   addSuggest(){
     console.log(parseFloat(this.data.addSuggestPrice))
+    req.post({
+      url:'/activity/suggestion',
+      data: {
+        activityId: this.data.id,
+        price: parseFloat(this.data.addSuggestPrice)
+      }
+    }).then(res=>{
+      this.getActivityInfo(this.data.id)
+      console.log(res)
+      wx.showToast({
+        title: '推荐成功',
+        icon: 'success'
+      })
+    }).catch(res=>{
+      this.getActivityInfo(this.data.id)
+      console.log(res)
+      wx.showToast({
+        title: res.data.message,
+        icon: 'error'
+      })
+    })
   }
 })
