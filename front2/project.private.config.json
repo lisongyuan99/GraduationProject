@@ -83,6 +83,18 @@
           "pathName": "pages/activity_list/activity_list",
           "query": "id=60",
           "scene": null
+        },
+        {
+          "name": "pages/order_list/order_list",
+          "pathName": "pages/order_list/order_list",
+          "query": "type=all",
+          "scene": null
+        },
+        {
+          "name": "pages/order_details/order_details",
+          "pathName": "pages/order_details/order_details",
+          "query": "id=2",
+          "scene": null
         }
       ]
     }

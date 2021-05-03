@@ -14,9 +14,9 @@ import lombok.ToString;
 @Builder
 @ToString
 public class ShopVip {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7294572+08:00", comments="Source field: shop_vip.shop_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5739406+08:00", comments="Source field: shop_vip.shop_id")
     private Integer shopId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7294572+08:00", comments="Source field: shop_vip.expire_time")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5739406+08:00", comments="Source field: shop_vip.expire_time")
     private Date expireTime;
 }

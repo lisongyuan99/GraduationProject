@@ -87,6 +87,7 @@ Page({
       })
     }).catch(res => {
       console.log(res)
+      wx.hideToast()
       wx.showToast({
         title: '登录失败',
         icon: 'error'

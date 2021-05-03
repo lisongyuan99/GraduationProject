@@ -6,22 +6,25 @@ import org.mybatis.dynamic.sql.SqlColumn;
 import org.mybatis.dynamic.sql.SqlTable;
 
 public final class CommentDynamicSqlSupport {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.6905612+08:00", comments="Source Table: comment")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5869053+08:00", comments="Source Table: comment")
     public static final Comment comment = new Comment();
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.6905612+08:00", comments="Source field: comment.id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5899036+08:00", comments="Source field: comment.id")
     public static final SqlColumn<Integer> id = comment.id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.6905612+08:00", comments="Source field: comment.customer_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5899036+08:00", comments="Source field: comment.customer_id")
     public static final SqlColumn<Integer> customerId = comment.customerId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.6905612+08:00", comments="Source field: comment.activity_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5899036+08:00", comments="Source field: comment.activity_id")
     public static final SqlColumn<Integer> activityId = comment.activityId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.6905612+08:00", comments="Source field: comment.text")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5908935+08:00", comments="Source field: comment.text")
     public static final SqlColumn<String> text = comment.text;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.6905612+08:00", comments="Source Table: comment")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5908935+08:00", comments="Source field: comment.order_id")
+    public static final SqlColumn<Integer> orderId = comment.orderId;
+
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5869053+08:00", comments="Source Table: comment")
     public static final class Comment extends SqlTable {
         public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
@@ -30,6 +33,8 @@ public final class CommentDynamicSqlSupport {
         public final SqlColumn<Integer> activityId = column("activity_id", JDBCType.INTEGER);
 
         public final SqlColumn<String> text = column("text", JDBCType.VARCHAR);
+
+        public final SqlColumn<Integer> orderId = column("order_id", JDBCType.INTEGER);
 
         public Comment() {
             super("comment");

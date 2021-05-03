@@ -7,7 +7,6 @@ import cn.lsy99.api.activity.exception.exception.NoEnoughBalanceException;
 import cn.lsy99.api.activity.exception.exception.NoShopException;
 import cn.lsy99.api.activity.generator.OrderStatus;
 import cn.lsy99.api.activity.generator.table.*;
-import org.aspectj.weaver.tools.ISupportsMessageContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

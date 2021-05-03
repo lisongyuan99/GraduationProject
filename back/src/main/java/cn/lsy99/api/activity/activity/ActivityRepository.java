@@ -101,6 +101,11 @@ public class ActivityRepository {
         return activity.map(value -> value.getSum() - value.getUsed()).orElse(0);
     }
 
+    public int getUsed(int activityId){
+        Optional<Activity> activity = activityMapper.selectByPrimaryKey(activityId);
+        return activity.map(Activity::getUsed).orElse(0);
+    }
+
     // 按id获取活动
     public Optional<Activity> getById(int id) {
         return activityMapper.selectByPrimaryKey(id);

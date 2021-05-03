@@ -1,4 +1,6 @@
-const app = getApp();
+import req from '../../utils/req'
+import util from '../../utils/util'
+import time from '../../utils/time'
 Page({
 
   data: {
@@ -9,44 +11,75 @@ Page({
       'color': true,
       'class': '0'
     },
-    steps: [{
+    steps: [],
+    active: 2,
+    order: {}
+  },
+  onLoad(options) {
+    console.log(options.id)
+    this.getInfo(options.id)
+  },
+
+  getInfo(id) {
+    req.post({
+      url: '/order/getById',
+      data: id
+    }).then(res => {
+      console.log(res.data)
+      this.prcessOrder(res.data)
+      this.setData({
+        order: res.data
+      })
+      console.log(this.data.order)
+      this.processStep()
+      console.log(this.data)
+    })
+  },
+  // 修改后端数据,用于显示
+  prcessOrder(e) {
+    e.activity.region = util.getRegion(e.activity.regionCode)
+    e.activity.fullAddress = e.activity.region + '\n' + e.activity.address
+    e.activity.timeString = time.dateToFullString(time.utcToDate(e.activity.time))
+    e.order.createTimeString = time.dateToFullString(time.utcToDate(e.order.createTime))
+    if (e.order.payTime) {
+      e.order.payTimeString = time.dateToFullString(time.utcToDate(e.order.payTime))
+    }
+    if (e.order.useTime) {
+      e.order.useTimeString = time.dateToFullString(time.utcToDate(e.order.useTime))
+    }
+    if (e.order.refundTime) {
+      e.order.refundTimeString = time.dateToFullString(time.utcToDate(e.order.refundTime))
+    }
+    e.order.priceString = '￥' + e.order.price.toFixed(2)
+    e.order.sumPriceString = '￥' + (e.order.price * e.order.count).toFixed(2)
+  },
+
+  processStep() {
+    let comment = ''
+    if (this.data.order.comment) {
+      comment = this.data.order.comment.text
+    }
+    let steps = [{
         text: '下单',
-        desc: '下单时间',
+        desc: this.data.order.order.createTimeString,
       },
       {
         text: '付款',
-        desc: '付款时间',
+        desc: this.data.order.order.payTimeString,
       },
       {
         text: '核验',
-        desc: '描述信息',
+        desc: this.data.order.order.useTimeString,
       },
       {
         text: '评价',
-        desc: '描述信息',
+        desc: '评价内容' + comment,
       },
-    ],
-    active: 2,
-    item: {
-      "id": 60,
-      "name": "测试",
-      "image": "https://static.lsy99.cn/activity_publish/81e4739a9427578ca40ca728658dd4b886dcf6e276a99ec0c21c74cab4ed52ab_82131.jpg",
-      "time": "2021-04-29 18:27",
-      "position": "黑龙江省 哈尔滨市 南岗区",
-      "free": true,
-      "price": 0,
-      "ori": 0,
-      "count": 123,
-      "category": "默认",
-      "status": 2
-    },
-    reply: [
-      {
-        avatar:"/images/noOrder.png",
-        nickname:"昵称",
-        star:3,
-        comment:'评论',
-      }
-    ],
+    ]
+    this.setData({
+      steps: steps,
+      active: this.data.order.order.status
+    })
   }
+
 })

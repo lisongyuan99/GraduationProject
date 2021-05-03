@@ -11,14 +11,14 @@
           <text class='num'>￥{{activityInfo.price}}</text>
           <text class='ori'>￥{{activityInfo.ori}}</text>
         </view>
-        <view class="vote_panel">
+        <!-- <view class="vote_panel">
           <view class="vote_button">
             <image src="/images/up.svg" class="vote"></image>赞{{activityInfo.up}}
           </view>
           <view class="vote_button">
             <image src="/images/down.svg" class="vote"></image>踩{{activityInfo.down}}
           </view>
-        </view>
+        </view> -->
       </view>
       <view class='introduce'>{{activityInfo.name}}</view>
       <view class='label acea-row row-between-wrapper'>

@@ -33,7 +33,7 @@
       <van-grid column-num="2" direction="horizontal">
         <van-grid-item icon="coupon-o" text="我的活动" url="/pages/activity_list/activity_list" />
         <van-grid-item icon="like-o" text="我的粉丝" url="/pages/fan_list/fan_list" />
-        <van-grid-item icon="orders-o" text="我的订单" url="/pages/order_list/order_list" />
+        <van-grid-item icon="orders-o" text="我的订单" bindtap="toMyOrder" />
         <van-grid-item icon="cash-on-deliver" text="我的余额" url="/pages/user_cash/user_cash" />
       </van-grid>
     </view>

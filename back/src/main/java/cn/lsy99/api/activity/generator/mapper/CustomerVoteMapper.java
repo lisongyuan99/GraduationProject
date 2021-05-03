@@ -37,40 +37,40 @@ import org.mybatis.dynamic.sql.util.mybatis3.MyBatis3Utils;
 
 @Mapper
 public interface CustomerVoteMapper {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7055223+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5589781+08:00", comments="Source Table: customer_vote")
     BasicColumn[] selectList = BasicColumn.columnList(id, customerId, activityId, type);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7035337+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5539904+08:00", comments="Source Table: customer_vote")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     long count(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7035337+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5539904+08:00", comments="Source Table: customer_vote")
     @DeleteProvider(type=SqlProviderAdapter.class, method="delete")
     int delete(DeleteStatementProvider deleteStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7035337+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5579883+08:00", comments="Source Table: customer_vote")
     @InsertProvider(type=SqlProviderAdapter.class, method="insert")
     @Options(useGeneratedKeys=true,keyProperty="record.id")
     int insert(InsertStatementProvider<CustomerVote> insertStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7045269+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5579883+08:00", comments="Source Table: customer_vote")
     @Insert({
         "${insertStatement}"
     })
     @Options(useGeneratedKeys=true,keyProperty="records.id")
     int insertMultiple(@Param("insertStatement") String insertStatement, @Param("records") List<CustomerVote> records);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7045269+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5579883+08:00", comments="Source Table: customer_vote")
     default int insertMultiple(MultiRowInsertStatementProvider<CustomerVote> multipleInsertStatement) {
         return insertMultiple(multipleInsertStatement.getInsertStatement(), multipleInsertStatement.getRecords());
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7045269+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5579883+08:00", comments="Source Table: customer_vote")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @ResultMap("CustomerVoteResult")
     Optional<CustomerVote> selectOne(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7045269+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5579883+08:00", comments="Source Table: customer_vote")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @Results(id="CustomerVoteResult", value = {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
@@ -80,28 +80,28 @@ public interface CustomerVoteMapper {
     })
     List<CustomerVote> selectMany(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7055223+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5579883+08:00", comments="Source Table: customer_vote")
     @UpdateProvider(type=SqlProviderAdapter.class, method="update")
     int update(UpdateStatementProvider updateStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7055223+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5579883+08:00", comments="Source Table: customer_vote")
     default long count(CountDSLCompleter completer) {
         return MyBatis3Utils.countFrom(this::count, customerVote, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7055223+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5579883+08:00", comments="Source Table: customer_vote")
     default int delete(DeleteDSLCompleter completer) {
         return MyBatis3Utils.deleteFrom(this::delete, customerVote, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7055223+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5579883+08:00", comments="Source Table: customer_vote")
     default int deleteByPrimaryKey(Integer id_) {
         return delete(c -> 
             c.where(id, isEqualTo(id_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7055223+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5579883+08:00", comments="Source Table: customer_vote")
     default int insert(CustomerVote record) {
         return MyBatis3Utils.insert(this::insert, record, customerVote, c ->
             c.map(customerId).toProperty("customerId")
@@ -110,7 +110,7 @@ public interface CustomerVoteMapper {
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7055223+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5589781+08:00", comments="Source Table: customer_vote")
     default int insertMultiple(Collection<CustomerVote> records) {
         return MyBatis3Utils.insertMultiple(this::insertMultiple, records, customerVote, c ->
             c.map(customerId).toProperty("customerId")
@@ -119,7 +119,7 @@ public interface CustomerVoteMapper {
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7055223+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5589781+08:00", comments="Source Table: customer_vote")
     default int insertSelective(CustomerVote record) {
         return MyBatis3Utils.insert(this::insert, record, customerVote, c ->
             c.map(customerId).toPropertyWhenPresent("customerId", record::getCustomerId)
@@ -128,48 +128,48 @@ public interface CustomerVoteMapper {
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7065365+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5589781+08:00", comments="Source Table: customer_vote")
     default Optional<CustomerVote> selectOne(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectOne(this::selectOne, selectList, customerVote, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7065365+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5589781+08:00", comments="Source Table: customer_vote")
     default List<CustomerVote> select(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectList(this::selectMany, selectList, customerVote, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7065365+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5589781+08:00", comments="Source Table: customer_vote")
     default List<CustomerVote> selectDistinct(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectDistinct(this::selectMany, selectList, customerVote, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7065365+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5589781+08:00", comments="Source Table: customer_vote")
     default Optional<CustomerVote> selectByPrimaryKey(Integer id_) {
         return selectOne(c ->
             c.where(id, isEqualTo(id_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7065365+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5589781+08:00", comments="Source Table: customer_vote")
     default int update(UpdateDSLCompleter completer) {
         return MyBatis3Utils.update(this::update, customerVote, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7065365+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5589781+08:00", comments="Source Table: customer_vote")
     static UpdateDSL<UpdateModel> updateAllColumns(CustomerVote record, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(customerId).equalTo(record::getCustomerId)
                 .set(activityId).equalTo(record::getActivityId)
                 .set(type).equalTo(record::getType);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7065365+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5589781+08:00", comments="Source Table: customer_vote")
     static UpdateDSL<UpdateModel> updateSelectiveColumns(CustomerVote record, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(customerId).equalToWhenPresent(record::getCustomerId)
                 .set(activityId).equalToWhenPresent(record::getActivityId)
                 .set(type).equalToWhenPresent(record::getType);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7065365+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.559976+08:00", comments="Source Table: customer_vote")
     default int updateByPrimaryKey(CustomerVote record) {
         return update(c ->
             c.set(customerId).equalTo(record::getCustomerId)
@@ -179,7 +179,7 @@ public interface CustomerVoteMapper {
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7075173+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.559976+08:00", comments="Source Table: customer_vote")
     default int updateByPrimaryKeySelective(CustomerVote record) {
         return update(c ->
             c.set(customerId).equalToWhenPresent(record::getCustomerId)

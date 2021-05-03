@@ -2,39 +2,36 @@
 <view class='list acea-row row-between-wrapper on'>
   <view class='item on'>
     <view class='pictrue on'>
-      <image src='{{item.image}}' class='on'></image>
-      <text
-        class='{{is_switch === true ? "pictrue_log_big" : "pictrue_log"}} pictrue_log_class'>{{item.category}}</text>
+      <image src='{{order.activity.picture}}' class='on'></image>
+      <!-- <text class='{{is_switch === true ? "pictrue_log_big" : "pictrue_log"}} pictrue_log_class'>
+        {{order.category}}
+      </text> -->
     </view>
     <view class='text on'>
-      <view class='name line1'>{{item.name}}</view>
+      <view class='name line1'>{{order.activity.name}}</view>
       <view class='vip acea-row row-between-wrapper on'>
-        <view>活动时间 {{item.time}}</view>
-        <view>活动地点 {{item.position}}</view>
+        <view>活动时间 {{order.activity.timeString}}</view>
+        <view>活动地点 {{order.activity.address}}</view>
       </view>
       <view class="money-panel">
-        <view class='money font-color on' wx:if="{{!item.free}}">
-          ￥<text class='num'>{{item.price}}</text>
+        <view class='money font-color on' wx:if="{{!order.free}}">
+          <text class='num'>{{order.order.priceString}}</text>
         </view>
         <view class='money font-color on' wx:else>
           免费
         </view>
-        <view>×3</view>
+        <view>×{{order.order.count}}</view>
       </view>
     </view>
   </view>
 </view>
 <view class='label acea-row row-between-wrapper'>
   <view>订单编号</view>
-  <view>12345678</view>
+  <view>{{order.order.id}}</view>
 </view>
 <view class='label acea-row row-between-wrapper'>
   <view class='sum'>总价</view>
-  <view class='sum-num'>￥100.00</view>
+  <view class='sum-num'>{{order.order.sumPriceString}}</view>
 </view>
 <van-steps steps="{{ steps }}" active="{{ active }}" inactive-icon="play-circle" direction="vertical"
   active-color="#ee0a24" />
-<userEvaluation reply="{{reply}}"></userEvaluation>
-<view>
-  <button>退款</button>
-</view>

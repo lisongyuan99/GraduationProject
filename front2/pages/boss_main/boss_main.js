@@ -146,6 +146,12 @@ Page({
     }
   },
 
+  toMyOrder(){
+    wx.navigateTo({
+      url:"/pages/order_list/order_list?type=all"
+    })
+  },
+
   // click2(e) {
   //   wxp.getUserProfile({
   //     desc: "123"

@@ -101,6 +101,7 @@ export default {
   },
   processToken(options) {
     let token = getApp().globalData.token
+    token = "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiMSIsInN1YiI6IjM2IiwiaWF0IjoxNjIwMDI5NTA1LCJleHAiOjE2MjAxMTU5MDV9.pfM_cUDcwdcNQMmymtBmL_2ALMVbt_qqOqaUse54ry0pJDN8rycLVHlQxXr2oL5eiek_0L-ecK-ioLe_G3X_5w"
     if (!(typeof token == "undefined" || token == null || token == "")) {
       if (options.header) {
         if (!options.header.token) {

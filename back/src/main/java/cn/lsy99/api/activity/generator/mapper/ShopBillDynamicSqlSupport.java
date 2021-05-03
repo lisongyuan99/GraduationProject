@@ -7,22 +7,22 @@ import org.mybatis.dynamic.sql.SqlColumn;
 import org.mybatis.dynamic.sql.SqlTable;
 
 public final class ShopBillDynamicSqlSupport {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7404278+08:00", comments="Source Table: shop_bill")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5809217+08:00", comments="Source Table: shop_bill")
     public static final ShopBill shopBill = new ShopBill();
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7404278+08:00", comments="Source field: shop_bill.id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5809217+08:00", comments="Source field: shop_bill.id")
     public static final SqlColumn<Integer> id = shopBill.id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7404278+08:00", comments="Source field: shop_bill.shop_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5809217+08:00", comments="Source field: shop_bill.shop_id")
     public static final SqlColumn<Integer> shopId = shopBill.shopId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7404278+08:00", comments="Source field: shop_bill.bill_time")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5809217+08:00", comments="Source field: shop_bill.bill_time")
     public static final SqlColumn<Date> billTime = shopBill.billTime;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7404278+08:00", comments="Source field: shop_bill.amount")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5809217+08:00", comments="Source field: shop_bill.amount")
     public static final SqlColumn<Double> amount = shopBill.amount;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-02T23:47:10.7404278+08:00", comments="Source Table: shop_bill")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5809217+08:00", comments="Source Table: shop_bill")
     public static final class ShopBill extends SqlTable {
         public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 

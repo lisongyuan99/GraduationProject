@@ -19,9 +19,9 @@
         </view>
       </view>
 
-      <view >
+      <!-- <view >
         <button class="btn" size="mini" bindtap="deleteFan" data-fan-id="{{item.id}}">拉黑</button>
-      </view>
+      </view> -->
     </view>
   </view>
 </view>

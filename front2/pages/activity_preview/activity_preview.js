@@ -72,8 +72,8 @@ Page({
         'activityInfo.suggestionAmount': res.data.suggestionAmount.toFixed(2)
       })
       if (!data.free) {
-        let price = util.fixTo2(data.price)
-        let ori = util.fixTo2(data.ori)
+        let price = (data.price).toFixed(2).toString()
+        let ori = (data.ori).toFixed(2).toString()
         this.setData({
           'activityInfo.price': price,
           'activityInfo.ori': ori
@@ -90,7 +90,7 @@ Page({
   },
   toOrderPage() {
     wx.navigateTo({
-      url: "/pages/activity_order_list/activity_order_list?id=" + this.data.id
+      url: "/pages/order_list/order_list?type=activity&activity=" + this.data.id
     })
   },
   editActivity() {

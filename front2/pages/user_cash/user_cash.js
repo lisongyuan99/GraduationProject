@@ -114,8 +114,7 @@ Page({
     })
   },
   toDetail(e) {
-    console.log(e.target.dataset)
-    let dataset = e.target.dataset
+    let dataset = e.currentTarget.dataset
     if (dataset.type == 1) {
       wx.navigateTo({
         url: "/pages/order_details/order_details?id="+dataset.id

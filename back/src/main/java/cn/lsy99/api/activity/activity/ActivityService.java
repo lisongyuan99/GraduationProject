@@ -107,7 +107,7 @@ public class ActivityService {
         Optional<Activity> activityOptional = activityRepository.getById(id);
         if (activityOptional.isPresent()) {
             long followUserNum = activityRepository.getFollowUserNum(id);
-            long joinUserNum = activityRepository.getJoinUserNum(id);
+            long joinUserNum = activityRepository.getUsed(id);
             int viewUserNum = activityRepository.getViewNum(id);
             Activity activity = activityOptional.get();
             Optional<Shop> shop = activityRepository.getShopById(activityOptional.get().getShopId());
@@ -208,6 +208,9 @@ public class ActivityService {
         if (shopOptional.isPresent() && activityOptional.isPresent()
                 && shopOptional.get().getId().equals(activityOptional.get().getShopId())) {
             int used = activityOptional.get().getUsed();
+            if (activityModifyEntity.getCount() < used) {
+                throw new NoEnoughRestActivityException();
+            }
             Activity newActivity = Activity.builder()
                     .id(activityId)
                     .title(activityModifyEntity.getName())
@@ -226,9 +229,6 @@ public class ActivityService {
                     .priceOri(activityModifyEntity.getOri())
                     .status(ActivityStatus.WAIT_FOR_VERIFY.ordinal())
                     .build();
-            if (activityModifyEntity.getCount() < used) {
-                throw new NoEnoughRestActivityException();
-            }
             return activityRepository.editActivity(newActivity);
         }
         return -1;
