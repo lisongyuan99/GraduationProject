@@ -2,7 +2,7 @@ import axios from 'axios'
 import store from '@/store'
 import router from "@/router"
 
-axios.defaults.baseURL = '/api'
+axios.defaults.baseURL = '/api/project'
 axios.interceptors.request.use(
     config => {
       // console.log(config)

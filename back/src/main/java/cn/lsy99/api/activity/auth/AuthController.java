@@ -20,4 +20,9 @@ public class AuthController {
     public LoginResult login(@RequestBody String loginCode) {
         return authService.login(loginCode);
     }
+
+    @GetMapping("test")
+    public String test(){
+        return "Hello!";
+    }
 }

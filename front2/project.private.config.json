@@ -95,6 +95,11 @@
           "pathName": "pages/order_details/order_details",
           "query": "id=2",
           "scene": null
+        },
+        {
+          "name": "pages/editor/editor",
+          "pathName": "pages/editor/editor",
+          "scene": null
         }
       ]
     }

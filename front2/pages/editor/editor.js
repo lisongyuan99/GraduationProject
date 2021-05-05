@@ -115,7 +115,7 @@ Page({
   return () {
     let indexList = [] // 有图片的delta数组下标 该数组的下标对应fileList下标
     let delta
-    wxp.showToast({
+    wx.showToast({
       title: '上传中',
       icon: 'loading'
     }).then(() => {
@@ -149,7 +149,7 @@ Page({
       return this.editorCtx.getContents()
     }).then(res => {
       getApp().globalData.editorContent = res
-      return wxp.hideToast()
+      return wx.hideToast()
     }).then(() => {
       wx.navigateBack()
     }).catch(() => {

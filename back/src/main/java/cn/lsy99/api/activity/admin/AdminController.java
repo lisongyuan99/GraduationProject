@@ -1,10 +1,10 @@
 package cn.lsy99.api.activity.admin;
 
+import cn.lsy99.api.activity.admin.dto.ActivityVerifyInfo;
 import cn.lsy99.api.activity.admin.dto.AdminLoginEntity;
-import cn.lsy99.api.activity.admin.dto.ShopId;
+import cn.lsy99.api.activity.admin.dto.Id;
 import cn.lsy99.api.activity.admin.dto.ShopVerifyInfo;
 import cn.lsy99.api.activity.aop.annotation.AdminTokenCheck;
-import cn.lsy99.api.activity.generator.table.Shop;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -31,20 +31,38 @@ public class AdminController {
     }
 
     @AdminTokenCheck
-    @GetMapping("getShopsToVerify")
+    @GetMapping("getShopToVerify")
     public List<ShopVerifyInfo> getAllShopToVerify() {
-        return adminService.getShopsToVerify();
+        return adminService.getShopToVerify();
     }
 
     @AdminTokenCheck
-    @PostMapping("passShop")
-    public int passShop(@RequestBody ShopId id) {
-        return adminService.passShop(id.getShopId());
+    @PostMapping("passShop/{id}")
+    public int passShop(@PathVariable("id") Integer id) {
+        return adminService.passShop(id);
     }
 
     @AdminTokenCheck
-    @PostMapping("denyShop")
-    public int denyShop(@RequestBody ShopId id) {
-        return adminService.denyShop(id.getShopId());
+    @PostMapping("denyShop/{id}")
+    public int denyShop(@PathVariable("id") Integer id) {
+        return adminService.denyShop(id);
+    }
+
+    @AdminTokenCheck
+    @GetMapping("getActivityToVerify")
+    public List<ActivityVerifyInfo> getAllActivityToVerify() {
+        return adminService.getActivities();
+    }
+
+    @AdminTokenCheck
+    @PostMapping("passActivity/{id}")
+    public int passActivity(@PathVariable("id") Integer id) {
+        return adminService.passActivity(id);
+    }
+
+    @AdminTokenCheck
+    @PostMapping("denyActivity/{id}")
+    public int denyActivity(@PathVariable("id") Integer id) {
+        return adminService.denyActivity(id);
     }
 }

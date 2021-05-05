@@ -13,6 +13,16 @@ export default {
     }
   },
   split(str) {
-    return str.split(/\|/)
+    if(str === ''){
+      return []
+    } else {
+      return str.split(/\|/)
+    }
+  },
+  getTime(utc) {
+    let date = new Date(Date.parse(utc))
+    return date.getFullYear().toString().padStart(4, '0') + '-' + (date.getMonth() + 1).toString().padStart(2, '0') + '-' +
+        date.getDate().toString().padStart(2, '0') + ' ' + date.getHours().toString().padStart(2, '0') + ':' +
+        date.getMinutes().toString().padStart(2, '0')
   }
 }

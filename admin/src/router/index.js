@@ -11,6 +11,10 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '*',
+    redirect: '/'
+  },
+  {
     path: '/',
     component: Main
   },
@@ -25,7 +29,8 @@ const routes = [
   {
     path: '/login',
     component: Login
-  }
+  },
+
 ]
 
 const router = new VueRouter({
@@ -36,11 +41,10 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
       // console.log(to, from)
-      if (!store.state.token && to.path !== '/login'){
+      if (!store.state.token && to.path !== '/login') {
         next('/login')
         // next()
-      }
-      else next()
+      } else next()
     }
 )
 

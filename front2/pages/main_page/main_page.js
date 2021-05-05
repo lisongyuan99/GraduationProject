@@ -31,9 +31,9 @@ Page({
     console.log("login")
     wx.showLoading({
       title: '正在登录',
-      mask: true
-    })
-    wx.login().then(res => {
+    }).then (res=>{
+      return wx.login()
+    }).then(res => {
       return req.post({
         url: '/auth/login',
         data: res.code
@@ -41,12 +41,6 @@ Page({
     }).then(res => {
       console.log(res.data)
       getApp().globalData.token = res.data.token
-      if(res.data.shop){
-        getApp().globalData.shop = res.data.shop
-      }
-      getApp().globalData.name = res.data.name
-      getApp().globalData.phone = res.data.phone
-      getApp().globalData.avatar = res.data.avatar
       if (res.data.type === 1) {
         // 老板
         if (res.data.shop) {
@@ -87,7 +81,7 @@ Page({
       })
     }).catch(res => {
       console.log(res)
-      wx.hideToast()
+      wx.hideLoading()
       wx.showToast({
         title: '登录失败',
         icon: 'error'
@@ -99,14 +93,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.login()
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    this.login()
+    
   },
 
   /**

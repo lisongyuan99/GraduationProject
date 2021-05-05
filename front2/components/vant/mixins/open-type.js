@@ -3,9 +3,7 @@ export const openType = Behavior({
     openType: String,
   },
   methods: {
-    bindGetUserInfo(event) {
-      this.$emit('getuserinfo', event.detail);
-    },
+    
     bindContact(event) {
       this.$emit('contact', event.detail);
     },

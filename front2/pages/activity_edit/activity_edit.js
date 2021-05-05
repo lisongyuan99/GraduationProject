@@ -85,7 +85,7 @@ Page({
         },
         address: location.name
       })
-      wxp.request({
+      wx.request({
         url: `https://apis.map.qq.com/ws/geocoder/v1/?location=${location.latitude},${location.longitude}&key=${key}`,
         method: 'GET'
       }).then(res => {
@@ -141,7 +141,7 @@ Page({
   // 提交表单
   formSubmit(e) {
     // console.log(this.data.images)
-    wxp.showToast({
+    wx.showToast({
         title: '上传中',
         icon: 'loading'
       }).then(() => {
@@ -187,11 +187,11 @@ Page({
       })
       .then(res => {
         console.log(res)
-        wxp.hideToast()
+        wx.hideToast()
       }).then(() => {
         wx.navigateBack()
       }).catch((res) => {
-        wxp.showToast({
+        wx.showToast({
           title: res.message,
           icon: 'error'
         })
@@ -199,9 +199,9 @@ Page({
   },
   // 获取当前位置信息
   setLocation() {
-    wxp.getLocation().then(res => {
+    wx.getLocation().then(res => {
         console.log(res.latitude, res.longitude)
-        return wxp.request({
+        return wx.request({
           method: 'get',
           url: 'https://apis.map.qq.com/ws/geocoder/v1',
           data: {
@@ -337,7 +337,7 @@ Page({
         url: `plugin://chooseLocation/index?key=${key}&referer=${referer}&location=${location}`
       });
     } else if (this.data.regionCode !== 0) {
-      wxp.request({
+      wx.request({
         url: `https://apis.map.qq.com/ws/district/v1/search?key=${key}&keyword=${this.data.regionCode}`,
         method: 'GET'
       }).then(res => {

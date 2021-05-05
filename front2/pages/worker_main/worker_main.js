@@ -69,7 +69,7 @@ Page({
       title: '正在登录',
       mask: true
     })
-    wxp.login()
+    wx.login()
       .then(res => {
         console.log(res)
         return req.post({
@@ -122,7 +122,7 @@ Page({
 
   // 如果没有必要信息点击获取
   getUserProfile(e) {
-    wxp.getUserProfile({
+    wx.getUserProfile({
       desc: '用户获取初始信息'
     }).then(res => {
       wx.showLoading({

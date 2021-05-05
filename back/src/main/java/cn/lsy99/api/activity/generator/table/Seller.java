@@ -13,24 +13,24 @@ import lombok.ToString;
 @Builder
 @ToString
 public class Seller {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5639639+08:00", comments="Source field: seller.id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1048111+08:00", comments="Source field: seller.id")
     private Integer id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5639639+08:00", comments="Source field: seller.nickname")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1048111+08:00", comments="Source field: seller.nickname")
     private String nickname;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5639639+08:00", comments="Source field: seller.avatar")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1048111+08:00", comments="Source field: seller.avatar")
     private String avatar;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5639639+08:00", comments="Source field: seller.phone")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1048111+08:00", comments="Source field: seller.phone")
     private String phone;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5639639+08:00", comments="Source field: seller.wx_open_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1048111+08:00", comments="Source field: seller.wx_open_id")
     private String wxOpenId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5639639+08:00", comments="Source field: seller.type")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1048111+08:00", comments="Source field: seller.type")
     private Integer type;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5639639+08:00", comments="Source field: seller.shop_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1048111+08:00", comments="Source field: seller.shop_id")
     private Integer shopId;
 }

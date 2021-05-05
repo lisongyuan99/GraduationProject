@@ -1,6 +1,6 @@
 <navbar parameter='{{parameter}}'></navbar>
 <view class="top">
-   <view class='search bg-color acea-row row-between-wrapper'>
+   <!-- <view class='search bg-color acea-row row-between-wrapper'>
       <view class='input acea-row row-between-wrapper'><text class='iconfont icon-sousuo'></text>
          <form bindsubmit="searchSubmit">
             <input placeholder-class='placeholder' placeholder='搜索活动' placeholder-class='placeholder'
@@ -8,7 +8,7 @@
          </form>
       </view>
       <view class='iconfont {{is_switch==true?"icon-pailie":"icon-tupianpailie"}}' bindtap='Changswitch'></view>
-   </view>
+   </view> -->
 
    <view class="evaluate-list">
       <view class='btn acea-row row-middle'>
@@ -80,9 +80,9 @@
       </view> -->
    </view>
 </view>
-<view class='noCommodity' wx:if="{{productList.length==0}}">
+<!-- <view class='noCommodity' wx:if="{{productList.length==0}}">
    <view class='pictrue'>
       <image src='/images/noShopper.png'></image>
    </view>
-   <!-- <recommend host_product="{{host_product}}"></recommend> -->
-</view>
+   
+</view> -->

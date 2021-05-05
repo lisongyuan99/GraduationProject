@@ -6,13 +6,7 @@
     </view>
   </view>
 </view>
-<view style='height:{{navH}}rpx'></view>
-<view class="container">
-  <editor id="editor" class="ql-container" placeholder="{{placeholder}}" bindstatuschange="onStatusChange"
-    bindready="onEditorReady">
-  </editor>
-</view>
-<view class="wrapper">
+<view class="wrapper" style='padding-top:{{navH}}rpx'>
   <view class='toolbar' bindtap="format">
     <i class="iconfont-wx icon-zitijiacu {{formats.bold ? 'ql-active' : ''}}" data-name="bold"></i>
     <i class="iconfont-wx icon-zitixieti {{formats.italic ? 'ql-active' : ''}}" data-name="italic"></i>
@@ -70,4 +64,10 @@
       data-value="rtl"></i>
   </view>
 </view>
+<view class="container" style='padding-top:{{navH+350}}rpx'>
+  <editor id="editor" class="ql-container" placeholder="{{placeholder}}" bindstatuschange="onStatusChange"
+    bindready="onEditorReady">
+  </editor>
+</view>
+
 <!-- <button bindtap="click">click</button> -->

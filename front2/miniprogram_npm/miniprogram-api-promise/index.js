@@ -109,7 +109,6 @@ if (!exports.__esModule) Object.defineProperty(exports, "__esModule", { value: t
   'openCard',
   'chooseInvoice',
   'chooseInvoiceTitle',
-  'getUserInfo',
   'getUserProfile',
   'requestPayment',
   'getWeRunData',

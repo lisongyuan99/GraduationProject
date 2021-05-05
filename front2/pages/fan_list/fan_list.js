@@ -91,7 +91,7 @@ Page({
   deleteFan(e) {
     var fanId = e.target.dataset.fanId
     console.log(fanId)
-    wxp.showModal({
+    wx.showModal({
       title:'确认删除吗'
     }).then(res=>{
       if(res.confirm){

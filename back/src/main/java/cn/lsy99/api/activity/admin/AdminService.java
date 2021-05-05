@@ -1,8 +1,10 @@
 package cn.lsy99.api.activity.admin;
 
+import cn.lsy99.api.activity.admin.dto.ActivityVerifyInfo;
 import cn.lsy99.api.activity.admin.dto.ShopVerifyInfo;
 import cn.lsy99.api.activity.exception.exception.WrongPasswordException;
 import cn.lsy99.api.activity.generator.UserRole;
+import cn.lsy99.api.activity.generator.table.Activity;
 import cn.lsy99.api.activity.generator.table.Admin;
 import cn.lsy99.api.activity.generator.table.Seller;
 import cn.lsy99.api.activity.generator.table.Shop;
@@ -31,7 +33,7 @@ public class AdminService {
         throw new WrongPasswordException();
     }
 
-    public List<ShopVerifyInfo> getShopsToVerify() {
+    public List<ShopVerifyInfo> getShopToVerify() {
         List<Shop> shops = adminRepository.getAllShopToVerify();
         List<ShopVerifyInfo> result = new ArrayList<>();
         for (Shop shop : shops) {
@@ -47,11 +49,31 @@ public class AdminService {
         return result;
     }
 
-    public int passShop(int shopId){
+    public int passShop(int shopId) {
         return adminRepository.passShop(shopId);
     }
 
-    public int denyShop(int shopId){
+    public int denyShop(int shopId) {
         return adminRepository.denyShop(shopId);
+    }
+
+    public List<ActivityVerifyInfo> getActivities() {
+        List<Activity> activities = adminRepository.getActivity();
+        List<ActivityVerifyInfo> result = new ArrayList<>();
+        for (Activity e : activities) {
+            ActivityVerifyInfo temp = ActivityVerifyInfo.builder().activity(e).build();
+            Optional<Shop> shop = adminRepository.getShopById(e.getShopId());
+            shop.ifPresent(temp::setShop);
+            result.add(temp);
+        }
+        return result;
+    }
+
+    public int passActivity(int activityId) {
+        return adminRepository.passActivity(activityId);
+    }
+
+    public int denyActivity(int activityId) {
+        return adminRepository.denyActivity(activityId);
     }
 }

@@ -14,57 +14,57 @@ import lombok.ToString;
 @Builder
 @ToString
 public class Activity {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5061184+08:00", comments="Source field: activity.id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0140489+08:00", comments="Source field: activity.id")
     private Integer id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5081138+08:00", comments="Source field: activity.title")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0190358+08:00", comments="Source field: activity.title")
     private String title;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5091132+08:00", comments="Source field: activity.detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0190358+08:00", comments="Source field: activity.detail")
     private String detail;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5091132+08:00", comments="Source field: activity.subtitle")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0200342+08:00", comments="Source field: activity.subtitle")
     private String subtitle;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5091132+08:00", comments="Source field: activity.begin_time")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0200342+08:00", comments="Source field: activity.begin_time")
     private Date beginTime;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5091132+08:00", comments="Source field: activity.shop_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0200342+08:00", comments="Source field: activity.shop_id")
     private Integer shopId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5091132+08:00", comments="Source field: activity.category_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0210323+08:00", comments="Source field: activity.category_id")
     private Integer categoryId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5101185+08:00", comments="Source field: activity.pos_lat")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0220289+08:00", comments="Source field: activity.pos_lat")
     private Double posLat;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5101185+08:00", comments="Source field: activity.pos_lng")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0220289+08:00", comments="Source field: activity.pos_lng")
     private Double posLng;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5101185+08:00", comments="Source field: activity.position_code")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0220289+08:00", comments="Source field: activity.position_code")
     private Integer positionCode;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5111056+08:00", comments="Source field: activity.position_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0230253+08:00", comments="Source field: activity.position_detail")
     private String positionDetail;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5111056+08:00", comments="Source field: activity.pics")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0230253+08:00", comments="Source field: activity.pics")
     private String pics;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5111056+08:00", comments="Source field: activity.status")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0230253+08:00", comments="Source field: activity.status")
     private Integer status;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5111056+08:00", comments="Source field: activity.price")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0230253+08:00", comments="Source field: activity.price")
     private Double price;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5111056+08:00", comments="Source field: activity.price_ori")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0240228+08:00", comments="Source field: activity.price_ori")
     private Double priceOri;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5111056+08:00", comments="Source field: activity.free")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0240228+08:00", comments="Source field: activity.free")
     private Boolean free;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5121022+08:00", comments="Source field: activity.sum")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0240228+08:00", comments="Source field: activity.sum")
     private Integer sum;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5121022+08:00", comments="Source field: activity.used")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0240228+08:00", comments="Source field: activity.used")
     private Integer used;
 }

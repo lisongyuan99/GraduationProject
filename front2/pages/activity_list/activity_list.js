@@ -24,7 +24,7 @@ Page({
     },
     allCategory: [],
     navH: "",
-    is_switch: true,
+    is_switch: false,
     where: {
       sid: 0,
       keyword: '',
@@ -89,7 +89,7 @@ Page({
     this.get_product_list(true);
   },
   getAllActivity() {
-    wxp.showToast({
+    wx.showToast({
       title: '加载中',
       icon: 'loading'
     }).then(() => {

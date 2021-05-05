@@ -14,15 +14,15 @@ import lombok.ToString;
 @Builder
 @ToString
 public class ActivitySuggestion {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5849106+08:00", comments="Source field: activity_suggestion.id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1387178+08:00", comments="Source field: activity_suggestion.id")
     private Integer id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5849106+08:00", comments="Source field: activity_suggestion.activity_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1387178+08:00", comments="Source field: activity_suggestion.activity_id")
     private Integer activityId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5849106+08:00", comments="Source field: activity_suggestion.price")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1387178+08:00", comments="Source field: activity_suggestion.price")
     private Double price;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5849106+08:00", comments="Source field: activity_suggestion.add_time")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1387178+08:00", comments="Source field: activity_suggestion.add_time")
     private Date addTime;
 }

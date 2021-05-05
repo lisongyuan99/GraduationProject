@@ -99,7 +99,7 @@ Page({
     })
   },
   deleteActivity() {
-    wxp.showModal({
+    wx.showModal({
       title: '确认删除吗'
     }).then(res => {
       if (res.confirm) {

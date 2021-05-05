@@ -13,12 +13,12 @@ import lombok.ToString;
 @Builder
 @ToString
 public class ActivityFollow {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5400283+08:00", comments="Source field: activity_follow.id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.066908+08:00", comments="Source field: activity_follow.id")
     private Integer id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5410257+08:00", comments="Source field: activity_follow.activity_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.066908+08:00", comments="Source field: activity_follow.activity_id")
     private Integer activityId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5410257+08:00", comments="Source field: activity_follow.customer_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.066908+08:00", comments="Source field: activity_follow.customer_id")
     private Integer customerId;
 }

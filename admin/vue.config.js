@@ -1,13 +1,13 @@
 module.exports = {
-  publicPath: '/',
+  publicPath: '/project/admin/',
   devServer: {
     proxy: {
-      '/api': {
-        target: 'http://localhost:50002/', //对应自己的接口
+      '/api/project': {
+        target: 'http://localhost:50002/api/project', //对应自己的接口
         changeOrigin: true,
         ws: true,
         pathRewrite: {
-          '^/api': '/'
+          '^/api/project': '/'
         }
       }
     }

@@ -11,12 +11,22 @@ export default {
     })
   },
   getAllShop() {
-    return axios.get('/admin/getShopsToVerify')
+    return axios.get('/admin/getShopToVerify')
   },
   passShop(shopId) {
-    return axios.post('admin/passShop', {shopId})
+    return axios.post('admin/passShop/' + shopId)
   },
-  denyShop(shopId){
-    return axios.post('admin/denyShop', {shopId})
-  }
+  denyShop(shopId) {
+    return axios.post('admin/denyShop/' + shopId)
+  },
+  getAllActivity() {
+    return axios.get('/admin/getActivityToVerify')
+  },
+  passActivity(activityId) {
+    return axios.post('admin/passActivity/' + activityId)
+  },
+  denyActivity(activityId) {
+    return axios.post('admin/denyActivity/' + activityId)
+  },
+
 }

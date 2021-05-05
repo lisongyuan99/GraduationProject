@@ -13,9 +13,9 @@ import lombok.ToString;
 @Builder
 @ToString
 public class ShopBalance {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5819191+08:00", comments="Source field: shop_balance.shop_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1357264+08:00", comments="Source field: shop_balance.shop_id")
     private Integer shopId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5829269+08:00", comments="Source field: shop_balance.balance")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1367219+08:00", comments="Source field: shop_balance.balance")
     private Double balance;
 }

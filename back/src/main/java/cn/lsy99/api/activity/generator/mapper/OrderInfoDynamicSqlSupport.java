@@ -7,40 +7,40 @@ import org.mybatis.dynamic.sql.SqlColumn;
 import org.mybatis.dynamic.sql.SqlTable;
 
 public final class OrderInfoDynamicSqlSupport {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.560972+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.099825+08:00", comments="Source Table: order_info")
     public static final OrderInfo orderInfo = new OrderInfo();
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.560972+08:00", comments="Source field: order_info.id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.099825+08:00", comments="Source field: order_info.id")
     public static final SqlColumn<Integer> id = orderInfo.id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.560972+08:00", comments="Source field: order_info.customer_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1008184+08:00", comments="Source field: order_info.customer_id")
     public static final SqlColumn<Integer> customerId = orderInfo.customerId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.560972+08:00", comments="Source field: order_info.status")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1008184+08:00", comments="Source field: order_info.status")
     public static final SqlColumn<Integer> status = orderInfo.status;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.560972+08:00", comments="Source field: order_info.price")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1008184+08:00", comments="Source field: order_info.price")
     public static final SqlColumn<Double> price = orderInfo.price;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.560972+08:00", comments="Source field: order_info.create_time")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1008184+08:00", comments="Source field: order_info.create_time")
     public static final SqlColumn<Date> createTime = orderInfo.createTime;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.560972+08:00", comments="Source field: order_info.pay_time")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1008184+08:00", comments="Source field: order_info.pay_time")
     public static final SqlColumn<Date> payTime = orderInfo.payTime;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.560972+08:00", comments="Source field: order_info.refund_time")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1008184+08:00", comments="Source field: order_info.refund_time")
     public static final SqlColumn<Date> refundTime = orderInfo.refundTime;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.560972+08:00", comments="Source field: order_info.count")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1008184+08:00", comments="Source field: order_info.count")
     public static final SqlColumn<Integer> count = orderInfo.count;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.560972+08:00", comments="Source field: order_info.activity_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1008184+08:00", comments="Source field: order_info.activity_id")
     public static final SqlColumn<Integer> activityId = orderInfo.activityId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.560972+08:00", comments="Source field: order_info.use_time")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1008184+08:00", comments="Source field: order_info.use_time")
     public static final SqlColumn<Date> useTime = orderInfo.useTime;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.560972+08:00", comments="Source Table: order_info")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.099825+08:00", comments="Source Table: order_info")
     public static final class OrderInfo extends SqlTable {
         public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 

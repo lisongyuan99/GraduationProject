@@ -6,22 +6,22 @@ import org.mybatis.dynamic.sql.SqlColumn;
 import org.mybatis.dynamic.sql.SqlTable;
 
 public final class CustomerVoteDynamicSqlSupport {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.552993+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0938365+08:00", comments="Source Table: customer_vote")
     public static final CustomerVote customerVote = new CustomerVote();
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5539904+08:00", comments="Source field: customer_vote.id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0948334+08:00", comments="Source field: customer_vote.id")
     public static final SqlColumn<Integer> id = customerVote.id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5539904+08:00", comments="Source field: customer_vote.customer_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0948334+08:00", comments="Source field: customer_vote.customer_id")
     public static final SqlColumn<Integer> customerId = customerVote.customerId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5539904+08:00", comments="Source field: customer_vote.activity_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0948334+08:00", comments="Source field: customer_vote.activity_id")
     public static final SqlColumn<Integer> activityId = customerVote.activityId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5539904+08:00", comments="Source field: customer_vote.type")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0948334+08:00", comments="Source field: customer_vote.type")
     public static final SqlColumn<Boolean> type = customerVote.type;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5539904+08:00", comments="Source Table: customer_vote")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0948334+08:00", comments="Source Table: customer_vote")
     public static final class CustomerVote extends SqlTable {
         public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 

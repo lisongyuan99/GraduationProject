@@ -1,10 +1,13 @@
 package cn.lsy99.api.activity.admin;
 
+import cn.lsy99.api.activity.generator.ActivityStatus;
 import cn.lsy99.api.activity.generator.ShopStatus;
 import cn.lsy99.api.activity.generator.UserRole;
+import cn.lsy99.api.activity.generator.mapper.ActivityMapper;
 import cn.lsy99.api.activity.generator.mapper.AdminMapper;
 import cn.lsy99.api.activity.generator.mapper.SellerMapper;
 import cn.lsy99.api.activity.generator.mapper.ShopMapper;
+import cn.lsy99.api.activity.generator.table.Activity;
 import cn.lsy99.api.activity.generator.table.Admin;
 import cn.lsy99.api.activity.generator.table.Seller;
 import cn.lsy99.api.activity.generator.table.Shop;
@@ -17,6 +20,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+import static cn.lsy99.api.activity.generator.mapper.ActivityDynamicSqlSupport.activity;
 import static cn.lsy99.api.activity.generator.mapper.AdminDynamicSqlSupport.admin;
 import static cn.lsy99.api.activity.generator.mapper.SellerDynamicSqlSupport.seller;
 import static cn.lsy99.api.activity.generator.mapper.ShopDynamicSqlSupport.shop;
@@ -30,6 +34,8 @@ public class AdminRepository {
     private ShopMapper shopMapper;
     @Autowired
     private SellerMapper sellerMapper;
+    @Autowired
+    private ActivityMapper activityMapper;
 
     public Optional<Admin> getAdmin(String name){
         return adminMapper.selectByPrimaryKey(name);
@@ -49,6 +55,10 @@ public class AdminRepository {
         return sellerMapper.selectOne(selectStatementProvider);
     }
 
+    public Optional<Shop> getShopById(int id) {
+        return shopMapper.selectByPrimaryKey(id);
+    }
+
     public int passShop(int id){
         Shop record = Shop.builder().id(id).status(ShopStatus.PASS.ordinal()).build();
         return shopMapper.updateByPrimaryKeySelective(record);
@@ -56,5 +66,18 @@ public class AdminRepository {
     public int denyShop(int id){
         Shop record = Shop.builder().id(id).status(ShopStatus.REJECT.ordinal()).build();
         return shopMapper.updateByPrimaryKeySelective(record);
+    }
+
+    public List<Activity> getActivity(){
+        return activityMapper.select(c->c.where(activity.status, isEqualTo(ActivityStatus.WAIT_FOR_VERIFY.ordinal())));
+    }
+
+    public int passActivity(int id){
+        Activity record = Activity.builder().id(id).status(ActivityStatus.NORMAL.ordinal()).build();
+        return activityMapper.updateByPrimaryKeySelective(record);
+    }
+    public int denyActivity(int id){
+        Activity record = Activity.builder().id(id).status(ActivityStatus.VERIFY_REJECT.ordinal()).build();
+        return activityMapper.updateByPrimaryKeySelective(record);
     }
 }

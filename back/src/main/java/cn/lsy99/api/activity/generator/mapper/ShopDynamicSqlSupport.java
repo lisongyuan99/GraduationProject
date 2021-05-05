@@ -6,43 +6,43 @@ import org.mybatis.dynamic.sql.SqlColumn;
 import org.mybatis.dynamic.sql.SqlTable;
 
 public final class ShopDynamicSqlSupport {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5679553+08:00", comments="Source Table: shop")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1147806+08:00", comments="Source Table: shop")
     public static final Shop shop = new Shop();
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5679553+08:00", comments="Source field: shop.id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1147806+08:00", comments="Source field: shop.id")
     public static final SqlColumn<Integer> id = shop.id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5679553+08:00", comments="Source field: shop.status")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1147806+08:00", comments="Source field: shop.status")
     public static final SqlColumn<Integer> status = shop.status;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5679553+08:00", comments="Source field: shop.name")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1147806+08:00", comments="Source field: shop.name")
     public static final SqlColumn<String> name = shop.name;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5679553+08:00", comments="Source field: shop.description")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1157826+08:00", comments="Source field: shop.description")
     public static final SqlColumn<String> description = shop.description;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5679553+08:00", comments="Source field: shop.avatar")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1157826+08:00", comments="Source field: shop.avatar")
     public static final SqlColumn<String> avatar = shop.avatar;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5679553+08:00", comments="Source field: shop.region_code")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1157826+08:00", comments="Source field: shop.region_code")
     public static final SqlColumn<Integer> regionCode = shop.regionCode;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5679553+08:00", comments="Source field: shop.address")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1157826+08:00", comments="Source field: shop.address")
     public static final SqlColumn<String> address = shop.address;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5679553+08:00", comments="Source field: shop.lat")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1157826+08:00", comments="Source field: shop.lat")
     public static final SqlColumn<Double> lat = shop.lat;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5679553+08:00", comments="Source field: shop.lng")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1157826+08:00", comments="Source field: shop.lng")
     public static final SqlColumn<Double> lng = shop.lng;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5679553+08:00", comments="Source field: shop.pictures")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1157826+08:00", comments="Source field: shop.pictures")
     public static final SqlColumn<String> pictures = shop.pictures;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5679553+08:00", comments="Source field: shop.licnese")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1167755+08:00", comments="Source field: shop.licnese")
     public static final SqlColumn<String> licnese = shop.licnese;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-03T22:12:58.5679553+08:00", comments="Source Table: shop")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1147806+08:00", comments="Source Table: shop")
     public static final class Shop extends SqlTable {
         public final SqlColumn<Integer> id = column("id", JDBCType.INTEGER);
 
