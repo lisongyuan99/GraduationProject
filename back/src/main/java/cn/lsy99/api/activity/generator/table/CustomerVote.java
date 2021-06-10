@@ -13,15 +13,15 @@ import lombok.ToString;
 @Builder
 @ToString
 public class CustomerVote {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0938365+08:00", comments="Source field: customer_vote.id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7439233+08:00", comments="Source field: customer_vote.id")
     private Integer id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0938365+08:00", comments="Source field: customer_vote.customer_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7441982+08:00", comments="Source field: customer_vote.customer_id")
     private Integer customerId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0938365+08:00", comments="Source field: customer_vote.activity_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7443352+08:00", comments="Source field: customer_vote.activity_id")
     private Integer activityId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0938365+08:00", comments="Source field: customer_vote.type")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7444879+08:00", comments="Source field: customer_vote.type")
     private Boolean type;
 }

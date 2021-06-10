@@ -1,5 +1,7 @@
 package cn.lsy99.api.activity.order;
 
+import cn.lsy99.api.activity.exception.exception.NoSuchOrderException;
+import cn.lsy99.api.activity.generator.OrderStatus;
 import cn.lsy99.api.activity.order.dto.ActivityInfo;
 import cn.lsy99.api.activity.exception.exception.NoShopException;
 import cn.lsy99.api.activity.generator.table.Activity;
@@ -10,6 +12,7 @@ import cn.lsy99.api.activity.order.dto.OrderForShow;
 import cn.lsy99.api.activity.util.ArrayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +31,7 @@ public class OrderService {
         }
         orderForShow.setOrder(order.get());
         Optional<Activity> activity = orderRepository.getActivity(order.get().getActivityId());
-        if(activity.isPresent()){
+        if (activity.isPresent()) {
             orderForShow.setActivity(getInfo(activity.get()));
             Optional<Comment> comment = orderRepository.getComment(order.get().getId());
             comment.ifPresent(orderForShow::setComment);
@@ -49,7 +52,7 @@ public class OrderService {
     }
 
     public List<OrderForShow> getByBossId(int bossId) {
-        Optional<Seller> boss = orderRepository.getBoss(bossId);
+        Optional<Seller> boss = orderRepository.getSeller(bossId);
         if (boss.isEmpty()) {
             throw new NoShopException();
         }
@@ -64,9 +67,9 @@ public class OrderService {
         return orderForShowList;
     }
 
-    private ActivityInfo getInfo(Activity activity){
+    public ActivityInfo getInfo(Activity activity) {
         String[] pictures = ArrayUtil.StringToStringArray(activity.getPics());
-        ActivityInfo result =  ActivityInfo.builder()
+        ActivityInfo result = ActivityInfo.builder()
                 .name(activity.getTitle())
                 .regionCode(activity.getPositionCode())
                 .address(activity.getPositionDetail())
@@ -76,5 +79,36 @@ public class OrderService {
             result.setPicture(pictures[0]);
         }
         return result;
+    }
+
+    @Transactional
+    public boolean checkOrder(int orderId, int sellerId) {
+        Optional<OrderInfo> order = orderRepository.getById(orderId);
+        if (order.isEmpty()) {
+            throw new NoSuchOrderException();
+        }
+        if (order.get().getStatus() != OrderStatus.PAID.ordinal()) {
+            throw new NoSuchOrderException();
+        }
+        Optional<Activity> activity = orderRepository.getActivity(order.get().getActivityId());
+        if (activity.isEmpty()) {
+            return false;
+        }
+//        if (activity.get().getShopId() != shopId) {
+//            throw new NoSuchOrderException();
+//        }
+        // TODO 检查是不是自己家的
+        Optional<Seller> seller = orderRepository.getSeller(sellerId);
+        if(seller.isEmpty()){
+            return false;
+        }
+        if (!seller.get().getShopId().equals(activity.get().getShopId())) {
+            throw new NoSuchOrderException();
+        }
+        int orderResult = orderRepository.verifyOrder(orderId);
+        double balance = orderRepository.getBalance(activity.get().getShopId());
+        double newBalance = balance + order.get().getCount() * order.get().getCount();
+        int balanceResult = orderRepository.updateBalance(activity.get().getShopId(), newBalance);
+        return true;
     }
 }

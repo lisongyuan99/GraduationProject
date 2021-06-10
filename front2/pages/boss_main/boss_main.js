@@ -28,17 +28,17 @@ Page({
     flag: true
   },
 
-  onLoad(){
-    
+  onLoad() {
+
   },
   onShow() {
     this.getInfo()
   },
 
-  getInfo(){
+  getInfo() {
     req.get({
-      url:'/user/getHomepageInfo'
-    }).then(res=>{
+      url: '/user/getHomepageInfo'
+    }).then(res => {
       console.log(res)
       this.setData({
         nickName: res.data.name,
@@ -68,18 +68,28 @@ Page({
         url: e.currentTarget.dataset.url
       })
     }
-
   },
 
   scanQr(e) {
     wx.scanCode()
       .then(res => {
-        console.log(res.result)
+        console.log(JSON.parse(res.result))
+        let qrResult = JSON.parse(res.result)
+        let id
+        if (qrResult.orderId) {
+          id = parseInt(qrResult.orderId, 10)
+        } else {
+          throw new Error()
+        }
         wx.navigateTo({
-          url: '/pages/verify_order/verify_order?id=' + res.result,
+          url: '/pages/verify_order/verify_order?id=' + id,
         })
       }).catch(res => {
-        console.log(res)
+        wx.showToast({
+          title: '二维码错误',
+          icon: 'error',
+          duration: 1500
+        })
       })
   },
 
@@ -97,9 +107,22 @@ Page({
     }
   },
 
-  toMyOrder(){
+  toMyOrder() {
     wx.navigateTo({
-      url:"/pages/order_list/order_list?type=all"
+      url: "/pages/order_list/order_list?type=all"
     })
   },
+  toNewActivity(){
+    if(this.data.expire){
+      wx.showToast({
+        title:'会员已过期',
+        icon:'error',
+        duration:1500
+      })
+    } else {
+      wx.navigateTo({
+        url: '/pages/activity_new/activity_new',
+      })
+    }
+  }
 })

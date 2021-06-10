@@ -104,4 +104,13 @@ public class GlobalExceptionHandler {
                 "NoEnoughRestActivity",
                 "剩余活动数量不足");
     }
+
+    // NoOrderException
+    @ExceptionHandler(value = NoSuchOrderException.class)
+    public ResponseEntity<ErrorResponseBody> NoOrderExceptionHandler(Exception e) {
+        log.warn(e.toString());
+        return resFactory.getResponse(HttpStatus.FORBIDDEN,
+                "NoSuchOrder",
+                "无此活动");
+    }
 }

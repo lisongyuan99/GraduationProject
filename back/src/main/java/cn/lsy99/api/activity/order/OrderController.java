@@ -1,6 +1,7 @@
 package cn.lsy99.api.activity.order;
 
 import cn.lsy99.api.activity.aop.annotation.BossTokenCheck;
+import cn.lsy99.api.activity.aop.annotation.SellerTokenCheck;
 import cn.lsy99.api.activity.aop.annotation.TokenCheck;
 import cn.lsy99.api.activity.order.dto.OrderForShow;
 import cn.lsy99.api.activity.shop.dto.ShopModifyEntity;
@@ -39,5 +40,13 @@ public class OrderController {
     @PostMapping("getById")
     public OrderForShow getById(@RequestBody int id){
         return orderService.getByOrderId(id);
+    }
+
+    @SellerTokenCheck
+    @PostMapping("check")
+    public boolean checkOrder(@RequestHeader Map<String, String> headers, @RequestBody int orderId){
+        String token = headers.get(tokenHeader);
+        JwtInfo jwtInfo = JwtUtil.getInfoFromToken(token);
+        return orderService.checkOrder(orderId, jwtInfo.getId());
     }
 }

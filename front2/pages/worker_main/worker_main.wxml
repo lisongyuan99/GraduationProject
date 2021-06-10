@@ -4,35 +4,23 @@
   <view class="header bg-color acea-row row-between-wrapper">
     <view class="picTxt acea-row row-between-wrapper">
       <view class="pictrue">
-        <image src="{{avatarUrl?avatarUrl:'/images/noAvatar.svg'}}"></image>
+        <image src="{{avatar?avatar:'/images/noAvatar.svg'}}"></image>
       </view>
       <view class="text">
-        <!-- <view class="name line1"> {{userInfo.uid ? userInfo.nickname : "请点击授权"}}</view> -->
-        <view class="name line1" wx:if="{{isLogin && nickName}}">{{nickName}}</view>
-        <button class="name line1 btn" wx:elif="{{isLogin && (!nickName || !avatarUrl)}}"
-          bindtap="getUserProfile">点击获取用户信息</button>
-        <button class="name line1 btn" wx:else bindtap="login"> 点击登录 </button>
-        <view class="id" wx:if="{{phone && isLogin}}" data-url="/pages/user_phone/user_phone" bindtap="goPages">
-          已认证手机<text class="iconfont icon-bianji1"></text></view>
-        <view wx:if="{{!phone && isLogin}}" data-url="/pages/user_phone/user_phone" bindtap="goPages"><text
-            class="binding">绑定手机号</text></view>
+        <view class="name line1" wx:if="{{nickName}}">{{nickName}}</view>
+        <view class="name line1" wx:else>无名氏</view>
       </view>
     </view>
   </view>
 
   <view class="wrapper">
-   
     <view class="myService">
       <view class="title acea-row row-middle">常用操作</view>
       <van-grid column-num="2" direction="horizontal">
-        <van-grid-item icon="scan" text="扫码核验" bindtap="scanQr"/>
-        <van-grid-item icon="setting-o" text="修改我的资料" url="/pages/worker_info/worker_info"/>
-        <!-- <van-grid-item icon="photo-o" text="文字" /> -->
+        <van-grid-item icon="setting-o" text="我的资料" url="/pages/worker_info/worker_info" />
+        <van-grid-item icon="scan" text="扫码核验" bindtap="scanQr" />
+
       </van-grid>
     </view>
   </view>
-</view>
-<view>
-  <!-- <button bindtap="click">click</button> -->
-  <!-- <button bindtap="click2">click</button> -->
 </view>

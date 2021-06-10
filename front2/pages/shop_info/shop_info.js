@@ -59,7 +59,7 @@ Page({
         },
         address: location.name
       })
-      wx.request({
+      wxp.request({
         url: `https://apis.map.qq.com/ws/geocoder/v1/?location=${location.latitude},${location.longitude}&key=${key}`,
         method: 'GET'
       }).then(res => {
@@ -76,6 +76,19 @@ Page({
     req.get({
       url: '/shop/getShopModifyInfo'
     }).then(res => {
+      console.log(res)
+      let avatar = []
+      if (res.data.avatar !== undefined && res.data.avatar !== null && res.data.avatar !== '') {
+        avatar = [{
+          url: res.data.avatar
+        }]
+      }
+      let license = []
+      if (res.data.license !== undefined && res.data.license !== null && res.data.license !== '') {
+        license = [{
+          url: res.data.license
+        }]
+      }
       let picList = []
       for (let pic of res.data.picture) {
         picList.push({
@@ -86,12 +99,8 @@ Page({
         id: res.data.id,
         name: res.data.name,
         description: res.data.description,
-        avatar: [{
-          url: res.data.avatar
-        }],
-        license: [{
-          url: res.data.license
-        }],
+        avatar: avatar,
+        license: license,
         picture: picList,
         region: util.getRegion2(res.data.regionCode),
         regionCode: res.data.regionCode,
@@ -246,7 +255,7 @@ Page({
         url: `plugin://chooseLocation/index?key=${key}&referer=${referer}&location=${location}`
       });
     } else if (this.data.regionCode !== 0) {
-      wx.request({
+      wxp.request({
         url: `https://apis.map.qq.com/ws/district/v1/search?key=${key}&keyword=${this.data.regionCode}`,
         method: 'GET'
       }).then(res => {

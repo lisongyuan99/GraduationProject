@@ -47,14 +47,15 @@ Page({
           let status = res.data.shop.status
           if (status === 0) {
             // 待审核
-            wx.navigateTo({
+            wx.redirectTo({
               url: '/pages/wait/wait',
             })
           } else if (status === 1) {
             // 审核通过
-            wx.navigateTo({
+            wx.redirectTo({
               url: '/pages/boss_main/boss_main',
             })
+            getApp().globalData.shop = res.data.shop
           } else if (status === 2) {
             // 审核未通过
             wx.showToast({
@@ -65,12 +66,12 @@ Page({
         }
       } else if(res.data.type === 2){
         // 员工已经通过
-        wx.navigateTo({
+        wx.redirectTo({
           url: '/pages/worker_main/worker_main',
         })
       } else if(res.data.type === 3){
         // 员工尚未通过
-        wx.navigateTo({
+        wx.redirectTo({
           url: '/pages/wait/wait',
         })
       }

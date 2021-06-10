@@ -83,7 +83,7 @@ public class UserController {
     }
 
     // 修改信息
-    @SellerTokenCheck
+    @TokenCheck
     @PostMapping("modifyInfo")
     public int modifyInfo(@RequestHeader Map<String, String> headers, @RequestBody UserInfoInput input) {
         String token = headers.get(tokenHeader);
@@ -108,7 +108,7 @@ public class UserController {
     }
 
     // 加入店铺
-    @SellerTokenCheck
+    // @SellerTokenCheck
     @PostMapping("workerAdd")
     public int workerAdd(@RequestHeader Map<String, String> headers, @RequestBody int shopId){
         String token = headers.get(tokenHeader);

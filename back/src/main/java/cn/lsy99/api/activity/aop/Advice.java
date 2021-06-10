@@ -92,7 +92,7 @@ public class Advice {
                 throw new NoTokenException();
             }
             JwtInfo info = JwtUtil.getInfoFromToken(token);
-            if (!(info.getRole() == UserRole.BOSS || info.getRole() != UserRole.WORKER)) {
+            if (!(info.getRole() == UserRole.BOSS || info.getRole() == UserRole.WORKER)) {
                 throw new ForbiddenException();
             }
         } else {

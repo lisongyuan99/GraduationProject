@@ -21,10 +21,10 @@ import java.util.List;
 import java.util.Optional;
 
 import static cn.lsy99.api.activity.generator.mapper.ActivityDynamicSqlSupport.activity;
-import static cn.lsy99.api.activity.generator.mapper.AdminDynamicSqlSupport.admin;
 import static cn.lsy99.api.activity.generator.mapper.SellerDynamicSqlSupport.seller;
 import static cn.lsy99.api.activity.generator.mapper.ShopDynamicSqlSupport.shop;
-import static org.mybatis.dynamic.sql.SqlBuilder.*;
+import static org.mybatis.dynamic.sql.SqlBuilder.and;
+import static org.mybatis.dynamic.sql.SqlBuilder.isEqualTo;
 
 @Repository
 public class AdminRepository {

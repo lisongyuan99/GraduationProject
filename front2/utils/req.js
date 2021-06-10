@@ -1,7 +1,7 @@
 import {
   wxp
 } from './wxp'
-// const baseUrl = "http://localhost:50002"
+// const baseUrl = "http://localhost:50002/api/project"
 const baseUrl = "https://lsy99.cn:50002/api/project"
 const tokenHeader = 'token'
 export default {
@@ -9,13 +9,14 @@ export default {
     options = this.processToken(options)
     options.url = baseUrl + options.url
     return new Promise((resolve, reject) => {
-      options.success = function (res) {
-        resolve(res)
-      }
-      options.fall = function (res) {
-        reject(res)
-      }
-      wx.request(options)
+      wxp.request(options).then(res => {
+        if(res.statusCode == 200){
+          resolve(res)
+        } else {
+          reject(res)
+        }
+      }).catch((res) =>
+        reject(res))
     })
   },
   get(options) {
@@ -29,7 +30,7 @@ export default {
   uploadFile(options) {
     options = this.processToken(options)
     options.url = "https://lsy99.cn:50001/file/upload"
-    return wx.uploadFile(options)
+    return wxp.uploadFile(options)
   },
   async uploadFiles(files) {
     let indexList = [] // fileList中的索引
@@ -100,7 +101,6 @@ export default {
   },
   processToken(options) {
     let token = getApp().globalData.token
-    // token = "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjoiMSIsInN1YiI6IjM2IiwiaWF0IjoxNjIwMDI5NTA1LCJleHAiOjE2MjAxMTU5MDV9.pfM_cUDcwdcNQMmymtBmL_2ALMVbt_qqOqaUse54ry0pJDN8rycLVHlQxXr2oL5eiek_0L-ecK-ioLe_G3X_5w"
     if (!(typeof token == "undefined" || token == null || token == "")) {
       if (options.header) {
         if (!options.header.token) {

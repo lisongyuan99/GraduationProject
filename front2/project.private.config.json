@@ -99,6 +99,18 @@
         {
           "name": "pages/editor/editor",
           "pathName": "pages/editor/editor",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/verify_order/verify_order",
+          "pathName": "pages/verify_order/verify_order",
+          "query": "id=4",
+          "scene": null
+        },
+        {
+          "name": "pages/worker_main/worker_main",
+          "pathName": "pages/worker_main/worker_main",
           "scene": null
         }
       ]

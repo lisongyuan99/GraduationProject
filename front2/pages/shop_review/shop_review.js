@@ -56,7 +56,7 @@ Page({
         },
         address: location.name
       })
-      wx.request({
+      wxp.request({
         url: `https://apis.map.qq.com/ws/geocoder/v1/?location=${location.latitude},${location.longitude}&key=${key}`,
         method: 'GET'
       }).then(res => {
@@ -154,6 +154,7 @@ Page({
       } else {
         license = ''
       }
+      
       let info = {
         name: e.detail.value.name,
         description: e.detail.value.description,
@@ -162,8 +163,10 @@ Page({
         picture: picture,
         regionCode: this.data.regionCode,
         address: this.data.address,
-        lat: this.data.location.lat,
-        lng: this.data.location.lng,
+      }
+      if(this.data.location !== null){
+        info.lat = this.data.location.lat
+        info.lng = this.data.location.lng
       }
       console.log(info)
       return req.post({
@@ -234,7 +237,7 @@ Page({
         url: `plugin://chooseLocation/index?key=${key}&referer=${referer}&location=${location}`
       });
     } else if (this.data.regionCode !== 0) {
-      wx.request({
+      wxp.request({
         url: `https://apis.map.qq.com/ws/district/v1/search?key=${key}&keyword=${this.data.regionCode}`,
         method: 'GET'
       }).then(res => {
@@ -250,7 +253,7 @@ Page({
       })
     } else {
       wx.navigateTo({
-        url: `plugin://chooseLocation/index?key=${key}&referer=${referer}&location=${location}`
+        url: `plugin://chooseLocation/index?key=${key}&referer=${referer}`
       });
     }
   },

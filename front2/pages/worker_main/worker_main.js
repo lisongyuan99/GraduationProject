@@ -14,13 +14,12 @@ Page({
       'navbar': '1',
       // 'return': '0',
       'return': '1',
-      'title': '员工',
+      'title': '商家',
       'color': true,
       'class': '0'
     },
-    isLogin: false,
     nickName: null,
-    avatarUrl: null,
+    avatar: null,
     ec: {
       lazyLoad: true
     },
@@ -29,22 +28,32 @@ Page({
     flag: true
   },
 
+  onLoad() {
+
+  },
   onShow() {
-    // req.get({
-    //   url: '/auth/getHomepageCounts'
-    // }).then(res => {
-    //   this.setData({
-    //     activityCount: res.data.activityCount,
-    //     followerCount: res.data.followerCount,
-    //     balance: res.data.balance,
-    //     // showChart: true
-    //   })
-    // })
+    this.getInfo()
+  },
+
+  getInfo() {
+    req.get({
+      url: '/user/getHomepageInfo'
+    }).then(res => {
+      console.log(res)
+      this.setData({
+        nickName: res.data.name,
+        avatar: res.data.avatar,
+        expire: res.data.expire,
+        expireDate: time.dateToDateString(time.utcToDate(res.data.expireDate))
+      })
+    })
   },
 
   onReady() {
-    
-    // this.login()
+    // this.ecComponent = this.selectComponent('#my-chart')
+    // if (!this.chart) {
+    //   this.init()
+    // }
   },
 
   // 跳转
@@ -59,110 +68,31 @@ Page({
         url: e.currentTarget.dataset.url
       })
     }
-
-  },
-
-  // 登录
-  login(e) {
-    console.log("login")
-    wx.showLoading({
-      title: '正在登录',
-      mask: true
-    })
-    wx.login()
-      .then(res => {
-        console.log(res)
-        return req.post({
-          url: '/auth/login',
-          data: res.code
-        })
-      }).then(res => {
-        console.log(res)
-        this.setData({
-          isLogin: true,
-          avatarUrl: res.data.avatarUrl,
-          nickName: res.data.nickName,
-          phone: res.data.phone
-        })
-        getApp().globalData.token = res.data.token
-        return req.get({
-          url: '/auth/getHomepageCounts'
-        })
-      }).then(res => {
-        this.setData({
-          activityCount: res.data.activityCount,
-          followerCount: res.data.followerCount,
-          balance: res.data.balance,
-          // showChart: true
-        })
-        this.chart.clear()
-        this.chart.setOption(this.getOption(res.data.data))
-        wx.hideLoading()
-        wx.showToast({
-          title: '登录成功',
-          icon: 'success'
-        })
-      })
-      .catch(res => {
-        console.log(res)
-        wx.hideLoading()
-        if (this.data.isLogin) {
-          wx.showToast({
-            title: '登录成功',
-            icon: 'success'
-          })
-        } else {
-          wx.showToast({
-            title: '登录失败',
-            icon: 'error'
-          })
-        }
-      })
-  },
-
-  // 如果没有必要信息点击获取
-  getUserProfile(e) {
-    wx.getUserProfile({
-      desc: '用户获取初始信息'
-    }).then(res => {
-      wx.showLoading({
-        title: '正在获取用户信息',
-        mask: true
-      })
-      console.log(res)
-      this.setData({
-        avatarUrl: res.userInfo.avatarUrl,
-        nickName: res.userInfo.nickName
-      })
-      return req.post({
-        url: '/auth/setWechatUserInfo',
-        data: res.userInfo
-      })
-    }).then(res => {
-      console.log(res)
-      wx.hideLoading()
-    }).catch(res => {
-      console.log('fail')
-      console.log(res)
-      wx.hideLoading()
-      wx.showToast({
-        title: '无法获取',
-        icon: 'error'
-      })
-    })
   },
 
   scanQr(e) {
     wx.scanCode()
       .then(res => {
-        console.log(res.result)
+        console.log(JSON.parse(res.result))
+        let qrResult = JSON.parse(res.result)
+        let id
+        if (qrResult.orderId) {
+          id = parseInt(qrResult.orderId, 10)
+        } else {
+          throw new Error()
+        }
         wx.navigateTo({
-          url: '/pages/verify_order/verify_order?id=' + res.result,
+          url: '/pages/verify_order/verify_order?id=' + id,
         })
       }).catch(res => {
-        console.log(res)
+        wx.showToast({
+          title: '二维码错误',
+          icon: 'error',
+          duration: 1500
+        })
       })
   },
-  // 初始化图表
 
+
+ 
 })

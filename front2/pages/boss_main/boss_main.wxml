@@ -41,7 +41,7 @@
     <view class="myService">
       <view class="title acea-row row-middle">常用操作</view>
       <van-grid>
-        <van-grid-item icon="add-o" text="发布活动" url="/pages/activity_new/activity_new" />
+        <van-grid-item icon="add-o" text="发布活动" bindtap="toNewActivity" />
         <van-grid-item icon="setting-o" text="店铺资料" url="/pages/shop_info/shop_info" />
         <van-grid-item icon="setting-o" text="我的资料" url="/pages/worker_info/worker_info" />
         <van-grid-item icon="scan" text="扫码核验" bindtap="scanQr" />

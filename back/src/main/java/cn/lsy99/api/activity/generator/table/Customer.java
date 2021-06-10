@@ -13,24 +13,24 @@ import lombok.ToString;
 @Builder
 @ToString
 public class Customer {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0888501+08:00", comments="Source field: customer.id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7387169+08:00", comments="Source field: customer.id")
     private Integer id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0888501+08:00", comments="Source field: customer.nickname")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7387169+08:00", comments="Source field: customer.nickname")
     private String nickname;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0888501+08:00", comments="Source field: customer.avatar")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7387169+08:00", comments="Source field: customer.avatar")
     private String avatar;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0898467+08:00", comments="Source field: customer.motto")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7387169+08:00", comments="Source field: customer.motto")
     private String motto;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0898467+08:00", comments="Source field: customer.phone_num")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7387169+08:00", comments="Source field: customer.phone_num")
     private String phoneNum;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0898467+08:00", comments="Source field: customer.wx_open_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7387169+08:00", comments="Source field: customer.wx_open_id")
     private String wxOpenId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.0898467+08:00", comments="Source field: customer.type")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7387169+08:00", comments="Source field: customer.type")
     private Integer type;
 }

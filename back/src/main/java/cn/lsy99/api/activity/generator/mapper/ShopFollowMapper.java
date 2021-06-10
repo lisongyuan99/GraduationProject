@@ -37,40 +37,40 @@ import org.mybatis.dynamic.sql.util.mybatis3.MyBatis3Utils;
 
 @Mapper
 public interface ShopFollowMapper {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1247547+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7641317+08:00", comments="Source Table: shop_follow")
     BasicColumn[] selectList = BasicColumn.columnList(id, shopId, customerId);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1227597+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7621052+08:00", comments="Source Table: shop_follow")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     long count(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1227597+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7621052+08:00", comments="Source Table: shop_follow")
     @DeleteProvider(type=SqlProviderAdapter.class, method="delete")
     int delete(DeleteStatementProvider deleteStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1227597+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7621052+08:00", comments="Source Table: shop_follow")
     @InsertProvider(type=SqlProviderAdapter.class, method="insert")
     @Options(useGeneratedKeys=true,keyProperty="record.id")
     int insert(InsertStatementProvider<ShopFollow> insertStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1227597+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7621052+08:00", comments="Source Table: shop_follow")
     @Insert({
         "${insertStatement}"
     })
     @Options(useGeneratedKeys=true,keyProperty="records.id")
     int insertMultiple(@Param("insertStatement") String insertStatement, @Param("records") List<ShopFollow> records);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1237571+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7621052+08:00", comments="Source Table: shop_follow")
     default int insertMultiple(MultiRowInsertStatementProvider<ShopFollow> multipleInsertStatement) {
         return insertMultiple(multipleInsertStatement.getInsertStatement(), multipleInsertStatement.getRecords());
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1237571+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7631303+08:00", comments="Source Table: shop_follow")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @ResultMap("ShopFollowResult")
     Optional<ShopFollow> selectOne(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1237571+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7631303+08:00", comments="Source Table: shop_follow")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @Results(id="ShopFollowResult", value = {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
@@ -79,28 +79,28 @@ public interface ShopFollowMapper {
     })
     List<ShopFollow> selectMany(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1237571+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7631303+08:00", comments="Source Table: shop_follow")
     @UpdateProvider(type=SqlProviderAdapter.class, method="update")
     int update(UpdateStatementProvider updateStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1237571+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7631303+08:00", comments="Source Table: shop_follow")
     default long count(CountDSLCompleter completer) {
         return MyBatis3Utils.countFrom(this::count, shopFollow, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1237571+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7631303+08:00", comments="Source Table: shop_follow")
     default int delete(DeleteDSLCompleter completer) {
         return MyBatis3Utils.deleteFrom(this::delete, shopFollow, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1237571+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7631303+08:00", comments="Source Table: shop_follow")
     default int deleteByPrimaryKey(Integer id_) {
         return delete(c -> 
             c.where(id, isEqualTo(id_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1237571+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7631303+08:00", comments="Source Table: shop_follow")
     default int insert(ShopFollow record) {
         return MyBatis3Utils.insert(this::insert, record, shopFollow, c ->
             c.map(shopId).toProperty("shopId")
@@ -108,7 +108,7 @@ public interface ShopFollowMapper {
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1237571+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7631303+08:00", comments="Source Table: shop_follow")
     default int insertMultiple(Collection<ShopFollow> records) {
         return MyBatis3Utils.insertMultiple(this::insertMultiple, records, shopFollow, c ->
             c.map(shopId).toProperty("shopId")
@@ -116,7 +116,7 @@ public interface ShopFollowMapper {
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1247547+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7631303+08:00", comments="Source Table: shop_follow")
     default int insertSelective(ShopFollow record) {
         return MyBatis3Utils.insert(this::insert, record, shopFollow, c ->
             c.map(shopId).toPropertyWhenPresent("shopId", record::getShopId)
@@ -124,46 +124,46 @@ public interface ShopFollowMapper {
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1247547+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7641317+08:00", comments="Source Table: shop_follow")
     default Optional<ShopFollow> selectOne(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectOne(this::selectOne, selectList, shopFollow, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1247547+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7641317+08:00", comments="Source Table: shop_follow")
     default List<ShopFollow> select(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectList(this::selectMany, selectList, shopFollow, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1247547+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7641317+08:00", comments="Source Table: shop_follow")
     default List<ShopFollow> selectDistinct(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectDistinct(this::selectMany, selectList, shopFollow, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1247547+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7641317+08:00", comments="Source Table: shop_follow")
     default Optional<ShopFollow> selectByPrimaryKey(Integer id_) {
         return selectOne(c ->
             c.where(id, isEqualTo(id_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1247547+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7641317+08:00", comments="Source Table: shop_follow")
     default int update(UpdateDSLCompleter completer) {
         return MyBatis3Utils.update(this::update, shopFollow, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1247547+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7641317+08:00", comments="Source Table: shop_follow")
     static UpdateDSL<UpdateModel> updateAllColumns(ShopFollow record, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(shopId).equalTo(record::getShopId)
                 .set(customerId).equalTo(record::getCustomerId);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1247547+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7641317+08:00", comments="Source Table: shop_follow")
     static UpdateDSL<UpdateModel> updateSelectiveColumns(ShopFollow record, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(shopId).equalToWhenPresent(record::getShopId)
                 .set(customerId).equalToWhenPresent(record::getCustomerId);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1257561+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7641317+08:00", comments="Source Table: shop_follow")
     default int updateByPrimaryKey(ShopFollow record) {
         return update(c ->
             c.set(shopId).equalTo(record::getShopId)
@@ -172,7 +172,7 @@ public interface ShopFollowMapper {
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1257561+08:00", comments="Source Table: shop_follow")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7641317+08:00", comments="Source Table: shop_follow")
     default int updateByPrimaryKeySelective(ShopFollow record) {
         return update(c ->
             c.set(shopId).equalToWhenPresent(record::getShopId)

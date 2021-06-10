@@ -49,6 +49,11 @@ Page({
     }).catch(res => {
       console.log(res)
       this.getInfo()
+      wx.showToast({
+        title:'余额不足',
+        icon: 'error',
+        duration: 1500
+      })
     })
   },
   renew2() {
@@ -59,8 +64,12 @@ Page({
       console.log(res)
       this.getInfo()
     }).catch(res => {
-      console.log(res)
       this.getInfo()
+      wx.showToast({
+        title:'余额不足',
+        icon: 'error',
+        duration: 1500
+      })
     })
   }
 

@@ -37,40 +37,40 @@ import org.mybatis.dynamic.sql.util.mybatis3.MyBatis3Utils;
 
 @Mapper
 public interface VipDetailMapper {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1317345+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7688049+08:00", comments="Source Table: vip_detail")
     BasicColumn[] selectList = BasicColumn.columnList(id, payTime, addDays, price, shopId);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1307378+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7671826+08:00", comments="Source Table: vip_detail")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     long count(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1307378+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7671826+08:00", comments="Source Table: vip_detail")
     @DeleteProvider(type=SqlProviderAdapter.class, method="delete")
     int delete(DeleteStatementProvider deleteStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1307378+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7671826+08:00", comments="Source Table: vip_detail")
     @InsertProvider(type=SqlProviderAdapter.class, method="insert")
     @Options(useGeneratedKeys=true,keyProperty="record.id")
     int insert(InsertStatementProvider<VipDetail> insertStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1307378+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7671826+08:00", comments="Source Table: vip_detail")
     @Insert({
         "${insertStatement}"
     })
     @Options(useGeneratedKeys=true,keyProperty="records.id")
     int insertMultiple(@Param("insertStatement") String insertStatement, @Param("records") List<VipDetail> records);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1307378+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7681802+08:00", comments="Source Table: vip_detail")
     default int insertMultiple(MultiRowInsertStatementProvider<VipDetail> multipleInsertStatement) {
         return insertMultiple(multipleInsertStatement.getInsertStatement(), multipleInsertStatement.getRecords());
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1307378+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7681802+08:00", comments="Source Table: vip_detail")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @ResultMap("VipDetailResult")
     Optional<VipDetail> selectOne(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1307378+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7681802+08:00", comments="Source Table: vip_detail")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @Results(id="VipDetailResult", value = {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
@@ -81,28 +81,28 @@ public interface VipDetailMapper {
     })
     List<VipDetail> selectMany(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1307378+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7681802+08:00", comments="Source Table: vip_detail")
     @UpdateProvider(type=SqlProviderAdapter.class, method="update")
     int update(UpdateStatementProvider updateStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1317345+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7681802+08:00", comments="Source Table: vip_detail")
     default long count(CountDSLCompleter completer) {
         return MyBatis3Utils.countFrom(this::count, vipDetail, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1317345+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7681802+08:00", comments="Source Table: vip_detail")
     default int delete(DeleteDSLCompleter completer) {
         return MyBatis3Utils.deleteFrom(this::delete, vipDetail, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1317345+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7681802+08:00", comments="Source Table: vip_detail")
     default int deleteByPrimaryKey(Integer id_) {
         return delete(c -> 
             c.where(id, isEqualTo(id_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1317345+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7681802+08:00", comments="Source Table: vip_detail")
     default int insert(VipDetail record) {
         return MyBatis3Utils.insert(this::insert, record, vipDetail, c ->
             c.map(payTime).toProperty("payTime")
@@ -112,7 +112,7 @@ public interface VipDetailMapper {
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1317345+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7681802+08:00", comments="Source Table: vip_detail")
     default int insertMultiple(Collection<VipDetail> records) {
         return MyBatis3Utils.insertMultiple(this::insertMultiple, records, vipDetail, c ->
             c.map(payTime).toProperty("payTime")
@@ -122,7 +122,7 @@ public interface VipDetailMapper {
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1317345+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7681802+08:00", comments="Source Table: vip_detail")
     default int insertSelective(VipDetail record) {
         return MyBatis3Utils.insert(this::insert, record, vipDetail, c ->
             c.map(payTime).toPropertyWhenPresent("payTime", record::getPayTime)
@@ -132,34 +132,34 @@ public interface VipDetailMapper {
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1317345+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7688049+08:00", comments="Source Table: vip_detail")
     default Optional<VipDetail> selectOne(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectOne(this::selectOne, selectList, vipDetail, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1317345+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7688049+08:00", comments="Source Table: vip_detail")
     default List<VipDetail> select(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectList(this::selectMany, selectList, vipDetail, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1317345+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7688049+08:00", comments="Source Table: vip_detail")
     default List<VipDetail> selectDistinct(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectDistinct(this::selectMany, selectList, vipDetail, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1317345+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7688049+08:00", comments="Source Table: vip_detail")
     default Optional<VipDetail> selectByPrimaryKey(Integer id_) {
         return selectOne(c ->
             c.where(id, isEqualTo(id_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1317345+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7688049+08:00", comments="Source Table: vip_detail")
     default int update(UpdateDSLCompleter completer) {
         return MyBatis3Utils.update(this::update, vipDetail, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1317345+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7688049+08:00", comments="Source Table: vip_detail")
     static UpdateDSL<UpdateModel> updateAllColumns(VipDetail record, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(payTime).equalTo(record::getPayTime)
                 .set(addDays).equalTo(record::getAddDays)
@@ -167,7 +167,7 @@ public interface VipDetailMapper {
                 .set(shopId).equalTo(record::getShopId);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1327323+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7688049+08:00", comments="Source Table: vip_detail")
     static UpdateDSL<UpdateModel> updateSelectiveColumns(VipDetail record, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(payTime).equalToWhenPresent(record::getPayTime)
                 .set(addDays).equalToWhenPresent(record::getAddDays)
@@ -175,7 +175,7 @@ public interface VipDetailMapper {
                 .set(shopId).equalToWhenPresent(record::getShopId);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1327323+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7688049+08:00", comments="Source Table: vip_detail")
     default int updateByPrimaryKey(VipDetail record) {
         return update(c ->
             c.set(payTime).equalTo(record::getPayTime)
@@ -186,7 +186,7 @@ public interface VipDetailMapper {
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1327323+08:00", comments="Source Table: vip_detail")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7688049+08:00", comments="Source Table: vip_detail")
     default int updateByPrimaryKeySelective(VipDetail record) {
         return update(c ->
             c.set(payTime).equalToWhenPresent(record::getPayTime)

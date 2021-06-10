@@ -3,21 +3,21 @@
 <view class='product-con'>
   <scroll-view scroll-top="{{scrollTop}}" scroll-y='true' scroll-with-animation="true" 
     bindscroll="scroll" class="my-scroll">
-    <image class="pic" src="{{activityInfo.images[0]}}"></image>
+    <image class="pic" src="{{activity.picture}}"></image>
     <view id="past0">
       <view class='wrapper'>
-        <view class='name'>商品名称</view>
+        <view class='name'>{{activity.name}}</view>
         <view class='label acea-row row-between-wrapper'>
-          <view>订单编号</view>
+          <view>订单编号：{{order.id}}</view>
         </view>
         <view class='label acea-row row-between-wrapper'>
-          <view>下单时间</view>
+          <view>下单时间：{{order.createTimeString}}</view>
         </view>
         <view class='label acea-row row-between-wrapper'>
-          <view>单价</view> <view>数量</view>
+          <view>单价：{{order.priceString}}</view> <view>数量：{{order.count}}</view>
         </view>
         <view class='title acea-row row-between-wrapper'>
-          <view class='name'>总价</view> <view class='name num'>￥100.00</view>
+          <view class='name'>总价</view> <view class='name num'>{{order.sumPriceString}}</view>
         </view>
         <!-- <view class="list">
           <view class="item acea-row row-between-wrapper">
@@ -31,8 +31,8 @@
 
   <view class="buttom-paddle">
     <view class="button-panel">
-      <button class="button-left">取消</button>
-      <button class="button-right confirm">使用</button>
+      <button class="button-left" bindtap="cancel">取消</button>
+      <button class="button-right confirm" bindtap="confirm">使用</button>
     </view>
   </view>
 </view>

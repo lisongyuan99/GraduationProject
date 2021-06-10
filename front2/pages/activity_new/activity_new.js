@@ -80,7 +80,7 @@ Page({
         },
         address: location.name
       })
-      wx.request({
+      wxp.request({
         url: `https://apis.map.qq.com/ws/geocoder/v1/?location=${location.latitude},${location.longitude}&key=${key}`,
         method: 'GET'
       }).then(res => {
@@ -170,7 +170,7 @@ Page({
   setLocation() {
     wx.getLocation().then(res => {
         console.log(res.latitude, res.longitude)
-        return wx.request({
+        return wxp.request({
           method: 'get',
           url: 'https://apis.map.qq.com/ws/geocoder/v1',
           data: {
@@ -306,7 +306,7 @@ Page({
         url: `plugin://chooseLocation/index?key=${key}&referer=${referer}&location=${location}`
       });
     } else if (this.data.regionCode !== 0) {
-      wx.request({
+      wxp.request({
         url: `https://apis.map.qq.com/ws/district/v1/search?key=${key}&keyword=${this.data.regionCode}`,
         method: 'GET'
       }).then(res => {

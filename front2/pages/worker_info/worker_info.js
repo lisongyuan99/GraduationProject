@@ -43,10 +43,14 @@ Page({
     req.get({
       url:'/user/getInfo'
     }).then(res=>{
+      let image = []
+      if(res.data.avatar!== undefined && res.data.avatar!==null && res.data.avatar!==''){
+        image = [{url:res.data.avatar}]
+      }
       console.log(res)
       this.setData({
         nickname: res.data.name,
-        images: [{url:res.data.avatar}],
+        images: image,
         phone: res.data.phone
       })
     })
@@ -71,7 +75,7 @@ Page({
     // console.log(e.detail.index)
     let index = e.detail.index
     this.data.images.splice(index, 1)
-    // console.log(this.data.images)
+    console.log(this.data.images)
   },
 
   async formSubmit(e) {

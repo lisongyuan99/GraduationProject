@@ -14,15 +14,15 @@ import lombok.ToString;
 @Builder
 @ToString
 public class ShopBill {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1327323+08:00", comments="Source field: shop_bill.id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7688049+08:00", comments="Source field: shop_bill.id")
     private Integer id;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1327323+08:00", comments="Source field: shop_bill.shop_id")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7688049+08:00", comments="Source field: shop_bill.shop_id")
     private Integer shopId;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.1327323+08:00", comments="Source field: shop_bill.bill_time")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7688049+08:00", comments="Source field: shop_bill.bill_time")
     private Date billTime;
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-05T22:09:55.13373+08:00", comments="Source field: shop_bill.amount")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2021-05-10T16:16:02.7698034+08:00", comments="Source field: shop_bill.amount")
     private Double amount;
 }
